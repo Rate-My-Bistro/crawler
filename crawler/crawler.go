@@ -1,15 +1,13 @@
-package meals
+package crawler
 
 import (
 	"github.com/PuerkitoBio/goquery"
+	"io"
 	"log"
-	"net/http"
 	"strconv"
 	"strings"
 	"time"
 )
-
-const bistroUrl = "https://bistro.cgm.ag/index.php"
 
 type Meal struct {
 	name                string
@@ -23,8 +21,8 @@ type OptionalSupplement struct {
 	price float64
 }
 
-func Start() map[string][]Meal {
-	doc := requestWebsiteDocument(bistroUrl)
+func Start(documentReader io.Reader) map[string][]Meal {
+	doc := requestWebsiteDocument(documentReader)
 
 	parsedDates := parseDates(doc)
 	mealDates := parseMealsForAllDays(doc, parsedDates)
@@ -45,7 +43,7 @@ func parseMealsForAllDays(doc *goquery.Document, parsedDates []string) map[strin
 func parseMealsForDay(daySelection *goquery.Selection) []Meal {
 	var meals []Meal
 
-	daySelection.Find("div#crawler").Each(func(i int, mealSelection *goquery.Selection) {
+	daySelection.Find("div#meal").Each(func(i int, mealSelection *goquery.Selection) {
 		meal := Meal{}
 		meal.name = mealSelection.Find("p.menuName").Text()
 		meal.supplement = mealSelection.Find("p.beschreibung").Text()
@@ -93,22 +91,13 @@ func convertToPrice(priceString string) float64 {
 	return price
 }
 
-func requestWebsiteDocument(url string) *goquery.Document {
-	res, err := http.Get(url)
+func requestWebsiteDocument(reader io.Reader) *goquery.Document {
+
+	doc, err := goquery.NewDocumentFromReader(reader)
 
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.StatusCode != 200 {
-		log.Fatalf("status code error: %d %s", res.StatusCode, res.Status)
-	}
-
-	doc, err := goquery.NewDocumentFromReader(res.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	res.Body.Close()
 
 	return doc
 }

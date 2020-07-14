@@ -10,9 +10,9 @@ import (
 const bistroUrl = "https://bistro.cgm.ag/index.php"
 
 func main() {
-	res := readUrl()
+	httpResponse := readUrl()
 
-	meals := crawler.Start(res.Body)
+	meals := crawler.Start(httpResponse.Body)
 
 	fmt.Print(meals)
 }

@@ -12,3 +12,6 @@
 # Testing
 *.test
 *.tmp
+
+# Runtime
+.env

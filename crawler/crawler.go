@@ -10,18 +10,24 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
+// Represents a meal
 type Meal struct {
-	name                string
-	supplement          string
-	price               float64
-	optionalSupplements []OptionalSupplement
+	name        string
+	supplement  string
+	price       float64
+	supplements []Supplement
 }
 
-type OptionalSupplement struct {
+//  Represents a supplement of an meal
+type Supplement struct {
 	name  string
 	price float64
 }
 
+// The entry point of this crawler
+//
+// receives a reader that provides the content of a bistro website
+// returns a map of meals
 func Start(documentReader io.Reader) map[string][]Meal {
 	doc := requestWebsiteDocument(documentReader)
 
@@ -31,6 +37,9 @@ func Start(documentReader io.Reader) map[string][]Meal {
 	return mealDates
 }
 
+// parses all meals found in the provided html document
+// receives a document that holds the bistro website
+// returns a map of meals
 func parseMealsForAllDays(doc *goquery.Document, parsedDates []string) map[string][]Meal {
 	mealDates := make(map[string][]Meal)
 
@@ -41,6 +50,9 @@ func parseMealsForAllDays(doc *goquery.Document, parsedDates []string) map[strin
 	return mealDates
 }
 
+// parses all meals for a given day
+// receives a selector that holds the meal data of a single day
+// returns a set of meals
 func parseMealsForDay(daySelection *goquery.Selection) []Meal {
 	var meals []Meal
 
@@ -49,13 +61,16 @@ func parseMealsForDay(daySelection *goquery.Selection) []Meal {
 		meal.name = mealSelection.Find("p.menuName").Text()
 		meal.supplement = mealSelection.Find("p.beschreibung").Text()
 		meal.price = convertToPrice(mealSelection.Find("p.preis > b").Text())
-		meal.optionalSupplements = parseOptionalSupplements(mealSelection)
+		meal.supplements = parseSupplements(mealSelection)
 
 		meals = append(meals, meal)
 	})
 	return meals
 }
 
+// parses all dates of the week
+// receives a queryable html document
+// returns a set of string dates in the format: yyyy-mm-dd
 func parseDates(doc *goquery.Document) []string {
 	parsedDates := make([]string, 0)
 	// Parse date for this day
@@ -68,9 +83,12 @@ func parseDates(doc *goquery.Document) []string {
 	return parsedDates
 }
 
-func parseOptionalSupplements(mealSelection *goquery.Selection) (optionalSupplements []OptionalSupplement) {
+// parses supplements of a given meal selection
+// receives a queryable meal selection
+// returns a set of supplements or an empty slice if no supplements found for a meal
+func parseSupplements(mealSelection *goquery.Selection) (optionalSupplements []Supplement) {
 	mealSelection.Find("div[style='padding-left:10px']").Each(func(i int, supplementSelection *goquery.Selection) {
-		optionalSupplement := OptionalSupplement{}
+		optionalSupplement := Supplement{}
 
 		nameString := strings.TrimSpace(supplementSelection.Find("div").Nodes[0].FirstChild.Data)
 		priceString := supplementSelection.Find("div").Nodes[1].FirstChild.Data
@@ -84,6 +102,9 @@ func parseOptionalSupplements(mealSelection *goquery.Selection) (optionalSupplem
 	return optionalSupplements
 }
 
+// converts a price string that comes from the bistro page into a float
+// receives a price as string
+// returns a price as float
 func convertToPrice(priceString string) float64 {
 	priceString = strings.Replace(priceString, ",", ".", -1)
 	priceString = strings.Replace(priceString, "€", "", -1)
@@ -92,8 +113,10 @@ func convertToPrice(priceString string) float64 {
 	return price
 }
 
+// requests a website content from a given reader
+// receives a reader interface
+// returns queryable html document
 func requestWebsiteDocument(reader io.Reader) *goquery.Document {
-
 	doc, err := goquery.NewDocumentFromReader(reader)
 
 	if err != nil {

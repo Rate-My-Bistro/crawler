@@ -1,12 +1,13 @@
 package crawler
 
 import (
-	"github.com/PuerkitoBio/goquery"
 	"io"
 	"log"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/PuerkitoBio/goquery"
 )
 
 type Meal struct {

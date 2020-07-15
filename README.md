@@ -14,7 +14,7 @@ go build
 ## run
 To run the project run in the project root:
 ```go
-go run
+go run Main.go
 ```
 
 ## test

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/ansgarS/rate-my-bistro-crawler/persister"
 	"log"
 	"net/http"
 
@@ -11,28 +12,31 @@ import (
 )
 
 type Config struct {
-	BistroUrl string `env:"BISTRO_URL"`
+	BistroUrl       string `env:"BISTRO_URL"`
+	DatabaseAddress string `env:"DATABASE_ADDRESS"`
 }
 
-func main() {
-	cfg := initConfig()
-	httpResponse := readUrl(cfg.BistroUrl)
+var Cfg Config
 
-	meals := crawler.Start(httpResponse.Body)
-
-	fmt.Print(meals)
-}
-
-func initConfig() (cfg Config) {
+// the feature setup sequence
+func init() {
 	err := godotenv.Load()
 
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
 
-	env.Parse(&cfg)
+	env.Parse(&Cfg)
+}
 
-	return cfg
+func main() {
+	httpResponse := readUrl(Cfg.BistroUrl)
+
+	meals := crawler.Start(httpResponse.Body)
+
+	persister.Start(Cfg.DatabaseAddress, meals)
+
+	fmt.Print(meals)
 }
 
 func readUrl(url string) *http.Response {

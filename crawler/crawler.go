@@ -12,10 +12,11 @@ import (
 
 // Represents a meal
 type Meal struct {
-	name        string
-	supplement  string
-	price       float64
-	supplements []Supplement
+	date                string
+	name                string
+	supplement          string
+	price               float64
+	optionalSupplements []Supplement
 }
 
 //  Represents a supplement of an meal
@@ -28,7 +29,7 @@ type Supplement struct {
 //
 // receives a reader that provides the content of a bistro website
 // returns a map of meals
-func Start(documentReader io.Reader) map[string][]Meal {
+func Start(documentReader io.Reader) []Meal {
 	doc := requestWebsiteDocument(documentReader)
 
 	parsedDates := parseDates(doc)
@@ -40,14 +41,20 @@ func Start(documentReader io.Reader) map[string][]Meal {
 // parses all meals found in the provided html document
 // receives a document that holds the bistro website
 // returns a map of meals
-func parseMealsForAllDays(doc *goquery.Document, parsedDates []string) map[string][]Meal {
-	mealDates := make(map[string][]Meal)
+func parseMealsForAllDays(doc *goquery.Document, parsedDates []string) []Meal {
+	meals := make([]Meal, 0)
 
 	doc.Find("div#day").Each(func(i int, daySelection *goquery.Selection) {
-		mealDates[parsedDates[i]] = parseMealsForDay(daySelection)
+		date := parsedDates[i]
+		parsedMeals := parseMealsForDay(daySelection)
+
+		for _, meal := range parsedMeals {
+			meal.date = date
+			meals = append(meals, meal)
+		}
 	})
 
-	return mealDates
+	return meals
 }
 
 // parses all meals for a given day
@@ -61,7 +68,7 @@ func parseMealsForDay(daySelection *goquery.Selection) []Meal {
 		meal.name = mealSelection.Find("p.menuName").Text()
 		meal.supplement = mealSelection.Find("p.beschreibung").Text()
 		meal.price = convertToPrice(mealSelection.Find("p.preis > b").Text())
-		meal.supplements = parseSupplements(mealSelection)
+		meal.optionalSupplements = parseOptionalSupplements(mealSelection)
 
 		meals = append(meals, meal)
 	})
@@ -86,7 +93,7 @@ func parseDates(doc *goquery.Document) []string {
 // parses supplements of a given meal selection
 // receives a queryable meal selection
 // returns a set of supplements or an empty slice if no supplements found for a meal
-func parseSupplements(mealSelection *goquery.Selection) (optionalSupplements []Supplement) {
+func parseOptionalSupplements(mealSelection *goquery.Selection) (optionalSupplements []Supplement) {
 	mealSelection.Find("div[style='padding-left:10px']").Each(func(i int, supplementSelection *goquery.Selection) {
 		optionalSupplement := Supplement{}
 

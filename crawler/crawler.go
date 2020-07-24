@@ -1,28 +1,30 @@
 package crawler
 
 import (
+	"crypto/sha1"
+	"encoding/hex"
+	"github.com/PuerkitoBio/goquery"
 	"io"
 	"log"
 	"strconv"
 	"strings"
 	"time"
-
-	"github.com/PuerkitoBio/goquery"
 )
 
 // Represents a meal
 type Meal struct {
-	date                string
-	name                string
-	supplement          string
-	price               float64
-	optionalSupplements []Supplement
+	Key                 string       `json:"_key,omitempty"`
+	Date                string       `json:"date"`
+	Name                string       `json:"name"`
+	Supplement          string       `json:"supplement"`
+	Price               float64      `json:"price"`
+	OptionalSupplements []Supplement `json:"optionalSupplements"`
 }
 
 //  Represents a supplement of an meal
 type Supplement struct {
-	name  string
-	price float64
+	Name  string  `json:"name"`
+	Price float64 `json:"price"`
 }
 
 // The entry point of this crawler
@@ -49,7 +51,8 @@ func parseMealsForAllDays(doc *goquery.Document, parsedDates []string) []Meal {
 		parsedMeals := parseMealsForDay(daySelection)
 
 		for _, meal := range parsedMeals {
-			meal.date = date
+			meal.Date = date
+			meal.Key = toSha1(meal.Date + meal.Name)
 			meals = append(meals, meal)
 		}
 	})
@@ -65,10 +68,10 @@ func parseMealsForDay(daySelection *goquery.Selection) []Meal {
 
 	daySelection.Find("div#meal").Each(func(i int, mealSelection *goquery.Selection) {
 		meal := Meal{}
-		meal.name = mealSelection.Find("p.menuName").Text()
-		meal.supplement = mealSelection.Find("p.beschreibung").Text()
-		meal.price = convertToPrice(mealSelection.Find("p.preis > b").Text())
-		meal.optionalSupplements = parseOptionalSupplements(mealSelection)
+		meal.Name = mealSelection.Find("p.menuName").Text()
+		meal.Supplement = mealSelection.Find("p.beschreibung").Text()
+		meal.Price = convertToPrice(mealSelection.Find("p.preis > b").Text())
+		meal.OptionalSupplements = parseOptionalSupplements(mealSelection)
 
 		meals = append(meals, meal)
 	})
@@ -100,8 +103,8 @@ func parseOptionalSupplements(mealSelection *goquery.Selection) (optionalSupplem
 		nameString := strings.TrimSpace(supplementSelection.Find("div").Nodes[0].FirstChild.Data)
 		priceString := supplementSelection.Find("div").Nodes[1].FirstChild.Data
 
-		optionalSupplement.name = nameString
-		optionalSupplement.price = convertToPrice(priceString)
+		optionalSupplement.Name = nameString
+		optionalSupplement.Price = convertToPrice(priceString)
 
 		optionalSupplements = append(optionalSupplements, optionalSupplement)
 	})
@@ -131,4 +134,13 @@ func requestWebsiteDocument(reader io.Reader) *goquery.Document {
 	}
 
 	return doc
+}
+
+// generates a sha1 hash from the specified string 's'
+// receives a string 's'
+// returns a sha1 hash as string
+func toSha1(s string) string {
+	h := sha1.New()
+	h.Write([]byte(s))
+	return hex.EncodeToString(h.Sum(nil))
 }

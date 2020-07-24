@@ -1,63 +1,67 @@
 package persister
 
 import (
-	"github.com/loeffel-io/take"
+	"github.com/ansgarS/rate-my-bistro-crawler/crawler"
 	"testing"
 )
 
-func TestCreateDatabase(t *testing.T) {
+const testDatabaseName = databaseName + "_test"
+const testCollectionName = collectionName + "_test"
+
+func TestInsertOrUpdate(t *testing.T) {
 	//setup
-	establishConnection("localhost:28015")
+	createClient("http://localhost:8529")
+	createDatabase(testDatabaseName)
+	createCollection(testCollectionName)
 
-	t.Run("create a database", func(t *testing.T) {
-		createDatabase()
+	meal1Stub := crawler.Meal{
+		Key: "abc",
+	}
 
-		exists := take.DatabaseExists(databaseName, session)
-		if !exists {
-			t.Errorf("database was could not created")
+	meal1 := crawler.Meal{
+		Key:        "a",
+		Date:       "2020-07-24",
+		Name:       "Suppe",
+		Supplement: "Brötchen",
+		Price:      3.97,
+		OptionalSupplements: []crawler.Supplement{
+			{Name: "Markklößchen", Price: 0.12},
+			{Name: "Trokenes Brot", Price: 9.87}},
+	}
+
+	meal2 := crawler.Meal{
+		Key:        "b",
+		Date:       "2020-07-24",
+		Name:       "Reis",
+		Supplement: "Salz",
+		Price:      1.44,
+	}
+
+	t.Run("insert a record and update it", func(t *testing.T) {
+
+		createOrUpdateMeal(meal1Stub)
+
+		if !checkIfMealExists(meal1Stub) {
+			t.Errorf("meal could not created")
+		}
+
+		createOrUpdateMeal(meal1)
+
+		if !(getMeal(meal1Stub.Key).Name == "Suppe") {
+			t.Errorf("meal was not updated")
+		}
+
+		if !(getMeal(meal1Stub.Key).OptionalSupplements[1].Price == 9.87) {
+			t.Errorf("meal optional supplement price was not updated")
+		}
+
+		createOrUpdateMeal(meal2)
+
+		if !checkIfMealExists(meal2) {
+			t.Errorf("meal could not created")
 		}
 	})
-}
 
-func TestCreateTable(t *testing.T) {
-	//setup
-	establishConnection("localhost:28015")
-	createDatabase()
-
-	t.Run("create a table", func(t *testing.T) {
-		createTable()
-
-		exists := take.TableExists(collectionName, session)
-		if !exists {
-			t.Errorf("table was could not created")
-		}
-	})
-}
-
-func TestInsert(t *testing.T) {
-	//setup
-	establishConnection("localhost:28015")
-	createDatabase()
-	createTable()
-
-	t.Run("insert a record", func(t *testing.T) {
-		meal := Meal{
-			Name:       "TestName",
-			Supplement: "TestSupplement",
-			Price:      1.23,
-			optionalSupplements: []Supplement{{
-				Name:  "TestSupplement1",
-				Price: 3.21,
-			}, {
-				Name:  "TestSupplement2",
-				Price: 9.87,
-			}},
-		}
-
-		insert(meal)
-		exists := take.TableExists(collectionName, session)
-		if !exists {
-			t.Errorf("table was could not created")
-		}
-	})
+	removeMeal(meal1.Key)
+	removeMeal(meal2.Key)
 }

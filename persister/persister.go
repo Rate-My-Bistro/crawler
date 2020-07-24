@@ -2,7 +2,6 @@ package persister
 
 import (
 	"context"
-	"fmt"
 	"github.com/ansgarS/rate-my-bistro-crawler/crawler"
 	"github.com/arangodb/go-driver"
 	"github.com/arangodb/go-driver/http"
@@ -18,24 +17,46 @@ var collection driver.Collection
 
 func Start(databaseAddress string, meals []crawler.Meal) {
 	createClient(databaseAddress)
-	createDatabase()
-	createCollection()
+	createDatabase(databaseName)
+	createCollection(collectionName)
 
 	for _, meal := range meals {
-		createDocument(meal)
+		createOrUpdateMeal(meal)
 	}
-
-	ctx := driver.WithQueryCount(context.Background())
-	query := "FOR d IN meals RETURN d"
-	cursor, err := database.Query(ctx, query, nil)
-	if err != nil {
-		// handle error
-	}
-	defer cursor.Close()
-	fmt.Printf("Query yields %d documents\n", cursor.Count())
 }
 
-func createDocument(meal crawler.Meal) {
+func createOrUpdateMeal(meal crawler.Meal) {
+	if checkIfMealExists(meal.Key) {
+		updateMeal(meal)
+	} else {
+		createMeal(meal)
+	}
+}
+
+func removeMeal(mealKey string) {
+	if checkIfMealExists(mealKey) {
+		_, err := collection.RemoveDocument(context.Background(), mealKey)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+}
+
+func checkIfMealExists(mealKey string) bool {
+	exists, _ := collection.DocumentExists(context.Background(), mealKey)
+	return exists
+}
+
+func updateMeal(meal crawler.Meal) {
+	ctx := context.Background()
+	_, err := collection.UpdateDocument(ctx, meal.Key, meal)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func createMeal(meal crawler.Meal) {
 	_, err := collection.CreateDocument(context.Background(), meal)
 
 	if err != nil {
@@ -43,36 +64,46 @@ func createDocument(meal crawler.Meal) {
 	}
 }
 
-func createDatabase() {
-	exists, _ := client.DatabaseExists(context.Background(), databaseName)
-	if !exists {
+func getMeal(mealKey string) (meal crawler.Meal) {
+	_, err := collection.ReadDocument(context.Background(), mealKey, &meal)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return meal
+}
+
+func createDatabase(dbName string) {
+	exists, _ := client.DatabaseExists(context.Background(), dbName)
+	if exists {
+		db, _ := client.Database(context.Background(), dbName)
+		database = db
+	} else {
 		options := &driver.CreateDatabaseOptions{}
-		db, err := client.CreateDatabase(context.Background(), databaseName, options)
+		db, err := client.CreateDatabase(context.Background(), dbName, options)
 
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		database = db
-	} else {
-		db, _ := client.Database(context.Background(), databaseName)
 		database = db
 	}
 }
 
-func createCollection() {
-	exists, _ := database.CollectionExists(context.Background(), collectionName)
-	if !exists {
+func createCollection(colName string) {
+	exists, _ := database.CollectionExists(context.Background(), colName)
+	if exists {
+		coll, _ := database.Collection(context.Background(), colName)
+		collection = coll
+	} else {
 		options := &driver.CreateCollectionOptions{}
-		coll, err := database.CreateCollection(context.Background(), collectionName, options)
+		coll, err := database.CreateCollection(context.Background(), colName, options)
 
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		collection = coll
-	} else {
-		coll, _ := database.Collection(context.Background(), collectionName)
 		collection = coll
 	}
 }

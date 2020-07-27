@@ -24,7 +24,13 @@ func TestParseBistroWebsite(t *testing.T) {
 		}
 	})
 
-	t.Run("expect the correct meal naming", func(t *testing.T) {
+	t.Run("expect the correct count of supplements", func(t *testing.T) {
+		if len(got[1].Supplements) != 2 {
+			t.Fatalf("expected 2 days but got %q", len(got[1].Supplements))
+		}
+	})
+
+	t.Run("expect the correct count of supplements", func(t *testing.T) {
 		if got[0].Name != "Käsespätzle" {
 			t.Fatalf("expected the first meal of the week 'Käsespätzle' but got %q", got[0].Name)
 		}

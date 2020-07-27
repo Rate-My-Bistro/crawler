@@ -85,7 +85,8 @@ func readFile(filePath string) *os.File {
 	bistroPageReader, err := os.Open(filePath)
 
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("Opening the following file failed: "+
+			filePath, err)
 	}
 
 	return bistroPageReader

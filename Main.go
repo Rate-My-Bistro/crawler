@@ -16,33 +16,43 @@ import (
 type Config struct {
 	BistroUrl       string `env:"BISTRO_URL"`
 	DatabaseAddress string `env:"DATABASE_ADDRESS"`
+	DatabaseName    string `env:"DATABASE_NAME"`
+	CollectionName  string `env:"COLLECTION_NAME"`
 }
 
 var Cfg Config
 
-// the feature setup sequence
+// reads the application configuration from the env file.
 func init() {
 	err := godotenv.Load()
 
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		log.Fatal("Error loading .env file "+
+			"due to permission issues or a corrupted file",
+			err)
 	}
 
 	err = env.Parse(&Cfg)
 
 	if err != nil {
-		log.Fatal("Error parsing .env file")
+		log.Fatal("The .env format is not valid", err)
 	}
 }
 
+// handles the application cycle
 func main() {
 	documentReader := createBistroReader(Cfg.BistroUrl)
 
-	crawledMeals := crawler.Start(documentReader)
+	crawledMeals := crawler.Crawl(documentReader)
 
-	persister.Start(Cfg.DatabaseAddress, crawledMeals)
+	persister.PersistMeals(
+		Cfg.DatabaseAddress,
+		Cfg.DatabaseName,
+		Cfg.CollectionName,
+		crawledMeals)
 }
 
+// creates an reader object based on the provided bistroUrl
 func createBistroReader(bistroUrl string) (documentReader io.Reader) {
 
 	if strings.HasPrefix(bistroUrl, "file://") {
@@ -55,6 +65,7 @@ func createBistroReader(bistroUrl string) (documentReader io.Reader) {
 	return documentReader
 }
 
+// retrieves a http response from the specivied url
 func readUrl(url string) *http.Response {
 	res, err := http.Get(url)
 
@@ -69,6 +80,7 @@ func readUrl(url string) *http.Response {
 	return res
 }
 
+// retrieves a file handle from the specified file path
 func readFile(filePath string) *os.File {
 	bistroPageReader, err := os.Open(filePath)
 

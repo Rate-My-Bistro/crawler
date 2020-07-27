@@ -8,16 +8,16 @@ import (
 	"log"
 )
 
-const databaseName = "rate-my-bistro"
-const collectionName = "meals"
-
 var client driver.Client
 var database driver.Database
 var collection driver.Collection
 
 // persists the passed meals into the database
 // the parameter databaseAddress defines the database target
-func Start(databaseAddress string, meals []crawler.Meal) {
+func PersistMeals(databaseAddress string,
+	databaseName string,
+	collectionName string,
+	meals []crawler.Meal) {
 	createClient(databaseAddress)
 	createDatabase(databaseName)
 	createCollection(collectionName)
@@ -38,6 +38,7 @@ func createOrUpdateMeal(meal crawler.Meal) {
 }
 
 // Removes a meal by its identification key
+// WARNING! Don't use this function from productive code.
 func removeMeal(mealKey string) {
 	if checkIfMealExists(mealKey) {
 		_, err := collection.RemoveDocument(context.Background(), mealKey)

@@ -34,7 +34,7 @@ type Supplement struct {
 //
 // receives a reader that provides the content of a bistro website
 // returns a map of meals
-func Start(documentReader io.Reader) []Meal {
+func Crawl(documentReader io.Reader) []Meal {
 	doc := requestWebsiteDocument(documentReader)
 
 	parsedDates := parseDates(doc)

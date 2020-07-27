@@ -10,7 +10,7 @@ func TestParseBistroWebsite(t *testing.T) {
 	//setup
 	bistroPageReader, _ := os.Open("./bistro.html")
 
-	got := Start(bistroPageReader)
+	got := Crawl(bistroPageReader)
 
 	t.Run("expect the correct size", func(t *testing.T) {
 		if len(got) != 25 {

@@ -5,8 +5,8 @@ import (
 	"testing"
 )
 
-const testDatabaseName = databaseName + "_test"
-const testCollectionName = collectionName + "_test"
+const testDatabaseName = "rate-by-bistro_test"
+const testCollectionName = "meals_test"
 
 func TestInsertOrUpdate(t *testing.T) {
 	//setup
@@ -19,29 +19,29 @@ func TestInsertOrUpdate(t *testing.T) {
 	}
 
 	meal1 := crawler.Meal{
-		Key:        "a",
-		Date:       "2020-07-24",
-		Name:       "Suppe",
-		Supplement: "Brötchen",
-		Price:      3.97,
-		OptionalSupplements: []crawler.Supplement{
+		Key:   "abc",
+		Date:  "2020-07-24",
+		Name:  "Suppe",
+		Price: 3.97,
+		Supplements: []crawler.Supplement{
+			{Name: "Brötchen", Price: 0},
 			{Name: "Markklößchen", Price: 0.12},
 			{Name: "Trokenes Brot", Price: 9.87}},
 	}
 
 	meal2 := crawler.Meal{
-		Key:        "b",
-		Date:       "2020-07-24",
-		Name:       "Reis",
-		Supplement: "Salz",
-		Price:      1.44,
+		Key:         "b",
+		Date:        "2020-07-24",
+		Name:        "Reis",
+		Price:       1.44,
+		Supplements: []crawler.Supplement{{Name: "Salz", Price: 0}},
 	}
 
 	t.Run("insert a record and update it", func(t *testing.T) {
 
 		createOrUpdateMeal(meal1Stub)
 
-		if !checkIfMealExists(meal1Stub) {
+		if !checkIfMealExists(meal1Stub.Key, nil) {
 			t.Errorf("meal could not created")
 		}
 
@@ -51,13 +51,13 @@ func TestInsertOrUpdate(t *testing.T) {
 			t.Errorf("meal was not updated")
 		}
 
-		if !(getMeal(meal1Stub.Key).OptionalSupplements[1].Price == 9.87) {
+		if !(getMeal(meal1Stub.Key).Supplements[2].Price == 9.87) {
 			t.Errorf("meal optional supplement price was not updated")
 		}
 
 		createOrUpdateMeal(meal2)
 
-		if !checkIfMealExists(meal2) {
+		if !checkIfMealExists(meal2.Key, nil) {
 			t.Errorf("meal could not created")
 		}
 	})

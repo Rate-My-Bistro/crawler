@@ -1,3 +1,7 @@
+/*
+Package crawler implements a simple parser that reads the cgm bistro website
+and transforms them into manageable structs.
+*/
 package crawler
 
 import (
@@ -29,10 +33,9 @@ type Supplement struct {
 	Price float64 `json:"price"`
 }
 
-// The entry point of this crawler
-//
-// receives a reader that provides the content of a bistro website
-// returns a map of meals
+// Receives a reader that provides the content of a bistro website for the current week
+// The crawler is able to analyze any data source as long as it complies with the 'io.Reader' interface contract.
+// returns a slice of meals
 func Crawl(documentReader io.Reader) []Meal {
 	doc := requestWebsiteDocument(documentReader)
 
@@ -42,9 +45,9 @@ func Crawl(documentReader io.Reader) []Meal {
 	return mealDates
 }
 
-// parses all meals found in the provided html document
-// receives a document that holds the bistro website
-// returns a map of meals
+// Parses all meals found in the provided html document
+// Receives a document that holds the bistro website
+// Returns a map of meals
 func parseMealsForAllDays(doc *goquery.Document, parsedDates []string) []Meal {
 	meals := make([]Meal, 0)
 
@@ -97,9 +100,9 @@ func containsAttributeValue(selection *goquery.Selection, attributeName string, 
 	return false
 }
 
-// parses all dates of the week
-// receives a queryable html document
-// returns a set of string dates in the format: yyyy-mm-dd
+// Parses all dates of the week
+// Receives a queryable html document
+// Returns a set of string dates in the format: yyyy-mm-dd
 func parseDates(doc *goquery.Document) []string {
 	parsedDates := make([]string, 0)
 	// Parse date for this day
@@ -112,9 +115,9 @@ func parseDates(doc *goquery.Document) []string {
 	return parsedDates
 }
 
-// parses supplements of a given meal selection
-// receives a queryable meal selection
-// returns a set of supplements or an empty slice if no supplements found for a meal
+// Parses supplements of a given meal selection
+// Receives a queryable meal selection
+// Returns a set of supplements or an empty slice if no supplements found for a meal
 func parseOptionalSupplements(mealSelection *goquery.Selection) (optionalSupplements []Supplement) {
 	mealSelection.Find("div[style='padding-left:10px']").Each(func(i int, supplementSelection *goquery.Selection) {
 		optionalSupplement := Supplement{}
@@ -131,9 +134,9 @@ func parseOptionalSupplements(mealSelection *goquery.Selection) (optionalSupplem
 	return optionalSupplements
 }
 
-// converts a price string that comes from the bistro page into a float
-// receives a price as string
-// returns a price as float
+// Converts a price string that comes from the bistro page into a float
+// Receives a price as string
+// Returns a price as float
 func convertToPrice(priceString string) float64 {
 	priceString = strings.Replace(priceString, ",", ".", -1)
 	priceString = strings.Replace(priceString, "€", "", -1)
@@ -142,9 +145,9 @@ func convertToPrice(priceString string) float64 {
 	return price
 }
 
-// requests a website content from a given reader
-// receives a reader interface
-// returns queryable html document
+// Requests a website content from a given reader
+// Receives a reader interface
+// Returns queryable html document
 func requestWebsiteDocument(reader io.Reader) *goquery.Document {
 	doc, err := goquery.NewDocumentFromReader(reader)
 
@@ -155,9 +158,9 @@ func requestWebsiteDocument(reader io.Reader) *goquery.Document {
 	return doc
 }
 
-// generates a sha1 hash from the specified string 's'
-// receives a string 's'
-// returns a sha1 hash as string
+// Generates a sha1 hash from the specified string 's'
+// Receives a string 's'
+// Returns a sha1 hash as string
 func toSha1(s string) string {
 	h := sha1.New()
 	h.Write([]byte(s))

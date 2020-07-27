@@ -1,3 +1,8 @@
+/*
+Package persister implements a simple crud functionality for meals.
+
+The crawler is able to analyze any data source as long as it complies with the 'io.Reader' contract.
+*/
 package persister
 
 import (
@@ -30,17 +35,35 @@ func PersistMeals(databaseAddress string,
 // Creates a new meal document if it does not exists yet
 // Otherwise it will updated, identified by the key
 func createOrUpdateMeal(meal crawler.Meal) {
-	if checkIfMealExists(meal.Key) {
-		updateMeal(meal)
+	trxId, transactionContext := startTransaction()
+
+	if checkIfMealExists(meal.Key, transactionContext) {
+		updateMeal(meal, transactionContext)
 	} else {
-		createMeal(meal)
+		createMeal(meal, transactionContext)
 	}
+
+	if err := database.CommitTransaction(transactionContext, trxId, nil); err != nil {
+		log.Fatalf("Failed to commit transaction: %s", err)
+	}
+}
+
+// initiate a new database transactions
+// returns the transaction id and the transaction context
+func startTransaction() (driver.TransactionID, context.Context) {
+	bgContext := context.Background()
+	trxId, err := database.BeginTransaction(bgContext, driver.TransactionCollections{Exclusive: []string{collection.Name()}}, nil)
+	if err != nil {
+		log.Fatalf("Failed to begin transaction: %s", err)
+	}
+	transactionContext := driver.WithTransactionID(bgContext, trxId)
+	return trxId, transactionContext
 }
 
 // Removes a meal by its identification key
 // WARNING! Don't use this function from productive code.
 func removeMeal(mealKey string) {
-	if checkIfMealExists(mealKey) {
+	if checkIfMealExists(mealKey, nil) {
 		_, err := collection.RemoveDocument(context.Background(), mealKey)
 
 		if err != nil {
@@ -50,15 +73,24 @@ func removeMeal(mealKey string) {
 }
 
 // Checks if a meal document exists by its key
-func checkIfMealExists(mealKey string) bool {
-	exists, _ := collection.DocumentExists(context.Background(), mealKey)
+func checkIfMealExists(mealKey string, ctx context.Context) bool {
+
+	if ctx == nil {
+		ctx = context.Background()
+	}
+
+	exists, _ := collection.DocumentExists(ctx, mealKey)
 	return exists
 }
 
 // Updates an existing meal document
 // If it does not exists this function will fail
-func updateMeal(meal crawler.Meal) {
-	ctx := context.Background()
+func updateMeal(meal crawler.Meal, ctx context.Context) {
+
+	if ctx == nil {
+		ctx = context.Background()
+	}
+
 	_, err := collection.UpdateDocument(ctx, meal.Key, meal)
 	if err != nil {
 		log.Fatal(err)
@@ -67,8 +99,13 @@ func updateMeal(meal crawler.Meal) {
 
 // creates a new meal document
 // if a document with the same key already exists this function will fail
-func createMeal(meal crawler.Meal) {
-	_, err := collection.CreateDocument(context.Background(), meal)
+func createMeal(meal crawler.Meal, ctx context.Context) {
+
+	if ctx == nil {
+		ctx = context.Background()
+	}
+
+	_, err := collection.CreateDocument(ctx, meal)
 
 	if err != nil {
 		log.Fatal(err)

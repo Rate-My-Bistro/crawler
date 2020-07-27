@@ -13,6 +13,8 @@ import (
 
 // Represents a meal
 type Meal struct {
+	// The Key is the identifier of each meal
+	// it is composed like this: sha1( date + name )
 	Key                 string       `json:"_key,omitempty"`
 	Date                string       `json:"date"`
 	Name                string       `json:"name"`

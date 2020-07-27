@@ -1,7 +1,6 @@
 package crawler
 
 import (
-	"github.com/ansgarS/rate-my-bistro-crawler"
 	"os"
 	"testing"
 	"time"
@@ -20,14 +19,23 @@ func TestParseBistroWebsite(t *testing.T) {
 	})
 
 	t.Run("expect the correct date formant", func(t *testing.T) {
-		if !isDate(got[0].date, t) {
-			t.Fatalf("expected the first date '2020-07-13' but got %q", got[0].date)
+		if !isDate(got[0].Date, t) {
+			t.Fatalf("expected the first date '2020-07-13' but got %q", got[0].Date)
 		}
 	})
 
 	t.Run("expect the correct meal naming", func(t *testing.T) {
 		if got[0].Name != "Käsespätzle" {
 			t.Fatalf("expected the first meal of the week 'Käsespätzle' but got %q", got[0].Name)
+		}
+	})
+
+	t.Run("expect correct low kcal parsing", func(t *testing.T) {
+		if got[0].LowKcal != false {
+			t.Fatalf("expected the first meal of the week to be NOT low kcal")
+		}
+		if got[2].LowKcal != true {
+			t.Fatalf("expected the third meal of the week to be low kcal")
 		}
 	})
 }
@@ -38,11 +46,4 @@ func isDate(dateString string, t *testing.T) bool {
 		t.Error(err)
 	}
 	return err == nil
-}
-
-func getKeys(mealMap map[string][]main.Meal) (keys []string) {
-	for k := range mealMap {
-		keys = append(keys, k)
-	}
-	return keys
 }

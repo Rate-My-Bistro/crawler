@@ -20,6 +20,7 @@ type Meal struct {
 	Name                string       `json:"name"`
 	Supplement          string       `json:"supplement"`
 	Price               float64      `json:"price"`
+	LowKcal             bool         `json:"lowKcal"`
 	OptionalSupplements []Supplement `json:"optionalSupplements"`
 }
 
@@ -73,11 +74,23 @@ func parseMealsForDay(daySelection *goquery.Selection) []Meal {
 		meal.Name = mealSelection.Find("p.menuName").Text()
 		meal.Supplement = mealSelection.Find("p.beschreibung").Text()
 		meal.Price = convertToPrice(mealSelection.Find("p.preis > b").Text())
+		meal.LowKcal = containsAttributeValue(mealSelection, "style", "background-color:greenyellow")
 		meal.OptionalSupplements = parseOptionalSupplements(mealSelection)
 
 		meals = append(meals, meal)
 	})
 	return meals
+}
+
+// Checks if a html selection tag contains the specified attribute value
+// Returns true if this is the case, otherwise false
+func containsAttributeValue(selection *goquery.Selection, attributeName string, attributeValue string) bool {
+	attr, exists := selection.Attr(attributeName)
+	if exists {
+		return strings.Contains(attr, attributeValue)
+	}
+
+	return false
 }
 
 // parses all dates of the week

@@ -19,12 +19,13 @@ import (
 type Meal struct {
 	// The Key is the identifier of each meal
 	// it is composed like this: sha1( date + name )
-	Key         string       `json:"_key,omitempty"`
-	Date        string       `json:"date"`
-	Name        string       `json:"name"`
-	Price       float64      `json:"price"`
-	LowKcal     bool         `json:"lowKcal"`
-	Supplements []Supplement `json:"supplements"`
+	Key                  string       `json:"_key,omitempty"`
+	Date                 string       `json:"date"`
+	Name                 string       `json:"name"`
+	Price                float64      `json:"price"`
+	LowKcal              bool         `json:"lowKcal"`
+	MandatorySupplements []Supplement `json:"mandatorySupplements"`
+	OptionalSupplements  []Supplement `json:"optionalSupplements"`
 }
 
 //  Represents a supplement of an meal
@@ -76,15 +77,16 @@ func parseMealsForDay(daySelection *goquery.Selection) []Meal {
 		meal.Name = mealSelection.Find("p.menuName").Text()
 		meal.Price = convertToPrice(mealSelection.Find("p.preis > b").Text())
 		meal.LowKcal = containsAttributeValue(mealSelection, "style", "background-color:greenyellow")
-		meal.Supplements = []Supplement{}
-
-		meal.Supplements = append(meal.Supplements, Supplement{
+		meal.MandatorySupplements = []Supplement{{
 			Name:  mealSelection.Find("p.beschreibung").Text(),
 			Price: 0,
-		})
-		meal.Supplements = append(meal.Supplements, parseOptionalSupplements(mealSelection)...)
+		}}
+		meal.OptionalSupplements = parseOptionalSupplements(mealSelection)
 
-		meals = append(meals, meal)
+		// filters out days without meals (e.g. holidays)
+		if meal.Price > 0 {
+			meals = append(meals, meal)
+		}
 	})
 	return meals
 }

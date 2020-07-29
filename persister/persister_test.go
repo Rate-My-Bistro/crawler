@@ -23,18 +23,18 @@ func TestInsertOrUpdate(t *testing.T) {
 		Date:  "2020-07-24",
 		Name:  "Suppe",
 		Price: 3.97,
-		Supplements: []crawler.Supplement{
+		OptionalSupplements: []crawler.Supplement{
 			{Name: "Brötchen", Price: 0},
 			{Name: "Markklößchen", Price: 0.12},
 			{Name: "Trokenes Brot", Price: 9.87}},
 	}
 
 	meal2 := crawler.Meal{
-		Key:         "b",
-		Date:        "2020-07-24",
-		Name:        "Reis",
-		Price:       1.44,
-		Supplements: []crawler.Supplement{{Name: "Salz", Price: 0}},
+		Key:                 "b",
+		Date:                "2020-07-24",
+		Name:                "Reis",
+		Price:               1.44,
+		OptionalSupplements: []crawler.Supplement{{Name: "Salz", Price: 0}},
 	}
 
 	t.Run("insert a record and update it", func(t *testing.T) {
@@ -51,7 +51,7 @@ func TestInsertOrUpdate(t *testing.T) {
 			t.Errorf("meal was not updated")
 		}
 
-		if !(getMeal(meal1Stub.Key).Supplements[2].Price == 9.87) {
+		if !(getMeal(meal1Stub.Key).OptionalSupplements[2].Price == 9.87) {
 			t.Errorf("meal optional supplement price was not updated")
 		}
 

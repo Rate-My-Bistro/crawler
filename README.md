@@ -47,3 +47,8 @@ You hate your Bistro as much as I do and want to speed up development?
 
 --> ansgar.sa@gmail.com
 --> rouven@himmelstein.info
+
+## TODO
+ * Parse a specific date
+ * jobs - introduces sequential job queue 
+ * REST feature - provides a rest api to control the crawler  (openAPI swagger)

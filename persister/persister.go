@@ -85,7 +85,6 @@ func checkIfMealExists(mealKey string, ctx context.Context) bool {
 // Updates an existing meal document
 // If it does not exists this function will fail
 func updateMeal(meal crawler.Meal, ctx context.Context) {
-
 	if ctx == nil {
 		ctx = context.Background()
 	}

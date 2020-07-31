@@ -74,7 +74,6 @@ func removeMeal(mealKey string) {
 
 // Checks if a meal document exists by its key
 func checkIfMealExists(mealKey string, ctx context.Context) bool {
-
 	if ctx == nil {
 		ctx = context.Background()
 	}
@@ -100,7 +99,6 @@ func updateMeal(meal crawler.Meal, ctx context.Context) {
 // creates a new meal document
 // if a document with the same key already exists this function will fail
 func createMeal(meal crawler.Meal, ctx context.Context) {
-
 	if ctx == nil {
 		ctx = context.Background()
 	}

@@ -74,7 +74,6 @@ func removeMeal(mealKey string) {
 
 // Checks if a meal document exists by its key
 func checkIfMealExists(mealKey string, ctx context.Context) bool {
-
 	if ctx == nil {
 		ctx = context.Background()
 	}

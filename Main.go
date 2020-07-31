@@ -1,16 +1,11 @@
 package main
 
 import (
-	"github.com/ansgarS/rate-my-bistro-crawler/persister"
-	"io"
-	"log"
-	"net/http"
-	"os"
-	"strings"
-
 	"github.com/ansgarS/rate-my-bistro-crawler/crawler"
+	"github.com/ansgarS/rate-my-bistro-crawler/persister"
 	"github.com/caarlos0/env"
 	"github.com/joho/godotenv"
+	"log"
 )
 
 type Config struct {
@@ -41,53 +36,11 @@ func init() {
 
 // handles the application cycle
 func main() {
-	documentReader := createBistroReader(Cfg.BistroUrl)
-
-	crawledMeals := crawler.Crawl(documentReader)
+	crawledMeals := crawler.CrawlCurrentWeek(Cfg.BistroUrl)
 
 	persister.PersistMeals(
 		Cfg.DatabaseAddress,
 		Cfg.DatabaseName,
 		Cfg.CollectionName,
 		crawledMeals)
-}
-
-// creates an reader object based on the provided bistroUrl
-func createBistroReader(bistroUrl string) (documentReader io.Reader) {
-
-	if strings.HasPrefix(bistroUrl, "file://") {
-		bistroUrl := strings.Replace(bistroUrl, "file://", "", -1)
-		documentReader = readFile(bistroUrl)
-	} else {
-		documentReader = readUrl(bistroUrl).Body
-	}
-
-	return documentReader
-}
-
-// retrieves a http response from the specivied url
-func readUrl(url string) *http.Response {
-	res, err := http.Get(url)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	if res.StatusCode != 200 {
-		log.Fatalf("status code error: %d %s", res.StatusCode, res.Status)
-	}
-
-	return res
-}
-
-// retrieves a file handle from the specified file path
-func readFile(filePath string) *os.File {
-	bistroPageReader, err := os.Open(filePath)
-
-	if err != nil {
-		log.Fatal("Opening the following file failed: "+
-			filePath, err)
-	}
-
-	return bistroPageReader
 }

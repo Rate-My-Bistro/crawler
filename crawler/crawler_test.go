@@ -1,16 +1,13 @@
 package crawler
 
 import (
-	"os"
 	"testing"
 	"time"
 )
 
 func TestBistroWebCrawling(t *testing.T) {
-	//setup
-	bistroPageReader, _ := os.Open("./bistro.html")
 
-	got := Crawl(bistroPageReader)
+	got := CrawlCurrentWeek("./bistro.html")
 
 	t.Run("expect the correct size", func(t *testing.T) {
 		if len(got) != 21 {
@@ -48,6 +45,32 @@ func TestBistroWebCrawling(t *testing.T) {
 		}
 		if got[3].LowKcal != true {
 			t.Fatalf("expected the fourth meal of the week to be low kcal")
+		}
+	})
+}
+
+func TestPositiveDateParsing(t *testing.T) {
+
+	want := "https://bistro.cgm.ag/index.php?day=31&month=12&year=2020"
+
+	t.Run("expect the correct bistro url", func(t *testing.T) {
+		got := buildDatedBistroLocation("https://bistro.cgm.ag/index.php", "2020-12-31")
+		if got != want {
+			t.Fatalf("expected %s but got %s", want, got)
+		}
+	})
+
+	t.Run("expect the correct bistro url", func(t *testing.T) {
+		got := buildDatedBistroLocation("https://bistro.cgm.ag/", "2020-12-31")
+		if got != want {
+			t.Fatalf("expected %s but got %s", want, got)
+		}
+	})
+
+	t.Run("expect the correct bistro url", func(t *testing.T) {
+		got := buildDatedBistroLocation("https://bistro.cgm.ag", "2020-12-31")
+		if got != want {
+			t.Fatalf("expected %s but got %s", want, got)
 		}
 	})
 }

@@ -6,33 +6,48 @@ import (
 	"time"
 )
 
-func TestParseBistroWebsite(t *testing.T) {
+func TestBistroWebCrawling(t *testing.T) {
 	//setup
 	bistroPageReader, _ := os.Open("./bistro.html")
 
-	got := Start(bistroPageReader)
+	got := Crawl(bistroPageReader)
 
 	t.Run("expect the correct size", func(t *testing.T) {
-		if len(got) != 5 {
-			t.Errorf("expected 5 days but got %q", len(got))
+		if len(got) != 21 {
+			t.Fatalf("expected 21 days but got %q", len(got))
 		}
 	})
 
 	t.Run("expect the correct date formant", func(t *testing.T) {
-		if !isDate(getKeys(got)[0], t) {
-			t.Errorf("expected the first date '2020-07-13' but got %q", getKeys(got)[0])
+		if !isDate(got[0].Date, t) {
+			t.Fatalf("expected the first date '2020-07-13' but got %q", got[0].Date)
 		}
 	})
 
-	t.Run("expect not nil", func(t *testing.T) {
-		if got["2020-07-13"] == nil || len(got["2020-07-13"]) < 5 {
-			t.Error("expected the first not nil but got nil")
+	t.Run("expect the correct count of mandatory supplements", func(t *testing.T) {
+		if len(got[0].MandatorySupplements) != 1 {
+			t.Fatalf("expected 1 days but got %q", len(got[0].MandatorySupplements))
+		}
+	})
+
+	t.Run("expect the correct count of optional supplements", func(t *testing.T) {
+		if len(got[1].OptionalSupplements) != 2 {
+			t.Fatalf("expected 2 days but got %q", len(got[1].OptionalSupplements))
 		}
 	})
 
 	t.Run("expect the correct meal naming", func(t *testing.T) {
-		if got["2020-07-13"][0].name != "Käsespätzle" {
-			t.Errorf("expected the first meal of the week 'Käsespätzle' but got %q", got["2020-07-13"][0].name)
+		if got[0].Name != "Käsetortellini" {
+			t.Fatalf("expected the first meal of the week 'Käsetortellini' but got %q", got[0].Name)
+		}
+	})
+
+	t.Run("expect correct low kcal parsing", func(t *testing.T) {
+		if got[0].LowKcal != false {
+			t.Fatalf("expected the first meal of the week to be NOT low kcal")
+		}
+		if got[3].LowKcal != true {
+			t.Fatalf("expected the fourth meal of the week to be low kcal")
 		}
 	})
 }
@@ -43,11 +58,4 @@ func isDate(dateString string, t *testing.T) bool {
 		t.Error(err)
 	}
 	return err == nil
-}
-
-func getKeys(mealMap map[string][]Meal) (keys []string) {
-	for k := range mealMap {
-		keys = append(keys, k)
-	}
-	return keys
 }

@@ -52,7 +52,7 @@ func CrawlCurrentWeek(bistroLocation string) []Meal {
 
 // Receives a reader that provides the content of a bistro website for the specified date
 // The date must have the format 'yyyy-mm-dd' example: '2020-12-31'
-// returns a slice of meals
+// returns a slice of meals for the week
 func CrawlDate(bistroLocation string, date string) []Meal {
 	if !strings.HasPrefix(bistroLocation, "http") {
 		log.Fatal("Specific dates cannot parsed from an offline location, only urls are allowed.")

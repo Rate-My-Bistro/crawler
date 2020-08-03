@@ -20,9 +20,9 @@ import (
 
 // Represents a meal
 type Meal struct {
-	// The Key is the identifier of each meal
+	// The Id is the identifier of each meal
 	// it is composed like this: sha1( date + name )
-	Key                  string       `json:"_key,omitempty"`
+	Id                   string       `json:"_key,omitempty"`
 	Date                 string       `json:"date"`
 	Name                 string       `json:"name"`
 	Price                float64      `json:"price"`
@@ -53,7 +53,7 @@ func CrawlCurrentWeek(bistroLocation string) []Meal {
 // Receives a reader that provides the content of a bistro website for the specified date
 // The date must have the format 'yyyy-mm-dd' example: '2020-12-31'
 // returns a slice of meals for the week
-func CrawlDate(bistroLocation string, date string) []Meal {
+func CrawlAtDate(bistroLocation string, date string) []Meal {
 	if !strings.HasPrefix(bistroLocation, "http") {
 		log.Fatal("Specific dates cannot parsed from an offline location, only urls are allowed.")
 	}
@@ -139,7 +139,7 @@ func parseMealsForAllDays(doc *goquery.Document, parsedDates []string) []Meal {
 
 		for _, meal := range parsedMeals {
 			meal.Date = date
-			meal.Key = toSha1(meal.Date + meal.Name)
+			meal.Id = toSha1(meal.Date + meal.Name)
 			meals = append(meals, meal)
 		}
 	})
@@ -256,4 +256,8 @@ func toSha1(s string) string {
 	h := sha1.New()
 	h.Write([]byte(s))
 	return hex.EncodeToString(h.Sum(nil))
+}
+
+func (meal Meal) GetId() string {
+	return meal.Id
 }

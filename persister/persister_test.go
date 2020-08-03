@@ -1,25 +1,24 @@
 package persister
 
 import (
+	"github.com/ansgarS/rate-my-bistro-crawler/config"
 	"github.com/ansgarS/rate-my-bistro-crawler/crawler"
 	"testing"
 )
 
-const testDatabaseName = "rate-by-bistro_test"
-const testCollectionName = "meals_test"
-
 func TestInsertOrUpdate(t *testing.T) {
 	//setup
-	createClient("http://localhost:8529")
-	createDatabase(testDatabaseName)
-	createCollection(testCollectionName)
+	createClient(config.Cfg.DatabaseAddress)
+	createDatabase(config.Cfg.DatabaseName)
+	ensureCollection(config.Cfg.MealCollectionName)
+	ensureCollection(config.Cfg.JobCollectionName)
 
 	meal1Stub := crawler.Meal{
-		Key: "abc",
+		Id: "abc",
 	}
 
 	meal1 := crawler.Meal{
-		Key:   "abc",
+		Id:    "abc",
 		Date:  "2020-07-24",
 		Name:  "Suppe",
 		Price: 3.97,
@@ -31,7 +30,7 @@ func TestInsertOrUpdate(t *testing.T) {
 	}
 
 	meal2 := crawler.Meal{
-		Key:                  "b",
+		Id:                   "b",
 		Date:                 "2020-07-24",
 		Name:                 "Reis",
 		Price:                1.44,
@@ -41,33 +40,36 @@ func TestInsertOrUpdate(t *testing.T) {
 
 	t.Run("insert a record and update it", func(t *testing.T) {
 
-		createOrUpdateMeal(meal1Stub)
+		createOrUpdateDocument(Identifiable(meal1Stub))
 
-		if !checkIfMealExists(meal1Stub.Key, nil) {
+		if !checkIfDocumentExists(meal1Stub.Id, nil) {
 			t.Errorf("meal could not created")
 		}
 
-		createOrUpdateMeal(meal1)
+		createOrUpdateDocument(meal1)
 
-		if !(getMeal(meal1Stub.Key).Name == "Suppe") {
+		var meal crawler.Meal
+		ReadDocument(meal1Stub.Id, &meal)
+
+		if !(meal.Name == "Suppe") {
 			t.Errorf("meal was not updated")
 		}
 
-		if !(getMeal(meal1Stub.Key).MandatorySupplements[0].Price == 0) {
+		if !(meal.MandatorySupplements[0].Price == 0) {
 			t.Errorf("mandadory supplement price shoud be 0")
 		}
 
-		if !(getMeal(meal1Stub.Key).OptionalSupplements[1].Price == 9.87) {
+		if !(meal.OptionalSupplements[1].Price == 9.87) {
 			t.Errorf("optional supplement price was not updated")
 		}
 
-		createOrUpdateMeal(meal2)
+		createOrUpdateDocument(meal2)
 
-		if !checkIfMealExists(meal2.Key, nil) {
+		if !checkIfDocumentExists(meal2.Id, nil) {
 			t.Errorf("meal could not created")
 		}
 	})
 
-	removeMeal(meal1.Key)
-	removeMeal(meal2.Key)
+	removeDocument(meal1.Id)
+	removeDocument(meal2.Id)
 }

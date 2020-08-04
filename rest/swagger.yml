@@ -1,0 +1,109 @@
+---
+swagger: "2.0"
+info:
+    title: A cgm bistro menu crawler
+    description: A cgm bistro menu crawler
+    version: 1.0.0
+consumes:
+    - application/json
+produces:
+    - application/json
+schemes:
+    - http
+paths:
+    /:
+        get:
+            tags:
+                - jobs
+            parameters:
+                -   name: started
+                    description: A date time formatted as RFC3339
+                    in: query
+                    type: string
+                -   name: limit
+                    description: Limits the response count
+                    in: query
+                    type: integer
+                    format: int32
+                    default: 20
+            responses:
+                200:
+                    description: list all job ids
+                    schema:
+                        type: array
+                        items:
+                            type: string
+                default:
+                    description: generic error response
+                    schema:
+                        $ref: "#/definitions/error"
+    /{date}:
+        post:
+            tags:
+                - jobs
+            operationId: addOne
+            parameters:
+                -   type: string
+                    name: date
+                    in: path
+                    required: true
+            responses:
+                201:
+                    description: Created
+                    schema:
+                        $ref: "#/definitions/job"
+                default:
+                    description: error
+                    schema:
+                        $ref: "#/definitions/error"
+    /{id}:
+        get:
+            tags:
+                - jobs
+            operationId: getOne
+            parameters:
+                -   type: string
+                    name: id
+                    in: path
+                    required: true
+            responses:
+                200:
+                    description: Retrieve one job
+                    schema:
+                        $ref: "#/definitions/job"
+                default:
+                    description: error
+                    schema:
+                        $ref: "#/definitions/error"
+definitions:
+    job:
+        type: object
+        required:
+            - id
+        properties:
+            id:
+                type: string
+            dateToParse:
+                type: string
+            status:
+                type: string
+            enqueued:
+                type: string
+            started:
+                type: string
+            finished:
+                type: string
+            additional:
+                type: array
+                items:
+                    type: string
+    error:
+        type: object
+        required:
+            - message
+        properties:
+            code:
+                type: integer
+                format: int64
+            message:
+                type: string

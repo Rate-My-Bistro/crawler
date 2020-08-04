@@ -7,7 +7,9 @@ package persister
 
 import (
 	"context"
+	"fmt"
 	"github.com/ansgarS/rate-my-bistro-crawler/config"
+	"github.com/ansgarS/rate-my-bistro-crawler/crawler"
 	"github.com/arangodb/go-driver"
 	"github.com/arangodb/go-driver/http"
 	"log"
@@ -185,5 +187,31 @@ func createClient(address string) {
 
 	if err != nil {
 		log.Fatal(err)
+	}
+}
+
+// Prints all meals that were found in the database for the specified date
+func PrintMealsForDate(date string) {
+	ensureCollection(config.Cfg.MealCollectionName)
+
+	ctx := context.Background()
+	query := "FOR d IN meals FILTER d.date == @date RETURN d"
+	bindVars := map[string]interface{}{
+		"date": date,
+	}
+	cursor, err := database.Query(ctx, query, bindVars)
+	if err != nil {
+		// handle error
+	}
+	defer cursor.Close()
+	for {
+		var doc crawler.Meal
+		_, err := cursor.ReadDocument(ctx, &doc)
+		if driver.IsNoMoreDocuments(err) {
+			break
+		} else if err != nil {
+			// handle other errors
+		}
+		fmt.Printf("Got doc with key '%s' from query\n", doc.Name)
 	}
 }

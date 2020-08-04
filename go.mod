@@ -7,7 +7,7 @@ require (
 	github.com/arangodb/go-driver v0.0.0-20200624173407-d1c92a8bd2b8
 	github.com/caarlos0/env v3.5.0+incompatible
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/jasonlvhit/gocron v0.0.1
+	github.com/go-co-op/gocron v0.3.0
 	github.com/joho/godotenv v1.3.0
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d

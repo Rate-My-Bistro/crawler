@@ -7,7 +7,7 @@ import (
 
 func TestBistroWebCrawling(t *testing.T) {
 
-	got := CrawlCurrentWeek("./bistro.html")
+	got := CrawlCurrentWeek("file://bistro.html")
 
 	t.Run("expect the correct size", func(t *testing.T) {
 		if len(got) != 21 {
@@ -23,6 +23,12 @@ func TestBistroWebCrawling(t *testing.T) {
 
 	t.Run("expect the correct count of mandatory supplements", func(t *testing.T) {
 		if len(got[0].MandatorySupplements) != 1 {
+			t.Fatalf("expected 1 days but got %q", len(got[0].MandatorySupplements))
+		}
+	})
+
+	t.Run("expect empty mandatory supplements", func(t *testing.T) {
+		if len(got[1].MandatorySupplements) != 0 {
 			t.Fatalf("expected 1 days but got %q", len(got[0].MandatorySupplements))
 		}
 	})

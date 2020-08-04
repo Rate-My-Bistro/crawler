@@ -158,10 +158,7 @@ func parseMealsForDay(daySelection *goquery.Selection) []Meal {
 		meal.Name = mealSelection.Find("p.menuName").Text()
 		meal.Price = convertToPrice(mealSelection.Find("p.preis > b").Text())
 		meal.LowKcal = containsAttributeValue(mealSelection, "style", "background-color:greenyellow")
-		meal.MandatorySupplements = []Supplement{{
-			Name:  mealSelection.Find("p.beschreibung").Text(),
-			Price: 0,
-		}}
+		meal.MandatorySupplements = parseMandatorySupplements(mealSelection)
 		meal.OptionalSupplements = parseOptionalSupplements(mealSelection)
 
 		// filters out days without meals (e.g. holidays)
@@ -170,6 +167,17 @@ func parseMealsForDay(daySelection *goquery.Selection) []Meal {
 		}
 	})
 	return meals
+}
+
+func parseMandatorySupplements(mealSelection *goquery.Selection) (mandatorySupplements []Supplement) {
+	mandatorySupplementName := strings.TrimSpace(mealSelection.Find("p.beschreibung").Text())
+	if mandatorySupplementName != "" {
+		mandatorySupplements = append(mandatorySupplements, Supplement{
+			Name:  mandatorySupplementName,
+			Price: 0,
+		})
+	}
+	return mandatorySupplements
 }
 
 // Checks if a html selection tag contains the specified attribute value

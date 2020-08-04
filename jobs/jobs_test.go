@@ -10,9 +10,18 @@ func TestAddJobsToQueue(t *testing.T) {
 		EnqueueJob("2020-07-03")
 		EnqueueJob("2020-06-03")
 
+		if len(jobQueue) != 3 {
+			t.Fatalf("The queue size should be 3 but is %q", len(jobQueue))
+
+		}
+
 		job1 := DequeueJob()
 		if job1.DateToParse != "2020-08-03" {
 			t.Fatalf("The first dequeued job should parse the date 2020-08-03 but got %q", job1.DateToParse)
+
+		}
+		if len(jobQueue) != 2 {
+			t.Fatalf("The queue size should be 2 but is %q", len(jobQueue))
 
 		}
 
@@ -21,10 +30,18 @@ func TestAddJobsToQueue(t *testing.T) {
 			t.Fatalf("The first dequeued job should parse the date 2020-08-03 but got %q", job2.DateToParse)
 
 		}
+		if len(jobQueue) != 1 {
+			t.Fatalf("The queue size should be 1 but is %q", len(jobQueue))
+
+		}
 
 		job3 := DequeueJob()
 		if job3.DateToParse != "2020-06-03" {
 			t.Fatalf("The first dequeued job should parse the date 2020-08-03 but got %q", job3.DateToParse)
+
+		}
+		if len(jobQueue) != 0 {
+			t.Fatalf("The queue size should be 0 but is %q", len(jobQueue))
 
 		}
 	})

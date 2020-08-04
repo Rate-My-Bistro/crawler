@@ -7,9 +7,12 @@ package crawler
 import (
 	"crypto/sha1"
 	"encoding/hex"
+	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"io"
 	"log"
+	"net/http"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -34,16 +37,94 @@ type Supplement struct {
 	Price float64 `json:"price"`
 }
 
-// Receives a reader that provides the content of a bistro website for the current week
-// The crawler is able to analyze any data source as long as it complies with the 'io.Reader' interface contract.
+// Crawls the content of the cgm bistro website for the current week
 // returns a slice of meals
-func Crawl(documentReader io.Reader) []Meal {
-	doc := requestWebsiteDocument(documentReader)
+func CrawlCurrentWeek(bistroLocation string) []Meal {
+	reader := createBistroReader(bistroLocation)
+
+	doc := requestWebsiteDocument(reader)
 
 	parsedDates := parseDates(doc)
 	mealDates := parseMealsForAllDays(doc, parsedDates)
 
 	return mealDates
+}
+
+// Receives a reader that provides the content of a bistro website for the specified date
+// The date must have the format 'yyyy-mm-dd' example: '2020-12-31'
+// returns a slice of meals for the week
+func CrawlDate(bistroLocation string, date string) []Meal {
+	if !strings.HasPrefix(bistroLocation, "http") {
+		log.Fatal("Specific dates cannot parsed from an offline location, only urls are allowed.")
+	}
+
+	bistroLocation = buildDatedBistroLocation(bistroLocation, date)
+
+	reader := createBistroReader(bistroLocation)
+
+	doc := requestWebsiteDocument(reader)
+
+	parsedDates := parseDates(doc)
+	mealDates := parseMealsForAllDays(doc, parsedDates)
+
+	return mealDates
+}
+
+func buildDatedBistroLocation(location string, date string) string {
+	split := strings.Split(date, "-")
+	year := split[0]
+	month := split[1]
+	day := split[2]
+
+	if !strings.HasSuffix(location, "index.php") {
+		location = strings.Replace(location+"/index.php", "//", "/", -1)
+		location = strings.Replace(location, ":/", "://", 1)
+	}
+
+	location = location + fmt.Sprintf("?day=%s&month=%s&year=%s", day, month, year)
+
+	return location
+}
+
+// creates an reader object based on the provided bistroUrl
+func createBistroReader(bistroUrl string) (documentReader io.Reader) {
+	if strings.HasPrefix(bistroUrl, "file://") {
+		bistroUrl := strings.Replace(bistroUrl, "file://", "", -1)
+		documentReader = readFile(bistroUrl)
+	} else if strings.HasPrefix(bistroUrl, "/") {
+		documentReader = readFile(bistroUrl)
+	} else {
+		documentReader = readUrl(bistroUrl).Body
+	}
+
+	return documentReader
+}
+
+// retrieves a http response from the specified url
+func readUrl(url string) *http.Response {
+	res, err := http.Get(url)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if res.StatusCode != 200 {
+		log.Fatalf("status code error: %d %s", res.StatusCode, res.Status)
+	}
+
+	return res
+}
+
+// retrieves a file handle from the specified file path
+func readFile(filePath string) *os.File {
+	bistroPageReader, err := os.Open(filePath)
+
+	if err != nil {
+		log.Fatal("Opening the following file failed: "+
+			filePath, err)
+	}
+
+	return bistroPageReader
 }
 
 // Parses all meals found in the provided html document

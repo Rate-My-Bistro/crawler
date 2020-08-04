@@ -15,7 +15,7 @@ func main() {
 	go forever()
 	//Keep this goroutine from exiting
 	//so that the program doesn't end.
-	fmt.Scanln()
+	_, _ = fmt.Scanln()
 }
 
 func forever() {

@@ -86,11 +86,6 @@ func DequeueJob() (nextJob Job) {
 	return nextJob
 }
 
-// Removes all itemes of the jobs queue
-func ClearJobs() {
-	jobQueue = make([]Job, 0)
-}
-
 // Identifiable interface implantation for the struct job
 func (job Job) GetId() string {
 	return job.Id

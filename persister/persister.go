@@ -203,7 +203,7 @@ func PrintMealsForDate(date string) {
 	if err != nil {
 		// handle error
 	}
-	defer cursor.Close()
+	_ = cursor.Close()
 	for {
 		var doc crawler.Meal
 		_, err := cursor.ReadDocument(ctx, &doc)

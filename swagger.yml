@@ -14,7 +14,7 @@ paths:
     /:
         get:
             tags:
-                - jobs
+                - api
             parameters:
                 -   name: started
                     description: A date time formatted as RFC3339
@@ -37,21 +37,20 @@ paths:
                     description: generic error response
                     schema:
                         $ref: "#/definitions/error"
-    /{date}:
         post:
             tags:
-                - jobs
+                - api
             operationId: addOne
             parameters:
-                -   type: string
-                    name: date
-                    in: path
-                    required: true
+                -   name: body
+                    in: body
+                    schema:
+                        type: string
             responses:
                 201:
                     description: Created
                     schema:
-                        $ref: "#/definitions/job"
+                        type: string
                 default:
                     description: error
                     schema:
@@ -59,7 +58,7 @@ paths:
     /{id}:
         get:
             tags:
-                - jobs
+                - api
             operationId: getOne
             parameters:
                 -   type: string

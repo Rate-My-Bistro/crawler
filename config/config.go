@@ -10,9 +10,12 @@ type Config struct {
 	BistroUrl                 string `env:"BISTRO_URL"`
 	DatabaseAddress           string `env:"DATABASE_ADDRESS"`
 	DatabaseName              string `env:"DATABASE_NAME"`
+	DatabaseUser              string `env:"DATABASE_USER"`
+	DatabasePassword          string `env:"DATABASE_PASSWORD"`
 	MealCollectionName        string `env:"MEAL_COLLECTION_NAME"`
 	JobCollectionName         string `env:"JOB_COLLECTION_NAME"`
 	JobSchedulerTickInSeconds uint64 `env:"JOB_SCHEDULER_TICK_IN_SECONDS"`
+	RestApiAddress            string `env:"REST_API_ADDRESS"`
 }
 
 var Cfg Config

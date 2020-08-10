@@ -16,7 +16,8 @@ import (
 
 // Represents a crawler job
 type Job struct {
-	Id          string   `json:"_key,omitempty"`
+	Key         string   `json:"_key,omitempty"`
+	Id          string   `json:"id,omitempty"`
 	DateToParse string   `json:"dateToParse"`
 	Status      string   `json:"status"` // PENDING | RUNNING |  SUCCESS | FAILURE
 	Enqueued    string   `json:"enqueued"`
@@ -26,7 +27,7 @@ type Job struct {
 }
 
 // Holds all jobs in memory as a queue
-var jobQueue = make([]Job, 0)
+var JobQueue = make([]Job, 0)
 
 // Crates a new scheduler for the configured interval
 func init() {
@@ -43,7 +44,7 @@ func init() {
 // It dequeues the head of the queue and start the parsing process.
 // Every job status change is persisted to the job collection.
 func processNextJob() {
-	if len(jobQueue) <= 0 {
+	if len(JobQueue) <= 0 {
 		return
 	}
 
@@ -66,29 +67,33 @@ func processNextJob() {
 }
 
 // Enqueues a new parser job for a specific date at the end of the queue
-func EnqueueJob(dateToParse string) {
+// Returns the id of the created job
+func EnqueueJob(dateToParse string) string {
 	uid, _ := uuid.NewV4()
+	identifier := uid.String()
 	newJob := Job{
-		Id:          uid.String(),
+		Key:         identifier,
+		Id:          identifier,
 		Status:      "PENDING",
 		Enqueued:    time.Now().Format(time.RFC3339),
 		DateToParse: dateToParse,
 	}
-	jobQueue = append(jobQueue, newJob)
+	JobQueue = append(JobQueue, newJob)
 	persister.PersistDocument(config.Cfg.JobCollectionName, newJob)
+	return identifier
 }
 
 // Dequeues the head of the queue.
 // This removes the dequeued item
 func DequeueJob() (nextJob Job) {
-	nextJob = jobQueue[0]
-	jobQueue = jobQueue[1:] // Discard top element
+	nextJob = JobQueue[0]
+	JobQueue = JobQueue[1:] // Discard top element
 	return nextJob
 }
 
 // Identifiable interface implantation for the struct job
 func (job Job) GetId() string {
-	return job.Id
+	return job.Key
 }
 
 // Casts a slice of meals to the a slice of Identifiable interfaces

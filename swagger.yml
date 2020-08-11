@@ -15,24 +15,13 @@ paths:
         get:
             tags:
                 - api
-            parameters:
-                -   name: started
-                    description: A date time formatted as RFC3339
-                    in: query
-                    type: string
-                -   name: limit
-                    description: Limits the response count
-                    in: query
-                    type: integer
-                    format: int32
-                    default: 20
             responses:
                 200:
-                    description: list all job ids
+                    description: list all queued jobs
                     schema:
                         type: array
                         items:
-                            type: string
+                            $ref: "#/definitions/job"
                 default:
                     description: generic error response
                     schema:

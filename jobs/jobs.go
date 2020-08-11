@@ -32,7 +32,7 @@ var JobQueue = make([]Job, 0)
 // Crates a new scheduler for the configured interval
 func init() {
 	s1 := gocron.NewScheduler(time.UTC)
-	_, err := s1.Every(config.Cfg.JobSchedulerTickInSeconds).Seconds().Do(processNextJob)
+	_, err := s1.Every(config.Get().JobSchedulerTickInSeconds).Seconds().Do(processNextJob)
 	s1.StartAsync()
 
 	if err != nil {
@@ -52,17 +52,17 @@ func processNextJob() {
 	nextJob := DequeueJob()
 	nextJob.Started = time.Now().Format(time.RFC3339)
 	nextJob.Status = "RUNNING"
-	persister.PersistDocument(config.Cfg.JobCollectionName, nextJob)
+	persister.PersistDocument(config.Get().JobCollectionName, nextJob)
 
 	// start the meal crawling and store the result in the database
 	log.Println("Start crawling meals for date " + nextJob.DateToParse)
-	crawledMeals := crawler.CrawlAtDate(config.Cfg.BistroUrl, nextJob.DateToParse)
-	persister.PersistDocuments(config.Cfg.MealCollectionName, ToIdentifiables(crawledMeals))
+	crawledMeals := crawler.CrawlAtDate(config.Get().BistroUrl, nextJob.DateToParse)
+	persister.PersistDocuments(config.Get().MealCollectionName, ToIdentifiables(crawledMeals))
 
 	// mark the job as finished successful
 	nextJob.Finished = time.Now().Format(time.RFC3339)
 	nextJob.Status = "SUCCESS"
-	persister.PersistDocument(config.Cfg.JobCollectionName, nextJob)
+	persister.PersistDocument(config.Get().JobCollectionName, nextJob)
 	log.Println("Finished crawling meals for date " + nextJob.DateToParse)
 }
 
@@ -79,7 +79,7 @@ func EnqueueJob(dateToParse string) string {
 		DateToParse: dateToParse,
 	}
 	JobQueue = append(JobQueue, newJob)
-	persister.PersistDocument(config.Cfg.JobCollectionName, newJob)
+	persister.PersistDocument(config.Get().JobCollectionName, newJob)
 	return identifier
 }
 

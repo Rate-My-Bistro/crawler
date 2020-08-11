@@ -6,11 +6,13 @@ import (
 	"log"
 )
 
+// starts the http server that serves the rest api
+// the Start() command holds the application main thread
 func Serve() {
-	y := yarf.New()
+	server := yarf.New()
 
-	addResourceEndpoints(y)
+	addJobsResource(server)
 
-	log.Println("🔥 serving from " + config.Cfg.RestApiAddress + " 🔥")
-	y.Start(config.Cfg.RestApiAddress)
+	log.Println("🔥 serving from " + config.Get().RestApiAddress + " 🔥")
+	server.Start(config.Get().RestApiAddress)
 }

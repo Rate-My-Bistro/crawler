@@ -18,21 +18,36 @@ type Config struct {
 	RestApiAddress            string `env:"REST_API_ADDRESS"`
 }
 
-var Cfg Config
+var cfg Config
+var cfgLoaded bool
 
-// reads the application configuration from the env file.
-func init() {
-	err := godotenv.Load()
-
-	if err != nil {
-		log.Fatal("Error loading .env file "+
-			"due to permission issues or a corrupted file",
-			err)
+// reads the application configuration from env files
+// leave envPath blank to read the .env file from the current directory
+func Get(envPaths ...string) Config {
+	if cfgLoaded {
+		return cfg
 	}
 
-	err = env.Parse(&Cfg)
+	err := godotenv.Load(envPaths...)
+
+	if err != nil {
+		// if i am in a feature directory use the .env file from the parent directory
+		err := godotenv.Load("../.env")
+
+		if err != nil {
+			log.Fatal("Error loading .env file "+
+				" file not found, permission issues or a corrupted file",
+				err)
+		}
+	}
+
+	err = env.Parse(&cfg)
 
 	if err != nil {
 		log.Fatal("The .env format is not valid", err)
 	}
+
+	cfgLoaded = true
+
+	return cfg
 }

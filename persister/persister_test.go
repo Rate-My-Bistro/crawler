@@ -11,8 +11,8 @@ func TestInsertOrUpdate(t *testing.T) {
 	//setup
 	createClient()
 	createDatabase()
-	ensureCollection(config.Cfg.MealCollectionName)
-	ensureCollection(config.Cfg.JobCollectionName)
+	ensureCollection(config.Get().MealCollectionName)
+	ensureCollection(config.Get().JobCollectionName)
 
 	meal1Stub := crawler.Meal{
 		Id: "abc",
@@ -41,16 +41,16 @@ func TestInsertOrUpdate(t *testing.T) {
 
 	t.Run("insert a record and update it", func(t *testing.T) {
 
-		createOrUpdateDocument(config.Cfg.MealCollectionName, Identifiable(meal1Stub))
+		createOrUpdateDocument(config.Get().MealCollectionName, Identifiable(meal1Stub))
 
-		if !DocumentExists(config.Cfg.MealCollectionName, meal1Stub.Id, nil) {
+		if !DocumentExists(config.Get().MealCollectionName, meal1Stub.Id, nil) {
 			t.Errorf("meal could not created")
 		}
 
-		createOrUpdateDocument(config.Cfg.MealCollectionName, meal1)
+		createOrUpdateDocument(config.Get().MealCollectionName, meal1)
 
 		var meal crawler.Meal
-		ReadDocument(config.Cfg.MealCollectionName, meal1Stub.Id, context.Background(), &meal)
+		ReadDocument(config.Get().MealCollectionName, meal1Stub.Id, context.Background(), &meal)
 
 		if !(meal.Name == "Suppe") {
 			t.Errorf("meal was not updated")
@@ -64,13 +64,13 @@ func TestInsertOrUpdate(t *testing.T) {
 			t.Errorf("optional supplement price was not updated")
 		}
 
-		createOrUpdateDocument(config.Cfg.MealCollectionName, meal2)
+		createOrUpdateDocument(config.Get().MealCollectionName, meal2)
 
-		if !DocumentExists(config.Cfg.MealCollectionName, meal2.Id, nil) {
+		if !DocumentExists(config.Get().MealCollectionName, meal2.Id, nil) {
 			t.Errorf("meal could not created")
 		}
 	})
 
-	removeDocument(config.Cfg.MealCollectionName, meal1.Id)
-	removeDocument(config.Cfg.MealCollectionName, meal2.Id)
+	removeDocument(config.Get().MealCollectionName, meal1.Id)
+	removeDocument(config.Get().MealCollectionName, meal2.Id)
 }

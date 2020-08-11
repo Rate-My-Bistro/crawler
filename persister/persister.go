@@ -26,9 +26,8 @@ type Identifiable interface {
 func init() {
 	createClient()
 	createDatabase()
-	ensureCollection(config.Cfg.MealCollectionName)
-	ensureCollection(config.Cfg.JobCollectionName)
-
+	ensureCollection(config.Get().MealCollectionName)
+	ensureCollection(config.Get().JobCollectionName)
 }
 
 // persists the passed documents into the database
@@ -153,7 +152,7 @@ func ReadDocumentIfExists(collectionName string, key string, result interface{})
 
 // Creates the specified database if it does not yet exist.
 func createDatabase() {
-	dbName := config.Cfg.DatabaseName
+	dbName := config.Get().DatabaseName
 	exists, _ := client.DatabaseExists(context.Background(), dbName)
 	if exists {
 		db, _ := client.Database(context.Background(), dbName)
@@ -194,14 +193,14 @@ func ensureCollection(collectionName string) {
 // the instance as member variable alive
 func createClient() {
 	conn, err := http.NewConnection(http.ConnectionConfig{
-		Endpoints: []string{config.Cfg.DatabaseAddress},
+		Endpoints: []string{config.Get().DatabaseAddress},
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
 	c, err := driver.NewClient(driver.ClientConfig{
 		Connection:     conn,
-		Authentication: driver.BasicAuthentication(config.Cfg.DatabaseUser, config.Cfg.DatabasePassword),
+		Authentication: driver.BasicAuthentication(config.Get().DatabaseUser, config.Get().DatabasePassword),
 	})
 
 	client = c

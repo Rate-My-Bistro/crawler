@@ -15,9 +15,9 @@ type JobResource struct {
 }
 
 // Define all routes for this resource
-func addResourceEndpoints(y *yarf.Yarf) {
-	y.Add("/jobs", new(JobResource))
-	y.Add("/jobs/:jobId", new(JobResource))
+func addJobsResource(server *yarf.Yarf) {
+	server.Add("/jobs", new(JobResource))
+	server.Add("/jobs/:jobId", new(JobResource))
 }
 
 // Implement the GET method
@@ -30,7 +30,6 @@ func (h *JobResource) Get(c *yarf.Context) error {
 	}
 
 	c.RenderJSON(jobs.JobQueue)
-
 	return nil
 }
 
@@ -44,34 +43,36 @@ func (h *JobResource) Post(c *yarf.Context) error {
 	}
 
 	c.Status(400)
-
+	c.Render("No body payload found, but a string date ('2001-12-31') as body is required")
 	return nil
 }
 
+// Define the handler for a GET request with jobId parameter
 func handleGetRequestJobIdParameter(c *yarf.Context, jobId string) {
 	var job jobs.Job
-	persister.ReadDocumentIfExists(config.Cfg.JobCollectionName, jobId, job)
+	persister.ReadDocumentIfExists(config.Get().JobCollectionName, jobId, &job)
 	if job.Id == "" {
-		c.Render("No job found for jobId " + jobId)
 		c.Status(404)
+		c.Render("No job found for jobId " + jobId)
 	} else {
 		c.RenderJSON(job)
 	}
 }
 
+// Define the handler for a POST request
 func handlePostRequestDateParameter(c *yarf.Context, dateReader io.ReadCloser) {
+	// Convert the request body to a string
 	buf := new(strings.Builder)
 	io.Copy(buf, dateReader)
 	date := buf.String()
 
 	if date == "" {
 		c.Status(400)
-		c.Render("Note date playload found in request body")
+		c.Render("No date playload found in request body")
 		return
 	}
 
 	jobId := jobs.EnqueueJob(date)
 	c.Status(201)
 	c.Render(jobId)
-
 }

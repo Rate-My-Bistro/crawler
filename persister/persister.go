@@ -99,7 +99,6 @@ func checkIfDocumentExists(mealKey string, ctx context.Context) bool {
 // Updates an existing document document
 // If it does not exists this function will fail
 func updateDocument(document Identifiable, ctx context.Context) {
-
 	if ctx == nil {
 		ctx = context.Background()
 	}

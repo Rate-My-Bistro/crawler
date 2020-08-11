@@ -6,7 +6,7 @@
  * access to cgm.ag network
 
 ## 1 Build
-To build a binary executable, execute in the project root:
+To build a binary, execute in the project root:
 ```go
 go build
 ```

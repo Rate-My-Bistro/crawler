@@ -16,8 +16,8 @@ import (
 
 // Represents a crawler job
 type Job struct {
-    Key         string   `json:"_key,omitempty"`
-    Id          string   `json:"id,omitempty"` // uuid that unique identifies the job
+	Key          string   `json:"_key,omitempty"` // unique identifier for the database
+	Id           string   `json:"id,omitempty"`   // uuid that unique identifies the job
 	DateToParse  string   `json:"dateToParse"`    // The date which the parser should parse / has parsed.
 	Status       string   `json:"status"`         // PENDING | RUNNING |  SUCCESS | FAILURE
 	EnqueuedTime string   `json:"enqueuedTime"`   // the time the job was enqueued
@@ -72,8 +72,8 @@ func EnqueueJob(dateToParse string) string {
 	uid, _ := uuid.NewV4()
 	identifier := uid.String()
 	newJob := Job{
-		Key:         identifier,
-		Id:          identifier,
+		Key:          identifier,
+		Id:           identifier,
 		Status:       "PENDING",
 		EnqueuedTime: time.Now().Format(time.RFC3339),
 		DateToParse:  dateToParse,

@@ -20,1375 +20,1377 @@
 </HEAD>
 
 <BODY>
-    <div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
-    <table align="center" border=0 cellspacing=0 cellpadding=0 width="100%">
-        <tr>
-            <td width="33%"></td>
-            <td width="33%" align="middle">
-                <img src="images/logo.png" border=0 style="text-align=center; padding-bottom:4px;" align="center"></td>
-            <td width="33%" align="right">
-                <!--<img align="middle" src="images/logo.jpg"
-        style="text-align=right; margin-bottom:2px;" />-->
-            </td>
-        </tr>
-    </table>
-    <table align="center" border=0 cellspacing=0 cellpadding=0 width="100%" class="navigation">
-        <tr>
-            <td align="middle" style="text-align:center">
-                <a class="menu" style="line-height:20px;" href="?do=karte">Karte<br><img src="images/pfeil.gif"
-                        border=0>Vorbestellen</a>
-                <a class="menu" href="?do=showbestell">MyBistro</a>
-                <a class="menu" href="?do=showartikel&artikel=Getraenk&titel=Getränke">Getränke</a>
-                <a class="menu" href="?do=showartikel&artikel=Kiosk&titel=Kiosk">Kiosk</a>
+<div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<table align="center" border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+        <td width="33%"></td>
+        <td width="33%" align="middle">
+            <img src="images/logo.png" border=0 style="text-align=center; padding-bottom:4px;" align="center"></td>
+        <td width="33%" align="right">
+            <!--<img align="middle" src="images/logo.jpg"
+    style="text-align=right; margin-bottom:2px;" />-->
+        </td>
+    </tr>
+</table>
+<table align="center" border=0 cellspacing=0 cellpadding=0 width="100%" class="navigation">
+    <tr>
+        <td align="middle" style="text-align:center">
+            <a class="menu" style="line-height:20px;" href="?do=karte">Karte<br><img src="images/pfeil.gif"
+                                                                                     border=0>Vorbestellen</a>
+            <a class="menu" href="?do=showbestell">MyBistro</a>
+            <a class="menu" href="?do=showartikel&artikel=Getraenk&titel=Getränke">Getränke</a>
+            <a class="menu" href="?do=showartikel&artikel=Kiosk&titel=Kiosk">Kiosk</a>
 
-                <a class="menu" href="?do=page&id=4">Zusatzstoffe Allergene</a>
-                <a class="menu" href="?do=page&id=3">Info</a>
-                <a class="menu" href="?do=page&id=1">Impressum</a>
-                <a class="menu" href="?do=page&id=2">Öffnungszeiten</a>
+            <a class="menu" href="?do=page&id=4">Zusatzstoffe Allergene</a>
+            <a class="menu" href="?do=page&id=3">Info</a>
+            <a class="menu" href="?do=page&id=1">Impressum</a>
+            <a class="menu" href="?do=page&id=2">Öffnungszeiten</a>
 
-                <div class="menu-inactive" style="cursor:default;">
-                    <nobr>Nicht eingeloggt</nobr>
-                </div>
-            </td>
-        </tr>
-    </table>
-    <br>
+            <div class="menu-inactive" style="cursor:default;">
+                <nobr>Nicht eingeloggt</nobr>
+            </div>
+        </td>
+    </tr>
+</table>
+<br>
 
 
-    <table width="100%" border=0>
-        <tr>
-            <td>
-                <!-- Newsticker start -->
-                <div style="float:left; width: 100%;padding-bottom:5px; text-align:center">
-                    <DIV ID="TICKER"
-                        STYLE="font-family:Calibri, Arial;margin:auto; display:none; border-top:1px solid #CCCCCC; border-bottom:1px solid #CCCCCC; overflow:hidden; background-color:#FFFFFF; width:520px"
-                        onmouseover="TICKER_PAUSED=true" onmouseout="TICKER_PAUSED=false">
+<table width="100%" border=0>
+    <tr>
+        <td>
+            <!-- Newsticker start -->
+            <div style="float:left; width: 100%;padding-bottom:5px; text-align:center">
+                <DIV ID="TICKER"
+                     STYLE="font-family:Calibri, Arial;margin:auto; display:none; border-top:1px solid #CCCCCC; border-bottom:1px solid #CCCCCC; overflow:hidden; background-color:#FFFFFF; width:520px"
+                     onmouseover="TICKER_PAUSED=true" onmouseout="TICKER_PAUSED=false">
 
                         <span style='background-color:#7FB51A;'> &nbsp; &nbsp; <font color=#FFFFFF> <B>Aktuelles</B>
                             </font>&nbsp; &nbsp; </span> &nbsp;
 
-                        <b>Liebe Gäste, wir möchten die Umwelt schonen und bieten Ihnen ab sofort ein Pfandsystem an.
-                            Pro Mehrweggeschirr wird ein Pfand von 10,00 Euro in bar erhoben. Bei Rückgabe werden die
-                            10,00 Euro ausgezahlt oder gegen eine neue Box getauscht.</b>&nbsp; &nbsp; &nbsp;
-                    </DIV>
-                </div>
-                <script type="text/javascript" src="include/webticker_lib.js" language="javascript"></script>
-                <!-- Newsticker ende -->
-            </td>
-        </tr>
-        <tr>
-            <td valign="top" style="text-align:center">
-                <center>
-                    <!-- Wochennavigation start -->
-                    <h2 style="margin-top:5px; margin-bottom:10px">
-                        <a href="index.php?day=2						&month=6						&year=2020						" title="Vorherige Woche"
-                            style="text-decoration:none">
-                            <img src="images/left-32.png" width="30" height="15" border=0>
-                        </a>
-                        &nbsp;Menüauswahl für die 24 .KW&nbsp;
-                        <a href="index.php?day=16						&month=6						&year=2020						" title="Nächste Woche">
-                            <img src="images/right-32.png" width="30" height="15" border=0>
-                        </a>
-                    </h2>
-                    <!-- Wochennavigation ende -->
-                </center>
-
-                <div id="wholeMenu" class="base-layer">
-                    <!-- Tagesanzeige start -->
-                    <div class="table-col">
-                        <div class="table-col-header">
-                            <p class="menuName"><B>Montag<br>8.6.2020</B></p>
-                        </div>
-                    </div>
-                    <div class="table-col">
-                        <div class="table-col-header">
-                            <p class="menuName"><B>Dienstag<br>9.6.2020</B></p>
-                        </div>
-                    </div>
-                    <div class="table-col">
-                        <div class="table-col-header">
-                            <p class="menuName"><B>Mittwoch<br>10.6.2020</B></p>
-                        </div>
-                    </div>
-                    <div class="table-col">
-                        <div class="table-col-header">
-                            <p class="menuName"><B>Donnerstag<br>11.6.2020</B></p>
-                        </div>
-                    </div>
-                    <div class="table-col">
-                        <div class="table-col-header">
-                            <p class="menuName"><B>Freitag<br>12.6.2020</B></p>
-                        </div>
-                    </div>
-                    <!-- Tagesanzeige ende -->
-
-                    <!-- Menues start -->
-                    <div id="day" class="table-col">
-                        <div>
-                            <!-- Keine Vorbestellung mehr möglich -->
-
-                            <div id="meal" class="table-cell" style="position:relative;background-color:">
-
-
-                                <p class="menuName">Käsetortellini</p>
-                                <p class="beschreibung">mit Blattspinat-Sahnesauce</p>
-                                <div style="position:relative; vertical-align:bottom">
-                                    <p class="preis">Preis: <b>5,10&euro;</b></p>
-                                </div>
-
-                                <!-- Beilagen start -->
-                                <!-- Beilagen ende -->
-
-                                <!-- Zusatzstoffe start -->
-
-                                <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
-
-
-                                    <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
-                                        Zusatz:
-                                        1, 6
-                                    </div>
-                                    <!--/div-->
-
-                                </div>
-                                <!-- Zusatzstoffe ende -->
-                                <!-- Allergene start -->
-                                <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
-                                        Allergen:
-                                        A, C, G, I
-                                    </div>
-                                </div>
-                                <!-- Allergene ende -->
-
-
-                            </div>
-                            <!-- Keine Vorbestellung mehr möglich -->
-
-                            <div id="meal" class="table-cell" style="position:relative;background-color:">
-
-
-                                <p class="menuName">Mozzarella Hähnchen</p>
-                                <p class="beschreibung"></p>
-                                <div style="position:relative; vertical-align:bottom">
-                                    <p class="preis">Preis: <b>4,80&euro;</b></p>
-                                </div>
-
-                                <!-- Beilagen start -->
-                                <div>
-                                    <hr noshade class="thinLine" style="width:90%">
-
-                                    <div style="padding-left:10px">
-                                        <div style="text-align:left; width:120px;float:left">
-                                            Röstiecken
-                                        </div>
-                                        <div style="text-align:right;width:40px;float:left">
-                                            2,00&euro;
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div>
-
-                                    <div style="padding-left:10px">
-                                        <div style="text-align:left; width:120px;float:left">
-                                            Bohnengemüse
-                                        </div>
-                                        <div style="text-align:right;width:40px;float:left">
-                                            1,80&euro;
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <!-- Beilagen ende -->
-
-                                <!-- Zusatzstoffe start -->
-
-                                <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
-
-
-                                    <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
-                                        Zusatz:
-                                        1, 5
-                                    </div>
-                                    <!--/div-->
-
-                                </div>
-                                <!-- Zusatzstoffe ende -->
-                                <!-- Allergene start -->
-                                <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
-                                        Allergen:
-                                        A, G, I, C
-                                    </div>
-                                </div>
-                                <!-- Allergene ende -->
-
-
-                            </div>
-                            <!-- Keine Vorbestellung mehr möglich -->
-
-                            <div id="meal" class="table-cell" style="position:relative;background-color:">
-
-
-                                <p class="menuName">geb. Fleischkäse</p>
-                                <p class="beschreibung">mit Sauce</p>
-                                <div style="position:relative; vertical-align:bottom">
-                                    <p class="preis">Preis: <b>4,20&euro;</b></p>
-                                </div>
-
-                                <!-- Beilagen start -->
-                                <div>
-                                    <hr noshade class="thinLine" style="width:90%">
-
-                                    <div style="padding-left:10px">
-                                        <div style="text-align:left; width:120px;float:left">
-                                            Zwiebel-Kartoffel-Püree
-                                        </div>
-                                        <div style="text-align:right;width:40px;float:left">
-                                            1,80&euro;
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div>
-
-                                    <div style="padding-left:10px">
-                                        <div style="text-align:left; width:120px;float:left">
-                                            Farmersalat
-                                        </div>
-                                        <div style="text-align:right;width:40px;float:left">
-                                            1,70&euro;
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <!-- Beilagen ende -->
-
-                                <!-- Zusatzstoffe start -->
-
-                                <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
-
-
-                                    <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
-                                        Zusatz:
-                                        1, 5, 6
-                                    </div>
-                                    <!--/div-->
-
-                                </div>
-                                <!-- Zusatzstoffe ende -->
-                                <!-- Allergene start -->
-                                <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
-                                        Allergen:
-                                        A, G, I, J
-                                    </div>
-                                </div>
-                                <!-- Allergene ende -->
-
-
-                            </div>
-                            <!-- Keine Vorbestellung mehr möglich -->
-
-                            <div id="meal" class="table-cell" style="position:relative;background-color:greenyellow">
-
-
-                                <p class="menuName">Großer Salatteller</p>
-                                <p class="beschreibung">Großer Teller Salat aus der Salatbar
-                                </p>
-                                <div style="position:relative; vertical-align:bottom">
-                                    <p class="preis">Preis: <b>6,20&euro;</b></p>
-                                </div>
-
-                                <!-- Beilagen start -->
-                                <!-- Beilagen ende -->
-
-                                <!-- Zusatzstoffe start -->
-
-                                <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
-
-
-                                    <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
-                                        Zusatz:
-                                        1, 2, 4, 5, 6, 9, 10
-                                    </div>
-                                    <!--/div-->
-
-                                </div>
-                                <!-- Zusatzstoffe ende -->
-                                <!-- Allergene start -->
-                                <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
-                                        Allergen:
-                                        A, B, C, D, F, G, H, I, J, K
-                                    </div>
-                                </div>
-                                <!-- Allergene ende -->
-
-
-                            </div>
-                            <!-- Keine Vorbestellung mehr möglich -->
-
-                            <div id="meal" class="table-cell" style="position:relative;background-color:greenyellow">
-
-
-                                <p class="menuName">kleiner Salatteller</p>
-                                <p class="beschreibung">aus der Salatbar
-                                    mit Beilage und Brötchen</p>
-                                <div style="position:relative; vertical-align:bottom">
-                                    <p class="preis">Preis: <b>5,60&euro;</b></p>
-                                </div>
-
-                                <!-- Beilagen start -->
-                                <!-- Beilagen ende -->
-
-                                <!-- Zusatzstoffe start -->
-
-                                <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
-
-
-                                    <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
-                                        Zusatz:
-                                        1, 2, 4, 5, 6, 9, 10
-                                    </div>
-                                    <!--/div-->
-
-                                </div>
-                                <!-- Zusatzstoffe ende -->
-                                <!-- Allergene start -->
-                                <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
-                                        Allergen:
-                                        A, C, D, E, F, G, H, I, J, K
-                                    </div>
-                                </div>
-                                <!-- Allergene ende -->
-
-
-                            </div>
-                        </div>
-                    </div>
-                    <div id="day" class="table-col">
-                        <div>
-                            <!-- Keine Vorbestellung mehr möglich -->
-
-                            <div id="meal" class="table-cell" style="position:relative;background-color:greenyellow">
-
-
-                                <p class="menuName">Erbsensuppe</p>
-                                <p class="beschreibung">und Brötchen</p>
-                                <div style="position:relative; vertical-align:bottom">
-                                    <p class="preis">Preis: <b>4,20&euro;</b></p>
-                                </div>
-
-                                <!-- Beilagen start -->
-                                <div>
-                                    <hr noshade class="thinLine" style="width:90%">
-
-                                    <div style="padding-left:10px">
-                                        <div style="text-align:left; width:120px;float:left">
-                                            Würstchen zur Suppe
-                                        </div>
-                                        <div style="text-align:right;width:40px;float:left">
-                                            2,00&euro;
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <!-- Beilagen ende -->
-
-                                <!-- Zusatzstoffe start -->
-
-                                <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
-
-
-                                    <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
-                                        Zusatz:
-                                        5, 6, 8, 11
-                                    </div>
-                                    <!--/div-->
-
-                                </div>
-                                <!-- Zusatzstoffe ende -->
-                                <!-- Allergene start -->
-                                <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
-                                        Allergen:
-                                        A, G, H, I, J
-                                    </div>
-                                </div>
-                                <!-- Allergene ende -->
-
-
-                            </div>
-                            <!-- Keine Vorbestellung mehr möglich -->
-
-                            <div id="meal" class="table-cell" style="position:relative;background-color:">
-
-
-                                <p class="menuName">Bratwürstchen</p>
-                                <p class="beschreibung">mit Sauce</p>
-                                <div style="position:relative; vertical-align:bottom">
-                                    <p class="preis">Preis: <b>3,90&euro;</b></p>
-                                </div>
-
-                                <!-- Beilagen start -->
-                                <div>
-                                    <hr noshade class="thinLine" style="width:90%">
-
-                                    <div style="padding-left:10px">
-                                        <div style="text-align:left; width:120px;float:left">
-                                            Kartoffelpüree
-                                        </div>
-                                        <div style="text-align:right;width:40px;float:left">
-                                            1,80&euro;
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div>
-
-                                    <div style="padding-left:10px">
-                                        <div style="text-align:left; width:120px;float:left">
-                                            Sauerkraut
-                                        </div>
-                                        <div style="text-align:right;width:40px;float:left">
-                                            1,80&euro;
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <!-- Beilagen ende -->
-
-                                <!-- Zusatzstoffe start -->
-
-                                <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
-
-
-                                    <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
-                                        Zusatz:
-                                        5, 6, 11
-                                    </div>
-                                    <!--/div-->
-
-                                </div>
-                                <!-- Zusatzstoffe ende -->
-                                <!-- Allergene start -->
-                                <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
-                                        Allergen:
-                                        A, G, I, J
-                                    </div>
-                                </div>
-                                <!-- Allergene ende -->
-
-
-                            </div>
-                            <!-- Keine Vorbestellung mehr möglich -->
-
-                            <div id="meal" class="table-cell" style="position:relative;background-color:">
-
-
-                                <p class="menuName">Schweineschnitzel mit Spargel</p>
-                                <p class="beschreibung">und Sauce Hollondaise überbacken</p>
-                                <div style="position:relative; vertical-align:bottom">
-                                    <p class="preis">Preis: <b>5,10&euro;</b></p>
-                                </div>
-
-                                <!-- Beilagen start -->
-                                <div>
-                                    <hr noshade class="thinLine" style="width:90%">
-
-                                    <div style="padding-left:10px">
-                                        <div style="text-align:left; width:120px;float:left">
-                                            Kartoffelkroketten
-                                        </div>
-                                        <div style="text-align:right;width:40px;float:left">
-                                            1,80&euro;
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <!-- Beilagen ende -->
-
-                                <!-- Zusatzstoffe start -->
-
-                                <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
-
-
-                                    <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
-                                        Zusatz:
-                                        6
-                                    </div>
-                                    <!--/div-->
-
-                                </div>
-                                <!-- Zusatzstoffe ende -->
-                                <!-- Allergene start -->
-                                <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
-                                        Allergen:
-                                        C, G, A, I, J
-                                    </div>
-                                </div>
-                                <!-- Allergene ende -->
-
-
-                            </div>
-                            <!-- Keine Vorbestellung mehr möglich -->
-
-                            <div id="meal" class="table-cell" style="position:relative;background-color:">
-
-
-                                <p class="menuName">Großer Salatteller</p>
-                                <p class="beschreibung">Großer Teller Salat aus der Salatbar
-                                </p>
-                                <div style="position:relative; vertical-align:bottom">
-                                    <p class="preis">Preis: <b>6,20&euro;</b></p>
-                                </div>
-
-                                <!-- Beilagen start -->
-                                <!-- Beilagen ende -->
-
-                                <!-- Zusatzstoffe start -->
-
-                                <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
-
-
-                                    <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
-                                        Zusatz:
-                                        1, 2, 4, 5, 6, 9, 10
-                                    </div>
-                                    <!--/div-->
-
-                                </div>
-                                <!-- Zusatzstoffe ende -->
-                                <!-- Allergene start -->
-                                <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
-                                        Allergen:
-                                        A, B, C, D, F, G, H, I, J, K
-                                    </div>
-                                </div>
-                                <!-- Allergene ende -->
-
-
-                            </div>
-                            <!-- Keine Vorbestellung mehr möglich -->
-
-                            <div id="meal" class="table-cell" style="position:relative;background-color:">
-
-
-                                <p class="menuName">kleiner Salatteller</p>
-                                <p class="beschreibung">aus der Salatbar
-                                    mit Beilage und Brötchen</p>
-                                <div style="position:relative; vertical-align:bottom">
-                                    <p class="preis">Preis: <b>5,60&euro;</b></p>
-                                </div>
-
-                                <!-- Beilagen start -->
-                                <!-- Beilagen ende -->
-
-                                <!-- Zusatzstoffe start -->
-
-                                <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
-
-
-                                    <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
-                                        Zusatz:
-                                        1, 2, 4, 5, 6, 9, 10
-                                    </div>
-                                    <!--/div-->
-
-                                </div>
-                                <!-- Zusatzstoffe ende -->
-                                <!-- Allergene start -->
-                                <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
-                                        Allergen:
-                                        A, C, D, E, F, G, H, I, J, K
-                                    </div>
-                                </div>
-                                <!-- Allergene ende -->
-
-
-                            </div>
-                        </div>
-                    </div>
-                    <div id="day" class="table-col">
-                        <div>
-                            <!-- Keine Vorbestellung mehr möglich -->
-
-                            <div id="meal" class="table-cell" style="position:relative;background-color:">
-
-
-                                <p class="menuName">Veg. Asiatische Reispfanne</p>
-                                <p class="beschreibung">mit Chinagemüse, Sprossen,Reis
-                                    mit Sojasauce</p>
-                                <div style="position:relative; vertical-align:bottom">
-                                    <p class="preis">Preis: <b>5,10&euro;</b></p>
-                                </div>
-
-                                <!-- Beilagen start -->
-                                <!-- Beilagen ende -->
-
-                                <!-- Zusatzstoffe start -->
-
-                                <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
-
-
-                                    <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
-                                        Zusatz:
-                                        6, 9
-                                    </div>
-                                    <!--/div-->
-
-                                </div>
-                                <!-- Zusatzstoffe ende -->
-                                <!-- Allergene start -->
-                                <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
-                                        Allergen:
-                                        E, F, G, I, J, K
-                                    </div>
-                                </div>
-                                <!-- Allergene ende -->
-
-
-                            </div>
-                            <!-- Keine Vorbestellung mehr möglich -->
-
-                            <div id="meal" class="table-cell" style="position:relative;background-color:">
-
-
-                                <p class="menuName">Hähnchenschenkel</p>
-                                <p class="beschreibung">im Backteig</p>
-                                <div style="position:relative; vertical-align:bottom">
-                                    <p class="preis">Preis: <b>4,10&euro;</b></p>
-                                </div>
-
-                                <!-- Beilagen start -->
-                                <div>
-                                    <hr noshade class="thinLine" style="width:90%">
-
-                                    <div style="padding-left:10px">
-                                        <div style="text-align:left; width:120px;float:left">
-                                            Kartoffelschnee
-                                        </div>
-                                        <div style="text-align:right;width:40px;float:left">
-                                            2,00&euro;
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div>
-
-                                    <div style="padding-left:10px">
-                                        <div style="text-align:left; width:120px;float:left">
-                                            Gemüse
-                                        </div>
-                                        <div style="text-align:right;width:40px;float:left">
-                                            1,80&euro;
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <!-- Beilagen ende -->
-
-                                <!-- Zusatzstoffe start -->
-
-                                <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
-
-
-                                    <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
-                                        Zusatz:
-                                        6
-                                    </div>
-                                    <!--/div-->
-
-                                </div>
-                                <!-- Zusatzstoffe ende -->
-                                <!-- Allergene start -->
-                                <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
-                                        Allergen:
-                                        A, G, I
-                                    </div>
-                                </div>
-                                <!-- Allergene ende -->
-
-
-                            </div>
-                            <!-- Keine Vorbestellung mehr möglich -->
-
-                            <div id="meal" class="table-cell" style="position:relative;background-color:greenyellow">
-
-
-                                <p class="menuName">Seelachs </p>
-                                <p class="beschreibung">mit Zwiebel-Apfel-Sauce</p>
-                                <div style="position:relative; vertical-align:bottom">
-                                    <p class="preis">Preis: <b>4,30&euro;</b></p>
-                                </div>
-
-                                <!-- Beilagen start -->
-                                <div>
-                                    <hr noshade class="thinLine" style="width:90%">
-
-                                    <div style="padding-left:10px">
-                                        <div style="text-align:left; width:120px;float:left">
-                                            Pellkartoffeln
-                                        </div>
-                                        <div style="text-align:right;width:40px;float:left">
-                                            2,00&euro;
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div>
-
-                                    <div style="padding-left:10px">
-                                        <div style="text-align:left; width:120px;float:left">
-                                            Beilagensalat
-                                        </div>
-                                        <div style="text-align:right;width:40px;float:left">
-                                            2,00&euro;
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <!-- Beilagen ende -->
-
-                                <!-- Zusatzstoffe start -->
-
-                                <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
-
-
-                                    <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
-                                        Zusatz:
-                                        6
-                                    </div>
-                                    <!--/div-->
-
-                                </div>
-                                <!-- Zusatzstoffe ende -->
-                                <!-- Allergene start -->
-                                <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
-                                        Allergen:
-                                        A, D, G, H, I, J
-                                    </div>
-                                </div>
-                                <!-- Allergene ende -->
-
-
-                            </div>
-                            <!-- Keine Vorbestellung mehr möglich -->
-
-                            <div id="meal" class="table-cell" style="position:relative;background-color:">
-
-
-                                <p class="menuName">Großer Salatteller</p>
-                                <p class="beschreibung">Großer Teller Salat aus der Salatbar
-                                </p>
-                                <div style="position:relative; vertical-align:bottom">
-                                    <p class="preis">Preis: <b>6,20&euro;</b></p>
-                                </div>
-
-                                <!-- Beilagen start -->
-                                <!-- Beilagen ende -->
-
-                                <!-- Zusatzstoffe start -->
-
-                                <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
-
-
-                                    <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
-                                        Zusatz:
-                                        1, 2, 4, 5, 6, 9, 10
-                                    </div>
-                                    <!--/div-->
-
-                                </div>
-                                <!-- Zusatzstoffe ende -->
-                                <!-- Allergene start -->
-                                <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
-                                        Allergen:
-                                        A, B, C, D, F, G, H, I, J, K
-                                    </div>
-                                </div>
-                                <!-- Allergene ende -->
-
-
-                            </div>
-                            <!-- Keine Vorbestellung mehr möglich -->
-
-                            <div id="meal" class="table-cell" style="position:relative;background-color:">
-
-
-                                <p class="menuName">kleiner Salatteller</p>
-                                <p class="beschreibung">aus der Salatbar
-                                    mit Beilage und Brötchen</p>
-                                <div style="position:relative; vertical-align:bottom">
-                                    <p class="preis">Preis: <b>5,60&euro;</b></p>
-                                </div>
-
-                                <!-- Beilagen start -->
-                                <!-- Beilagen ende -->
-
-                                <!-- Zusatzstoffe start -->
-
-                                <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
-
-
-                                    <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
-                                        Zusatz:
-                                        1, 2, 4, 5, 6, 9, 10
-                                    </div>
-                                    <!--/div-->
-
-                                </div>
-                                <!-- Zusatzstoffe ende -->
-                                <!-- Allergene start -->
-                                <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
-                                        Allergen:
-                                        A, C, D, E, F, G, H, I, J, K
-                                    </div>
-                                </div>
-                                <!-- Allergene ende -->
-
-
-                            </div>
-                        </div>
-                    </div>
-                    <div id="day" class="table-col">
-                        <div>
-                            <!-- Keine Vorbestellung mehr möglich -->
-
-                            <div id="meal" class="table-cell" style="position:relative;background-color:">
-
-
-                                <p class="menuName">Fronleichnam</p>
-                                <p class="beschreibung">bis Montag</p>
-
-                                <!-- Beilagen start -->
-                                <!-- Beilagen ende -->
-
-                                <!-- Zusatzstoffe start -->
-
-                                <!-- Zusatzstoffe ende -->
-                                <!-- Allergene start -->
-                                <!-- Allergene ende -->
-
-
-                            </div>
-                        </div>
-                    </div>
-                    <div id="day" class="table-col">
-                        <div>
-                            <!-- Keine Vorbestellung mehr möglich -->
-
-                            <div id="meal" class="table-cell" style="position:relative;background-color:greenyellow">
-
-
-                                <p class="menuName">Pizza Margherita</p>
-                                <p class="beschreibung">mit Rucola</p>
-                                <div style="position:relative; vertical-align:bottom">
-                                    <p class="preis">Preis: <b>4,70&euro;</b></p>
-                                </div>
-
-                                <!-- Beilagen start -->
-                                <!-- Beilagen ende -->
-
-                                <!-- Zusatzstoffe start -->
-
-                                <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
-
-
-                                    <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
-                                        Zusatz:
-                                        1, 6, 7
-                                    </div>
-                                    <!--/div-->
-
-                                </div>
-                                <!-- Zusatzstoffe ende -->
-                                <!-- Allergene start -->
-                                <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
-                                        Allergen:
-                                        A, G
-                                    </div>
-                                </div>
-                                <!-- Allergene ende -->
-
-
-                            </div>
-                            <!-- Keine Vorbestellung mehr möglich -->
-
-                            <div id="meal" class="table-cell" style="position:relative;background-color:">
-
-
-                                <p class="menuName">Pizza Tonno</p>
-                                <p class="beschreibung">mit Thunfisch
-                                </p>
-                                <div style="position:relative; vertical-align:bottom">
-                                    <p class="preis">Preis: <b>5,30&euro;</b></p>
-                                </div>
-
-                                <!-- Beilagen start -->
-                                <!-- Beilagen ende -->
-
-                                <!-- Zusatzstoffe start -->
-
-                                <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
-
-
-                                    <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
-                                        Zusatz:
-                                        1, 6, 7
-                                    </div>
-                                    <!--/div-->
-
-                                </div>
-                                <!-- Zusatzstoffe ende -->
-                                <!-- Allergene start -->
-                                <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
-                                        Allergen:
-                                        A, D, G
-                                    </div>
-                                </div>
-                                <!-- Allergene ende -->
-
-
-                            </div>
-                            <!-- Keine Vorbestellung mehr möglich -->
-
-                            <div id="meal" class="table-cell" style="position:relative;background-color:">
-
-
-                                <p class="menuName">Pizza Salami</p>
-                                <p class="beschreibung">mit Rucola und geriebenen Käse</p>
-                                <div style="position:relative; vertical-align:bottom">
-                                    <p class="preis">Preis: <b>5,30&euro;</b></p>
-                                </div>
-
-                                <!-- Beilagen start -->
-                                <!-- Beilagen ende -->
-
-                                <!-- Zusatzstoffe start -->
-
-                                <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
-
-
-                                    <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
-                                        Zusatz:
-                                        1, 6, 7
-                                    </div>
-                                    <!--/div-->
-
-                                </div>
-                                <!-- Zusatzstoffe ende -->
-                                <!-- Allergene start -->
-                                <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
-                                        Allergen:
-                                        A, G
-                                    </div>
-                                </div>
-                                <!-- Allergene ende -->
-
-
-                            </div>
-                            <!-- Keine Vorbestellung mehr möglich -->
-
-                            <div id="meal" class="table-cell" style="position:relative;background-color:">
-
-
-                                <p class="menuName">Pizza Hawaii</p>
-                                <p class="beschreibung">mit Tomatensauce, Schinken
-                                    und Käse</p>
-                                <div style="position:relative; vertical-align:bottom">
-                                    <p class="preis">Preis: <b>5,30&euro;</b></p>
-                                </div>
-
-                                <!-- Beilagen start -->
-                                <!-- Beilagen ende -->
-
-                                <!-- Zusatzstoffe start -->
-
-                                <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
-
-
-                                </div>
-                                <!-- Zusatzstoffe ende -->
-                                <!-- Allergene start -->
-                                <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
-                                </div>
-                                <!-- Allergene ende -->
-
-
-                            </div>
-                            <!-- Keine Vorbestellung mehr möglich -->
-
-                            <div id="meal" class="table-cell" style="position:relative;background-color:">
-
-
-                                <p class="menuName">Großer Salatteller</p>
-                                <p class="beschreibung">Großer Teller Salat aus der Salatbar
-                                </p>
-                                <div style="position:relative; vertical-align:bottom">
-                                    <p class="preis">Preis: <b>6,20&euro;</b></p>
-                                </div>
-
-                                <!-- Beilagen start -->
-                                <!-- Beilagen ende -->
-
-                                <!-- Zusatzstoffe start -->
-
-                                <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
-
-
-                                    <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
-                                        Zusatz:
-                                        1, 2, 4, 5, 6, 9, 10
-                                    </div>
-                                    <!--/div-->
-
-                                </div>
-                                <!-- Zusatzstoffe ende -->
-                                <!-- Allergene start -->
-                                <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
-                                        Allergen:
-                                        A, B, C, D, F, G, H, I, J, K
-                                    </div>
-                                </div>
-                                <!-- Allergene ende -->
-
-
-                            </div>
-                            <!-- Keine Vorbestellung mehr möglich -->
-
-                            <div id="meal" class="table-cell" style="position:relative;background-color:">
-
-
-                                <p class="menuName">kleiner Salatteller</p>
-                                <p class="beschreibung">aus der Salatbar
-                                    mit Beilage und Brötchen</p>
-                                <div style="position:relative; vertical-align:bottom">
-                                    <p class="preis">Preis: <b>5,60&euro;</b></p>
-                                </div>
-
-                                <!-- Beilagen start -->
-                                <!-- Beilagen ende -->
-
-                                <!-- Zusatzstoffe start -->
-
-                                <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
-
-
-                                    <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
-                                        Zusatz:
-                                        1, 2, 4, 5, 6, 9, 10
-                                    </div>
-                                    <!--/div-->
-
-                                </div>
-                                <!-- Zusatzstoffe ende -->
-                                <!-- Allergene start -->
-                                <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
-                                    <div
-                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
-                                        Allergen:
-                                        A, C, D, E, F, G, H, I, J, K
-                                    </div>
-                                </div>
-                                <!-- Allergene ende -->
-
-
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Menues ende -->
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <!-- Zusatzstoffe start -->
-                <center>
-                    <div style="width:992px; ">
-                        <div class="navigation"
-                            style="border:1px solid black; margin-right:7px; padding-top:10px; height:100px;background-color:#f2f2f2">
-
-                            <div style="margin-bottom:20px;font-size:12pt;">
-                                <b>Zusatzstoffe:</b>
-                            </div>
-
-                            <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
-                                1 = Konservierungsstoff
-                            </div>
-
-                            <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
-                                2 = mit Farbstoff
-                            </div>
-
-                            <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
-                                3 = geschwefelt
-                            </div>
-
-                            <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
-                                4 = geschwärzt
-                            </div>
-
-                            <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
-                                5 = mit Antioxidationsmittel
-                            </div>
-
-                            <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
-                                6 = Süßungsmittel
-                            </div>
-
-                            <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
-                                7 = Geschmacksverstärker
-                            </div>
-
-                            <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
-                                8 = Phosphat
-                            </div>
-
-                            <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
-                                9 = Nüssen
-                            </div>
-
-                            <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
-                                10 = Gewachst
-                            </div>
-
-                            <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
-                                11 = Nitrit
-                            </div>
-
-                        </div>
-                    </div>
-                </center>
-                <!-- Zusatzstoffe ende -->
-            </td>
-        </tr>
-        <!-- Allergene start -->
-        <tr>
-            <td>
-
-                <center>
-                    <div style="width:992px; ">
-                        <div class="navigation"
-                            style="border:1px solid black; margin-right:7px; padding-top:10px; height:100px;background-color:#f2f2f2">
-
-                            <div style="margin-bottom:20px;font-size:12pt;">
-                                <b>Allergene:</b>
-                            </div>
-
-                            <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
-                                A = Glutenhaltiges
-                            </div>
-
-                            <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
-                                B = Krebstiere
-                            </div>
-
-                            <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
-                                C = Eier
-                            </div>
-
-                            <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
-                                D = Fische
-                            </div>
-
-                            <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
-                                E = Erdnüsse
-                            </div>
-
-                            <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
-                                F = Sojabohnen
-                            </div>
-
-                            <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
-                                G = Milch (einschließlich Laktose)
-                            </div>
-
-                            <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
-                                H = Schalenfrüchte
-                            </div>
-
-                            <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
-                                I = Sellerie
-                            </div>
-
-                            <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
-                                J = Senf
-                            </div>
-
-                            <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
-                                K = Sesamsamen
-                            </div>
-
-                            <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
-                                L = Schwefeldioxid
-                            </div>
-
-                            <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
-                                M = Lupinen
-                            </div>
-
-                            <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
-                                N = Weichtiere
-                            </div>
-
-                        </div>
-                    </div>
-                </center>
-
-            </td>
-        </tr>
-        <!-- allergene ende -->
-        <!-- Farben start -->
-        <tr>
-            <td>
-
-                <center>
-                    <div style="width:992px; ">
-                        <div class="navigation"
-                            style="border:1px solid black; margin-right:7px; padding-top:10px; height:100px;background-color:#f2f2f2">
-                            <div style="margin-bottom:20px;font-size:12pt;">
-                                <b>Farben:</b>
-                            </div>
-                            <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
-                                <div
-                                    style="float:left;background-color:greenyellow;border:1px solid black;height:15px; width:20px">
-                                </div>
-                                <div style="float:left; margin-left:5px"> = Feel Good Essen (<500 kcal)</div>
-                                </div>
-                            </div>
-                        </div>
-                </center>
-
-            </td>
-        </tr>
-        <!-- Farben ende -->
-    </table>
-    <br>
-    <br>
-    <br>
-    <div>
-
-        <!--
-<table cellspacing=0>
-    <tr>
-        <td >
-            <img src="images/Footer_line_new1.png"  title="Ecos-Info-Seiten"/>
-        </td>
-        <td >
-            <img src="images/Footer_big_new.png"  title="Ecos-Info-Seiten"/>
+                    <b>Liebe Gäste, wir möchten die Umwelt schonen und bieten Ihnen ab sofort ein Pfandsystem an.
+                        Pro Mehrweggeschirr wird ein Pfand von 10,00 Euro in bar erhoben. Bei Rückgabe werden die
+                        10,00 Euro ausgezahlt oder gegen eine neue Box getauscht.</b>&nbsp; &nbsp; &nbsp;
+                </DIV>
+            </div>
+            <script type="text/javascript" src="include/webticker_lib.js" language="javascript"></script>
+            <!-- Newsticker ende -->
         </td>
     </tr>
+    <tr>
+        <td valign="top" style="text-align:center">
+            <center>
+                <!-- Wochennavigation start -->
+                <h2 style="margin-top:5px; margin-bottom:10px">
+                    <a href="index.php?day=2						&month=6						&year=2020						"
+                       title="Vorherige Woche"
+                       style="text-decoration:none">
+                        <img src="images/left-32.png" width="30" height="15" border=0>
+                    </a>
+                    &nbsp;Menüauswahl für die 24 .KW&nbsp;
+                    <a href="index.php?day=16						&month=6						&year=2020						"
+                       title="Nächste Woche">
+                        <img src="images/right-32.png" width="30" height="15" border=0>
+                    </a>
+                </h2>
+                <!-- Wochennavigation ende -->
+            </center>
+
+            <div id="wholeMenu" class="base-layer">
+                <!-- Tagesanzeige start -->
+                <div class="table-col">
+                    <div class="table-col-header">
+                        <p class="menuName"><B>Montag<br>8.6.2020</B></p>
+                    </div>
+                </div>
+                <div class="table-col">
+                    <div class="table-col-header">
+                        <p class="menuName"><B>Dienstag<br>9.6.2020</B></p>
+                    </div>
+                </div>
+                <div class="table-col">
+                    <div class="table-col-header">
+                        <p class="menuName"><B>Mittwoch<br>10.6.2020</B></p>
+                    </div>
+                </div>
+                <div class="table-col">
+                    <div class="table-col-header">
+                        <p class="menuName"><B>Donnerstag<br>11.6.2020</B></p>
+                    </div>
+                </div>
+                <div class="table-col">
+                    <div class="table-col-header">
+                        <p class="menuName"><B>Freitag<br>12.6.2020</B></p>
+                    </div>
+                </div>
+                <!-- Tagesanzeige ende -->
+
+                <!-- Menues start -->
+                <div id="day" class="table-col">
+                    <div>
+                        <!-- Keine Vorbestellung mehr möglich -->
+
+                        <div id="meal" class="table-cell" style="position:relative;background-color:">
+
+
+                            <p class="menuName">Käsetortellini</p>
+                            <p class="beschreibung">mit Blattspinat-Sahnesauce</p>
+                            <div style="position:relative; vertical-align:bottom">
+                                <p class="preis">Preis: <b>5,10&euro;</b></p>
+                            </div>
+
+                            <!-- Beilagen start -->
+                            <!-- Beilagen ende -->
+
+                            <!-- Zusatzstoffe start -->
+
+                            <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
+
+
+                                <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
+                                    Zusatz:
+                                    1, 6
+                                </div>
+                                <!--/div-->
+
+                            </div>
+                            <!-- Zusatzstoffe ende -->
+                            <!-- Allergene start -->
+                            <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
+                                    Allergen:
+                                    A, C, G, I
+                                </div>
+                            </div>
+                            <!-- Allergene ende -->
+
+
+                        </div>
+                        <!-- Keine Vorbestellung mehr möglich -->
+
+                        <div id="meal" class="table-cell" style="position:relative;background-color:">
+
+
+                            <p class="menuName">Mozzarella Hähnchen</p>
+                            <p class="beschreibung"></p>
+                            <div style="position:relative; vertical-align:bottom">
+                                <p class="preis">Preis: <b>4,80&euro;</b></p>
+                            </div>
+
+                            <!-- Beilagen start -->
+                            <div>
+                                <hr noshade class="thinLine" style="width:90%">
+
+                                <div style="padding-left:10px">
+                                    <div style="text-align:left; width:120px;float:left">
+                                        Röstiecken
+                                    </div>
+                                    <div style="text-align:right;width:40px;float:left">
+                                        2,00&euro;
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div>
+
+                                <div style="padding-left:10px">
+                                    <div style="text-align:left; width:120px;float:left">
+                                        Bohnengemüse
+                                    </div>
+                                    <div style="text-align:right;width:40px;float:left">
+                                        1,80&euro;
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Beilagen ende -->
+
+                            <!-- Zusatzstoffe start -->
+
+                            <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
+
+
+                                <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
+                                    Zusatz:
+                                    1, 5
+                                </div>
+                                <!--/div-->
+
+                            </div>
+                            <!-- Zusatzstoffe ende -->
+                            <!-- Allergene start -->
+                            <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
+                                    Allergen:
+                                    A, G, I, C
+                                </div>
+                            </div>
+                            <!-- Allergene ende -->
+
+
+                        </div>
+                        <!-- Keine Vorbestellung mehr möglich -->
+
+                        <div id="meal" class="table-cell" style="position:relative;background-color:">
+
+
+                            <p class="menuName">geb. Fleischkäse</p>
+                            <p class="beschreibung">mit Sauce</p>
+                            <div style="position:relative; vertical-align:bottom">
+                                <p class="preis">Preis: <b>4,20&euro;</b></p>
+                            </div>
+
+                            <!-- Beilagen start -->
+                            <div>
+                                <hr noshade class="thinLine" style="width:90%">
+
+                                <div style="padding-left:10px">
+                                    <div style="text-align:left; width:120px;float:left">
+                                        Zwiebel-Kartoffel-Püree
+                                    </div>
+                                    <div style="text-align:right;width:40px;float:left">
+                                        1,80&euro;
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div>
+
+                                <div style="padding-left:10px">
+                                    <div style="text-align:left; width:120px;float:left">
+                                        Farmersalat
+                                    </div>
+                                    <div style="text-align:right;width:40px;float:left">
+                                        1,70&euro;
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Beilagen ende -->
+
+                            <!-- Zusatzstoffe start -->
+
+                            <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
+
+
+                                <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
+                                    Zusatz:
+                                    1, 5, 6
+                                </div>
+                                <!--/div-->
+
+                            </div>
+                            <!-- Zusatzstoffe ende -->
+                            <!-- Allergene start -->
+                            <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
+                                    Allergen:
+                                    A, G, I, J
+                                </div>
+                            </div>
+                            <!-- Allergene ende -->
+
+
+                        </div>
+                        <!-- Keine Vorbestellung mehr möglich -->
+
+                        <div id="meal" class="table-cell" style="position:relative;background-color:greenyellow">
+
+
+                            <p class="menuName">Großer Salatteller</p>
+                            <p class="beschreibung">Großer Teller Salat aus der Salatbar
+                            </p>
+                            <div style="position:relative; vertical-align:bottom">
+                                <p class="preis">Preis: <b>6,20&euro;</b></p>
+                            </div>
+
+                            <!-- Beilagen start -->
+                            <!-- Beilagen ende -->
+
+                            <!-- Zusatzstoffe start -->
+
+                            <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
+
+
+                                <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
+                                    Zusatz:
+                                    1, 2, 4, 5, 6, 9, 10
+                                </div>
+                                <!--/div-->
+
+                            </div>
+                            <!-- Zusatzstoffe ende -->
+                            <!-- Allergene start -->
+                            <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
+                                    Allergen:
+                                    A, B, C, D, F, G, H, I, J, K
+                                </div>
+                            </div>
+                            <!-- Allergene ende -->
+
+
+                        </div>
+                        <!-- Keine Vorbestellung mehr möglich -->
+
+                        <div id="meal" class="table-cell" style="position:relative;background-color:greenyellow">
+
+
+                            <p class="menuName">kleiner Salatteller</p>
+                            <p class="beschreibung">aus der Salatbar
+                                mit Beilage und Brötchen</p>
+                            <div style="position:relative; vertical-align:bottom">
+                                <p class="preis">Preis: <b>5,60&euro;</b></p>
+                            </div>
+
+                            <!-- Beilagen start -->
+                            <!-- Beilagen ende -->
+
+                            <!-- Zusatzstoffe start -->
+
+                            <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
+
+
+                                <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
+                                    Zusatz:
+                                    1, 2, 4, 5, 6, 9, 10
+                                </div>
+                                <!--/div-->
+
+                            </div>
+                            <!-- Zusatzstoffe ende -->
+                            <!-- Allergene start -->
+                            <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
+                                    Allergen:
+                                    A, C, D, E, F, G, H, I, J, K
+                                </div>
+                            </div>
+                            <!-- Allergene ende -->
+
+
+                        </div>
+                    </div>
+                </div>
+                <div id="day" class="table-col">
+                    <div>
+                        <!-- Keine Vorbestellung mehr möglich -->
+
+                        <div id="meal" class="table-cell" style="position:relative;background-color:greenyellow">
+
+
+                            <p class="menuName">Erbsensuppe</p>
+                            <p class="beschreibung">und Brötchen</p>
+                            <div style="position:relative; vertical-align:bottom">
+                                <p class="preis">Preis: <b>4,20&euro;</b></p>
+                            </div>
+
+                            <!-- Beilagen start -->
+                            <div>
+                                <hr noshade class="thinLine" style="width:90%">
+
+                                <div style="padding-left:10px">
+                                    <div style="text-align:left; width:120px;float:left">
+                                        Würstchen zur Suppe
+                                    </div>
+                                    <div style="text-align:right;width:40px;float:left">
+                                        2,00&euro;
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Beilagen ende -->
+
+                            <!-- Zusatzstoffe start -->
+
+                            <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
+
+
+                                <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
+                                    Zusatz:
+                                    5, 6, 8, 11
+                                </div>
+                                <!--/div-->
+
+                            </div>
+                            <!-- Zusatzstoffe ende -->
+                            <!-- Allergene start -->
+                            <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
+                                    Allergen:
+                                    A, G, H, I, J
+                                </div>
+                            </div>
+                            <!-- Allergene ende -->
+
+
+                        </div>
+                        <!-- Keine Vorbestellung mehr möglich -->
+
+                        <div id="meal" class="table-cell" style="position:relative;background-color:">
+
+
+                            <p class="menuName">Bratwürstchen</p>
+                            <p class="beschreibung">mit Sauce</p>
+                            <div style="position:relative; vertical-align:bottom">
+                                <p class="preis">Preis: <b>3,90&euro;</b></p>
+                            </div>
+
+                            <!-- Beilagen start -->
+                            <div>
+                                <hr noshade class="thinLine" style="width:90%">
+
+                                <div style="padding-left:10px">
+                                    <div style="text-align:left; width:120px;float:left">
+                                        Kartoffelpüree
+                                    </div>
+                                    <div style="text-align:right;width:40px;float:left">
+                                        1,80&euro;
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div>
+
+                                <div style="padding-left:10px">
+                                    <div style="text-align:left; width:120px;float:left">
+                                        Sauerkraut
+                                    </div>
+                                    <div style="text-align:right;width:40px;float:left">
+                                        1,80&euro;
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Beilagen ende -->
+
+                            <!-- Zusatzstoffe start -->
+
+                            <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
+
+
+                                <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
+                                    Zusatz:
+                                    5, 6, 11
+                                </div>
+                                <!--/div-->
+
+                            </div>
+                            <!-- Zusatzstoffe ende -->
+                            <!-- Allergene start -->
+                            <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
+                                    Allergen:
+                                    A, G, I, J
+                                </div>
+                            </div>
+                            <!-- Allergene ende -->
+
+
+                        </div>
+                        <!-- Keine Vorbestellung mehr möglich -->
+
+                        <div id="meal" class="table-cell" style="position:relative;background-color:">
+
+
+                            <p class="menuName">Schweineschnitzel mit Spargel</p>
+                            <p class="beschreibung">und Sauce Hollondaise überbacken</p>
+                            <div style="position:relative; vertical-align:bottom">
+                                <p class="preis">Preis: <b>5,10&euro;</b></p>
+                            </div>
+
+                            <!-- Beilagen start -->
+                            <div>
+                                <hr noshade class="thinLine" style="width:90%">
+
+                                <div style="padding-left:10px">
+                                    <div style="text-align:left; width:120px;float:left">
+                                        Kartoffelkroketten
+                                    </div>
+                                    <div style="text-align:right;width:40px;float:left">
+                                        1,80&euro;
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Beilagen ende -->
+
+                            <!-- Zusatzstoffe start -->
+
+                            <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
+
+
+                                <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
+                                    Zusatz:
+                                    6
+                                </div>
+                                <!--/div-->
+
+                            </div>
+                            <!-- Zusatzstoffe ende -->
+                            <!-- Allergene start -->
+                            <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
+                                    Allergen:
+                                    C, G, A, I, J
+                                </div>
+                            </div>
+                            <!-- Allergene ende -->
+
+
+                        </div>
+                        <!-- Keine Vorbestellung mehr möglich -->
+
+                        <div id="meal" class="table-cell" style="position:relative;background-color:">
+
+
+                            <p class="menuName">Großer Salatteller</p>
+                            <p class="beschreibung">Großer Teller Salat aus der Salatbar
+                            </p>
+                            <div style="position:relative; vertical-align:bottom">
+                                <p class="preis">Preis: <b>6,20&euro;</b></p>
+                            </div>
+
+                            <!-- Beilagen start -->
+                            <!-- Beilagen ende -->
+
+                            <!-- Zusatzstoffe start -->
+
+                            <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
+
+
+                                <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
+                                    Zusatz:
+                                    1, 2, 4, 5, 6, 9, 10
+                                </div>
+                                <!--/div-->
+
+                            </div>
+                            <!-- Zusatzstoffe ende -->
+                            <!-- Allergene start -->
+                            <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
+                                    Allergen:
+                                    A, B, C, D, F, G, H, I, J, K
+                                </div>
+                            </div>
+                            <!-- Allergene ende -->
+
+
+                        </div>
+                        <!-- Keine Vorbestellung mehr möglich -->
+
+                        <div id="meal" class="table-cell" style="position:relative;background-color:">
+
+
+                            <p class="menuName">kleiner Salatteller</p>
+                            <p class="beschreibung">aus der Salatbar
+                                mit Beilage und Brötchen</p>
+                            <div style="position:relative; vertical-align:bottom">
+                                <p class="preis">Preis: <b>5,60&euro;</b></p>
+                            </div>
+
+                            <!-- Beilagen start -->
+                            <!-- Beilagen ende -->
+
+                            <!-- Zusatzstoffe start -->
+
+                            <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
+
+
+                                <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
+                                    Zusatz:
+                                    1, 2, 4, 5, 6, 9, 10
+                                </div>
+                                <!--/div-->
+
+                            </div>
+                            <!-- Zusatzstoffe ende -->
+                            <!-- Allergene start -->
+                            <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
+                                    Allergen:
+                                    A, C, D, E, F, G, H, I, J, K
+                                </div>
+                            </div>
+                            <!-- Allergene ende -->
+
+
+                        </div>
+                    </div>
+                </div>
+                <div id="day" class="table-col">
+                    <div>
+                        <!-- Keine Vorbestellung mehr möglich -->
+
+                        <div id="meal" class="table-cell" style="position:relative;background-color:">
+
+
+                            <p class="menuName">Veg. Asiatische Reispfanne</p>
+                            <p class="beschreibung">mit Chinagemüse, Sprossen,Reis
+                                mit Sojasauce</p>
+                            <div style="position:relative; vertical-align:bottom">
+                                <p class="preis">Preis: <b>5,10&euro;</b></p>
+                            </div>
+
+                            <!-- Beilagen start -->
+                            <!-- Beilagen ende -->
+
+                            <!-- Zusatzstoffe start -->
+
+                            <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
+
+
+                                <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
+                                    Zusatz:
+                                    6, 9
+                                </div>
+                                <!--/div-->
+
+                            </div>
+                            <!-- Zusatzstoffe ende -->
+                            <!-- Allergene start -->
+                            <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
+                                    Allergen:
+                                    E, F, G, I, J, K
+                                </div>
+                            </div>
+                            <!-- Allergene ende -->
+
+
+                        </div>
+                        <!-- Keine Vorbestellung mehr möglich -->
+
+                        <div id="meal" class="table-cell" style="position:relative;background-color:">
+
+
+                            <p class="menuName">Hähnchenschenkel</p>
+                            <p class="beschreibung">im Backteig</p>
+                            <div style="position:relative; vertical-align:bottom">
+                                <p class="preis">Preis: <b>4,10&euro;</b></p>
+                            </div>
+
+                            <!-- Beilagen start -->
+                            <div>
+                                <hr noshade class="thinLine" style="width:90%">
+
+                                <div style="padding-left:10px">
+                                    <div style="text-align:left; width:120px;float:left">
+                                        Kartoffelschnee
+                                    </div>
+                                    <div style="text-align:right;width:40px;float:left">
+                                        2,00&euro;
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div>
+
+                                <div style="padding-left:10px">
+                                    <div style="text-align:left; width:120px;float:left">
+                                        Gemüse
+                                    </div>
+                                    <div style="text-align:right;width:40px;float:left">
+                                        1,80&euro;
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Beilagen ende -->
+
+                            <!-- Zusatzstoffe start -->
+
+                            <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
+
+
+                                <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
+                                    Zusatz:
+                                    6
+                                </div>
+                                <!--/div-->
+
+                            </div>
+                            <!-- Zusatzstoffe ende -->
+                            <!-- Allergene start -->
+                            <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
+                                    Allergen:
+                                    A, G, I
+                                </div>
+                            </div>
+                            <!-- Allergene ende -->
+
+
+                        </div>
+                        <!-- Keine Vorbestellung mehr möglich -->
+
+                        <div id="meal" class="table-cell" style="position:relative;background-color:greenyellow">
+
+
+                            <p class="menuName">Seelachs </p>
+                            <p class="beschreibung">mit Zwiebel-Apfel-Sauce</p>
+                            <div style="position:relative; vertical-align:bottom">
+                                <p class="preis">Preis: <b>4,30&euro;</b></p>
+                            </div>
+
+                            <!-- Beilagen start -->
+                            <div>
+                                <hr noshade class="thinLine" style="width:90%">
+
+                                <div style="padding-left:10px">
+                                    <div style="text-align:left; width:120px;float:left">
+                                        Pellkartoffeln
+                                    </div>
+                                    <div style="text-align:right;width:40px;float:left">
+                                        2,00&euro;
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div>
+
+                                <div style="padding-left:10px">
+                                    <div style="text-align:left; width:120px;float:left">
+                                        Beilagensalat
+                                    </div>
+                                    <div style="text-align:right;width:40px;float:left">
+                                        2,00&euro;
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Beilagen ende -->
+
+                            <!-- Zusatzstoffe start -->
+
+                            <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
+
+
+                                <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
+                                    Zusatz:
+                                    6
+                                </div>
+                                <!--/div-->
+
+                            </div>
+                            <!-- Zusatzstoffe ende -->
+                            <!-- Allergene start -->
+                            <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
+                                    Allergen:
+                                    A, D, G, H, I, J
+                                </div>
+                            </div>
+                            <!-- Allergene ende -->
+
+
+                        </div>
+                        <!-- Keine Vorbestellung mehr möglich -->
+
+                        <div id="meal" class="table-cell" style="position:relative;background-color:">
+
+
+                            <p class="menuName">Großer Salatteller</p>
+                            <p class="beschreibung">Großer Teller Salat aus der Salatbar
+                            </p>
+                            <div style="position:relative; vertical-align:bottom">
+                                <p class="preis">Preis: <b>6,20&euro;</b></p>
+                            </div>
+
+                            <!-- Beilagen start -->
+                            <!-- Beilagen ende -->
+
+                            <!-- Zusatzstoffe start -->
+
+                            <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
+
+
+                                <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
+                                    Zusatz:
+                                    1, 2, 4, 5, 6, 9, 10
+                                </div>
+                                <!--/div-->
+
+                            </div>
+                            <!-- Zusatzstoffe ende -->
+                            <!-- Allergene start -->
+                            <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
+                                    Allergen:
+                                    A, B, C, D, F, G, H, I, J, K
+                                </div>
+                            </div>
+                            <!-- Allergene ende -->
+
+
+                        </div>
+                        <!-- Keine Vorbestellung mehr möglich -->
+
+                        <div id="meal" class="table-cell" style="position:relative;background-color:">
+
+
+                            <p class="menuName">kleiner Salatteller</p>
+                            <p class="beschreibung">aus der Salatbar
+                                mit Beilage und Brötchen</p>
+                            <div style="position:relative; vertical-align:bottom">
+                                <p class="preis">Preis: <b>5,60&euro;</b></p>
+                            </div>
+
+                            <!-- Beilagen start -->
+                            <!-- Beilagen ende -->
+
+                            <!-- Zusatzstoffe start -->
+
+                            <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
+
+
+                                <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
+                                    Zusatz:
+                                    1, 2, 4, 5, 6, 9, 10
+                                </div>
+                                <!--/div-->
+
+                            </div>
+                            <!-- Zusatzstoffe ende -->
+                            <!-- Allergene start -->
+                            <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
+                                    Allergen:
+                                    A, C, D, E, F, G, H, I, J, K
+                                </div>
+                            </div>
+                            <!-- Allergene ende -->
+
+
+                        </div>
+                    </div>
+                </div>
+                <div id="day" class="table-col">
+                    <div>
+                        <!-- Keine Vorbestellung mehr möglich -->
+
+                        <div id="meal" class="table-cell" style="position:relative;background-color:">
+
+
+                            <p class="menuName">Fronleichnam</p>
+                            <p class="beschreibung">bis Montag</p>
+
+                            <!-- Beilagen start -->
+                            <!-- Beilagen ende -->
+
+                            <!-- Zusatzstoffe start -->
+
+                            <!-- Zusatzstoffe ende -->
+                            <!-- Allergene start -->
+                            <!-- Allergene ende -->
+
+
+                        </div>
+                    </div>
+                </div>
+                <div id="day" class="table-col">
+                    <div>
+                        <!-- Keine Vorbestellung mehr möglich -->
+
+                        <div id="meal" class="table-cell" style="position:relative;background-color:greenyellow">
+
+
+                            <p class="menuName">Pizza Margherita</p>
+                            <p class="beschreibung">mit Rucola</p>
+                            <div style="position:relative; vertical-align:bottom">
+                                <p class="preis">Preis: <b>4,70&euro;</b></p>
+                            </div>
+
+                            <!-- Beilagen start -->
+                            <!-- Beilagen ende -->
+
+                            <!-- Zusatzstoffe start -->
+
+                            <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
+
+
+                                <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
+                                    Zusatz:
+                                    1, 6, 7
+                                </div>
+                                <!--/div-->
+
+                            </div>
+                            <!-- Zusatzstoffe ende -->
+                            <!-- Allergene start -->
+                            <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
+                                    Allergen:
+                                    A, G
+                                </div>
+                            </div>
+                            <!-- Allergene ende -->
+
+
+                        </div>
+                        <!-- Keine Vorbestellung mehr möglich -->
+
+                        <div id="meal" class="table-cell" style="position:relative;background-color:">
+
+
+                            <p class="menuName">Pizza Tonno</p>
+                            <p class="beschreibung">mit Thunfisch
+                            </p>
+                            <div style="position:relative; vertical-align:bottom">
+                                <p class="preis">Preis: <b>5,30&euro;</b></p>
+                            </div>
+
+                            <!-- Beilagen start -->
+                            <!-- Beilagen ende -->
+
+                            <!-- Zusatzstoffe start -->
+
+                            <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
+
+
+                                <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
+                                    Zusatz:
+                                    1, 6, 7
+                                </div>
+                                <!--/div-->
+
+                            </div>
+                            <!-- Zusatzstoffe ende -->
+                            <!-- Allergene start -->
+                            <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
+                                    Allergen:
+                                    A, D, G
+                                </div>
+                            </div>
+                            <!-- Allergene ende -->
+
+
+                        </div>
+                        <!-- Keine Vorbestellung mehr möglich -->
+
+                        <div id="meal" class="table-cell" style="position:relative;background-color:">
+
+
+                            <p class="menuName">Pizza Salami</p>
+                            <p class="beschreibung">mit Rucola und geriebenen Käse</p>
+                            <div style="position:relative; vertical-align:bottom">
+                                <p class="preis">Preis: <b>5,30&euro;</b></p>
+                            </div>
+
+                            <!-- Beilagen start -->
+                            <!-- Beilagen ende -->
+
+                            <!-- Zusatzstoffe start -->
+
+                            <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
+
+
+                                <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
+                                    Zusatz:
+                                    1, 6, 7
+                                </div>
+                                <!--/div-->
+
+                            </div>
+                            <!-- Zusatzstoffe ende -->
+                            <!-- Allergene start -->
+                            <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
+                                    Allergen:
+                                    A, G
+                                </div>
+                            </div>
+                            <!-- Allergene ende -->
+
+
+                        </div>
+                        <!-- Keine Vorbestellung mehr möglich -->
+
+                        <div id="meal" class="table-cell" style="position:relative;background-color:">
+
+
+                            <p class="menuName">Pizza Hawaii</p>
+                            <p class="beschreibung">mit Tomatensauce, Schinken
+                                und Käse</p>
+                            <div style="position:relative; vertical-align:bottom">
+                                <p class="preis">Preis: <b>5,30&euro;</b></p>
+                            </div>
+
+                            <!-- Beilagen start -->
+                            <!-- Beilagen ende -->
+
+                            <!-- Zusatzstoffe start -->
+
+                            <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
+
+
+                            </div>
+                            <!-- Zusatzstoffe ende -->
+                            <!-- Allergene start -->
+                            <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
+                            </div>
+                            <!-- Allergene ende -->
+
+
+                        </div>
+                        <!-- Keine Vorbestellung mehr möglich -->
+
+                        <div id="meal" class="table-cell" style="position:relative;background-color:">
+
+
+                            <p class="menuName">Großer Salatteller</p>
+                            <p class="beschreibung">Großer Teller Salat aus der Salatbar
+                            </p>
+                            <div style="position:relative; vertical-align:bottom">
+                                <p class="preis">Preis: <b>6,20&euro;</b></p>
+                            </div>
+
+                            <!-- Beilagen start -->
+                            <!-- Beilagen ende -->
+
+                            <!-- Zusatzstoffe start -->
+
+                            <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
+
+
+                                <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
+                                    Zusatz:
+                                    1, 2, 4, 5, 6, 9, 10
+                                </div>
+                                <!--/div-->
+
+                            </div>
+                            <!-- Zusatzstoffe ende -->
+                            <!-- Allergene start -->
+                            <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
+                                    Allergen:
+                                    A, B, C, D, F, G, H, I, J, K
+                                </div>
+                            </div>
+                            <!-- Allergene ende -->
+
+
+                        </div>
+                        <!-- Keine Vorbestellung mehr möglich -->
+
+                        <div id="meal" class="table-cell" style="position:relative;background-color:">
+
+
+                            <p class="menuName">kleiner Salatteller</p>
+                            <p class="beschreibung">aus der Salatbar
+                                mit Beilage und Brötchen</p>
+                            <div style="position:relative; vertical-align:bottom">
+                                <p class="preis">Preis: <b>5,60&euro;</b></p>
+                            </div>
+
+                            <!-- Beilagen start -->
+                            <!-- Beilagen ende -->
+
+                            <!-- Zusatzstoffe start -->
+
+                            <div style="position:absolute;bottom:0; left:0px; width:100%;text-align:left;">
+
+
+                                <!--div style="text-align:left; valign:bottom ;float:left;margin-left:10px; position:absolute; bottom:0;"-->
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px; padding-bottom:12px; bottom:0px; text-align:left;">
+                                    Zusatz:
+                                    1, 2, 4, 5, 6, 9, 10
+                                </div>
+                                <!--/div-->
+
+                            </div>
+                            <!-- Zusatzstoffe ende -->
+                            <!-- Allergene start -->
+                            <div style="position:absolute;bottom:0; left:0px; width:100%; text-align:left">
+                                <div
+                                        style=" valign:bottom ;float:left;margin-left:10px;  bottom:0px; text-align:left;">
+                                    Allergen:
+                                    A, C, D, E, F, G, H, I, J, K
+                                </div>
+                            </div>
+                            <!-- Allergene ende -->
+
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Menues ende -->
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <!-- Zusatzstoffe start -->
+            <center>
+                <div style="width:992px; ">
+                    <div class="navigation"
+                         style="border:1px solid black; margin-right:7px; padding-top:10px; height:100px;background-color:#f2f2f2">
+
+                        <div style="margin-bottom:20px;font-size:12pt;">
+                            <b>Zusatzstoffe:</b>
+                        </div>
+
+                        <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
+                            1 = Konservierungsstoff
+                        </div>
+
+                        <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
+                            2 = mit Farbstoff
+                        </div>
+
+                        <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
+                            3 = geschwefelt
+                        </div>
+
+                        <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
+                            4 = geschwärzt
+                        </div>
+
+                        <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
+                            5 = mit Antioxidationsmittel
+                        </div>
+
+                        <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
+                            6 = Süßungsmittel
+                        </div>
+
+                        <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
+                            7 = Geschmacksverstärker
+                        </div>
+
+                        <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
+                            8 = Phosphat
+                        </div>
+
+                        <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
+                            9 = Nüssen
+                        </div>
+
+                        <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
+                            10 = Gewachst
+                        </div>
+
+                        <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
+                            11 = Nitrit
+                        </div>
+
+                    </div>
+                </div>
+            </center>
+            <!-- Zusatzstoffe ende -->
+        </td>
+    </tr>
+    <!-- Allergene start -->
+    <tr>
+        <td>
+
+            <center>
+                <div style="width:992px; ">
+                    <div class="navigation"
+                         style="border:1px solid black; margin-right:7px; padding-top:10px; height:100px;background-color:#f2f2f2">
+
+                        <div style="margin-bottom:20px;font-size:12pt;">
+                            <b>Allergene:</b>
+                        </div>
+
+                        <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
+                            A = Glutenhaltiges
+                        </div>
+
+                        <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
+                            B = Krebstiere
+                        </div>
+
+                        <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
+                            C = Eier
+                        </div>
+
+                        <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
+                            D = Fische
+                        </div>
+
+                        <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
+                            E = Erdnüsse
+                        </div>
+
+                        <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
+                            F = Sojabohnen
+                        </div>
+
+                        <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
+                            G = Milch (einschließlich Laktose)
+                        </div>
+
+                        <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
+                            H = Schalenfrüchte
+                        </div>
+
+                        <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
+                            I = Sellerie
+                        </div>
+
+                        <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
+                            J = Senf
+                        </div>
+
+                        <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
+                            K = Sesamsamen
+                        </div>
+
+                        <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
+                            L = Schwefeldioxid
+                        </div>
+
+                        <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
+                            M = Lupinen
+                        </div>
+
+                        <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
+                            N = Weichtiere
+                        </div>
+
+                    </div>
+                </div>
+            </center>
+
+        </td>
+    </tr>
+    <!-- allergene ende -->
+    <!-- Farben start -->
+    <tr>
+        <td>
+
+            <center>
+                <div style="width:992px; ">
+                    <div class="navigation"
+                         style="border:1px solid black; margin-right:7px; padding-top:10px; height:100px;background-color:#f2f2f2">
+                        <div style="margin-bottom:20px;font-size:12pt;">
+                            <b>Farben:</b>
+                        </div>
+                        <div style="float:left; margin-left:20px; white-space:nowrap; margin-bottom:5px;">
+                            <div
+                                    style="float:left;background-color:greenyellow;border:1px solid black;height:15px; width:20px">
+                            </div>
+                            <div style="float:left; margin-left:5px"> = Feel Good Essen (<500 kcal)</div>
+                        </div>
+                    </div>
+                </div>
+            </center>
+
+        </td>
+    </tr>
+    <!-- Farben ende -->
+</table>
+<br>
+<br>
+<br>
+<div>
+
+    <!--
+<table cellspacing=0>
+<tr>
+    <td >
+        <img src="images/Footer_line_new1.png"  title="Ecos-Info-Seiten"/>
+    </td>
+    <td >
+        <img src="images/Footer_big_new.png"  title="Ecos-Info-Seiten"/>
+    </td>
+</tr>
 </table>
 -->
 
-        <table width="100%">
+    <table width="100%">
 
-            <tr height="200px">
-                <td>
-                </td>
-                <td width="100%" style="text-align:right;background-image:url(images/Footer_line_new1.png);">
-                    <img src="images/Footer_big_new.png" />
-                    <div style=" " height="200px" width="100%">
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                </td>
-                <td style="text-align:right;font-size:10px;font-family:Arial,Verdana">CGM BISTRO Web 2.00 by <a
+        <tr height="200px">
+            <td>
+            </td>
+            <td width="100%" style="text-align:right;background-image:url(images/Footer_line_new1.png);">
+                <img src="images/Footer_big_new.png"/>
+                <div style=" " height="200px" width="100%">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td style="text-align:right;font-size:10px;font-family:Arial,Verdana">CGM BISTRO Web 2.00 by <a
                         href="mailto:Thorsten.Weber@cgm.com">THW</a>
-                </td>
-            </tr>
-        </table>
-    </div>
+            </td>
+        </tr>
+    </table>
+</div>
 </BODY>
 
 </HTML>

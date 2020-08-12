@@ -16,14 +16,14 @@ import (
 
 // Represents a crawler job
 type Job struct {
-	Key         string   `json:"_key,omitempty"`
-	Id          string   `json:"id,omitempty"`
-	DateToParse string   `json:"dateToParse"`
-	Status      string   `json:"status"` // PENDING | RUNNING |  SUCCESS | FAILURE
-	Enqueued    string   `json:"enqueued"`
-	Started     string   `json:"started"`
-	Finished    string   `json:"finished"`
-	Additional  []string `json:"additional"`
+    Key         string   `json:"_key,omitempty"`
+    Id          string   `json:"id,omitempty"` // uuid that unique identifies the job
+	DateToParse  string   `json:"dateToParse"`    // The date which the parser should parse / has parsed.
+	Status       string   `json:"status"`         // PENDING | RUNNING |  SUCCESS | FAILURE
+	EnqueuedTime string   `json:"enqueuedTime"`   // the time the job was enqueued
+	StartedTime  string   `json:"startedTime"`    // the time the job has started the parsing
+	FinishedTime string   `json:"finishedTime"`   // the time the job has finished the parsing process
+	Additional   []string `json:"additional"`     // optional information to keep near to the job (e.g. error messages)
 }
 
 // Holds all jobs in memory as a queue
@@ -50,7 +50,7 @@ func processNextJob() {
 
 	// dequeue the next job and prepare it
 	nextJob := DequeueJob()
-	nextJob.Started = time.Now().Format(time.RFC3339)
+	nextJob.StartedTime = time.Now().Format(time.RFC3339)
 	nextJob.Status = "RUNNING"
 	persister.PersistDocument(config.Get().JobCollectionName, nextJob)
 
@@ -60,7 +60,7 @@ func processNextJob() {
 	persister.PersistDocuments(config.Get().MealCollectionName, ToIdentifiables(crawledMeals))
 
 	// mark the job as finished successful
-	nextJob.Finished = time.Now().Format(time.RFC3339)
+	nextJob.FinishedTime = time.Now().Format(time.RFC3339)
 	nextJob.Status = "SUCCESS"
 	persister.PersistDocument(config.Get().JobCollectionName, nextJob)
 	log.Println("Finished crawling meals for date " + nextJob.DateToParse)
@@ -74,9 +74,9 @@ func EnqueueJob(dateToParse string) string {
 	newJob := Job{
 		Key:         identifier,
 		Id:          identifier,
-		Status:      "PENDING",
-		Enqueued:    time.Now().Format(time.RFC3339),
-		DateToParse: dateToParse,
+		Status:       "PENDING",
+		EnqueuedTime: time.Now().Format(time.RFC3339),
+		DateToParse:  dateToParse,
 	}
 	JobQueue = append(JobQueue, newJob)
 	persister.PersistDocument(config.Get().JobCollectionName, newJob)

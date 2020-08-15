@@ -1,112 +1,128 @@
 package restapi
 
 import (
+	"bytes"
 	"encoding/json"
-	"github.com/ansgarS/rate-my-bistro-crawler/config"
 	"github.com/ansgarS/rate-my-bistro-crawler/jobs"
-	"github.com/go-resty/resty/v2"
+	"github.com/stretchr/testify/assert"
+	"io"
+	"net/http"
+	"net/http/httptest"
 	"testing"
+	"time"
 )
 
-var JobsEndpoint = "http://" + config.Get().RestApiAddress + "/jobs"
+func TestAllEndpointsInPositiveCase(t *testing.T) {
+	router := setupRouter()
 
-func TestIssuingAJobThroughTheRestApi(t *testing.T) {
-	//start http server async
-	go func() {
-		Serve()
-	}()
+	// POST a jew job
+	resp := httptest.NewRecorder()
+	req, _ := http.NewRequest("POST", "/jobs", toReader("2020-08-13"))
+	router.ServeHTTP(resp, req)
+	jobId := resp.Body.String()
 
-	//setup client
-	client := resty.New()
+	assert.Equal(t, 201, resp.Code)
+	assert.NotEmpty(t, jobId)
 
-	t.Run("when multiple jobs was started we can receive all", func(t *testing.T) {
-		_, err1 := startJob(nil, client, "2020-08-11")
-		_, err2 := startJob(nil, client, "2020-08-12")
-		_, err3 := startJob(nil, client, "2020-08-13")
+	// GET all running jobs
+	resp = httptest.NewRecorder()
+	req, _ = http.NewRequest("GET", "/jobs", nil)
+	router.ServeHTTP(resp, req)
 
-		if err1 != nil {
-			t.Error(err1)
-		}
-		if err2 != nil {
-			t.Error(err2)
-		}
-		if err3 != nil {
-			t.Error(err3)
-		}
+	assert.Equal(t, 200, resp.Code)
+	assert.Equal(t, toJsonString(t, jobs.JobQueue), resp.Body.String())
 
-		retrievedJobs, err := getJobs(client)
+	// GET this job by its id
+	resp = httptest.NewRecorder()
+	req, _ = http.NewRequest("GET", "/jobs/"+jobId, nil)
+	router.ServeHTTP(resp, req)
 
-		if err != nil {
-			t.Error(err)
-		}
-		if len(retrievedJobs) != 3 {
-			t.Errorf("wanted 3 jobs but got %d", len(retrievedJobs))
-		}
-	})
+	assert.Equal(t, 200, resp.Code)
+	assert.Contains(t, resp.Body.String(), jobId)
 
-	t.Run("when a job was started we can receive the job by the id", func(t *testing.T) {
-		jobId, err := startJob(t, client, "2020-08-11")
-
-		if err != nil {
-			t.Error(err)
-		}
-
-		job, err := getJob(client, jobId)
-
-		if err != nil {
-			t.Error(err)
-		}
-		if jobId != job.GetId() {
-			t.Errorf("wanted job id %s but got %s", jobId, job.GetId())
-		}
-	})
-
-	t.Run("when requesting a non existent job an error is returned", func(t *testing.T) {
-		respCode, err := getJobStatusCode(client, "unknown-job")
-
-		if err != nil {
-			t.Error(err)
-		}
-		if respCode != 404 {
-			t.Errorf("Expected status code 404 but got %d", respCode)
-		}
-	})
+	// Cleanup
+	jobs.RemoveAllJobs()
 }
 
-// creates a new job and returns it's jobId as string
-func startJob(t *testing.T, client *resty.Client, date string) (string, error) {
-	resp, err := client.R().
-		SetBody(date).
-		Post(JobsEndpoint)
+func TestUnknownId(t *testing.T) {
+	router := setupRouter()
 
-	if resp.StatusCode() != 201 {
-		t.Errorf("Expected status code 201 but got %d", resp.StatusCode())
+	// GET this job by its id
+	resp := httptest.NewRecorder()
+	req, _ := http.NewRequest("GET", "/jobs", nil)
+	router.ServeHTTP(resp, req)
+
+	assert.Equal(t, 200, resp.Code)
+	assert.Equal(t, "[]", resp.Body.String())
+}
+
+func TestEmptyQueue(t *testing.T) {
+	router := setupRouter()
+
+	// GET all running jobs
+	resp := httptest.NewRecorder()
+	req, _ := http.NewRequest("GET", "/jobs", nil)
+	router.ServeHTTP(resp, req)
+
+	assert.Equal(t, 200, resp.Code)
+	assert.Equal(t, "[]", resp.Body.String())
+}
+
+func TestPostJobWithInvalidDate(t *testing.T) {
+	router := setupRouter()
+
+	// When posting a new job with an invalid date
+	resp := httptest.NewRecorder()
+	req, _ := http.NewRequest("POST", "/jobs", toReader("13-08-2020"))
+	router.ServeHTTP(resp, req)
+
+	// Then the response should point out the mistake
+	assert.Equal(t, 400, resp.Code)
+}
+
+//TODO create a test where the state of an meal job goes to error
+func TestPostJobWithDateInNextFuture(t *testing.T) {
+	router := setupRouter()
+
+	// When posting a new job with an invalid date
+	resp := httptest.NewRecorder()
+	req, _ := http.NewRequest("POST", "/jobs", toReader("13-08-2020"))
+	router.ServeHTTP(resp, req)
+	jobId := resp.Body.String()
+
+	// In first place it should be fine
+	assert.Equal(t, 201, resp.Code)
+
+	// But when we wait until the job was started
+	time.Sleep(1 * time.Second)
+
+	// it should have the status failed
+	resp = httptest.NewRecorder()
+	req, _ = http.NewRequest("GET", "/jobs/"+jobId, nil)
+	router.ServeHTTP(resp, req)
+
+	s := toJson(t, resp.Body.String())
+	assert.Equal(t, 200, resp.Code)
+	assert.Equal(t, s["id"], jobId)
+}
+
+func toReader(s string) io.Reader {
+	return bytes.NewBufferString(s)
+}
+
+func toJson(t *testing.T, jsonString string) map[string]interface{} {
+	var result map[string]interface{}
+	err := json.Unmarshal([]byte(jsonString), &result)
+	if err != nil {
+		assert.Fail(t, err.Error())
 	}
-
-	return resp.String(), err
+	return result
 }
 
-// gets a job by it's id and returns a json string
-func getJob(client *resty.Client, jobId string) (jobs.Job, error) {
-	resp, err := client.R().
-		Get(JobsEndpoint + "/" + jobId)
-	job := jobs.Job{}
-	err = json.Unmarshal(resp.Body(), &job)
-	return job, err
-}
-
-// gets a job by it's id and returns a json string
-func getJobStatusCode(client *resty.Client, jobId string) (int, error) {
-	resp, err := client.R().
-		Get(JobsEndpoint + "/" + jobId)
-	return resp.StatusCode(), err
-}
-
-// gets a job by it's id and returns a json string
-func getJobs(client *resty.Client) ([]jobs.Job, error) {
-	resp, err := client.R().
-		Get(JobsEndpoint)
-	var jobs []jobs.Job
-	err = json.Unmarshal(resp.Body(), &jobs)
-	return jobs, err
+func toJsonString(t *testing.T, input interface{}) string {
+	b, err := json.Marshal(input)
+	if err != nil {
+		assert.Fail(t, err.Error())
+	}
+	return string(b)
 }

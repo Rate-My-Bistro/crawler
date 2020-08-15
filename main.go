@@ -4,7 +4,7 @@ import (
 	"github.com/ansgarS/rate-my-bistro-crawler/restapi"
 )
 
-// the application cycle
+// application entrypoint
 func main() {
 	restapi.Serve()
 }

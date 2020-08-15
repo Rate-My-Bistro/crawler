@@ -2,17 +2,33 @@ package restapi
 
 import (
 	"github.com/ansgarS/rate-my-bistro-crawler/config"
-	"github.com/yarf-framework/yarf"
+	"github.com/gin-gonic/gin"
 	"log"
+	"strconv"
 )
 
 // starts the http server that serves the rest api
-// the Start() command holds the application main thread
+// the Start() command block the calling goroutine
 func Serve() {
-	server := yarf.New()
+	server := setupRouter()
+	startRouter(server)
+}
+
+func setupRouter() *gin.Engine {
+	server := gin.Default()
 
 	addJobsResource(server)
 
-	log.Println("🔥 serving from " + config.Get().RestApiAddress + " 🔥")
-	server.Start(config.Get().RestApiAddress)
+	return server
+}
+
+func startRouter(server *gin.Engine) {
+	portAsString := strconv.FormatUint(config.Get().RestApiPort, 10)
+
+	// This method will block the calling goroutine indefinitely unless an error happens.
+	err := server.Run(":" + portAsString)
+
+	if err != nil {
+		log.Fatal(err)
+	}
 }

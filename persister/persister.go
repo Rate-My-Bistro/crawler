@@ -7,9 +7,7 @@ package persister
 
 import (
 	"context"
-	"fmt"
 	"github.com/ansgarS/rate-my-bistro-crawler/config"
-	"github.com/ansgarS/rate-my-bistro-crawler/crawler"
 	"github.com/arangodb/go-driver"
 	"github.com/arangodb/go-driver/http"
 	"log"
@@ -207,54 +205,5 @@ func createClient() {
 
 	if err != nil {
 		log.Fatal(err)
-	}
-}
-
-// Returns all documents of the specified collection
-func GetAllDocuments(collectionName string) (foundDocuments []interface{}) {
-	ctx := driver.WithQueryCount(context.Background())
-	query := "FOR d IN " + collectionName + " RETURN d"
-	cursor, err := database.Query(ctx, query, nil)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer cursor.Close()
-
-	foundDocuments = make([]interface{}, 0)
-	for {
-		var doc interface{}
-		_, err := cursor.ReadDocument(ctx, &doc)
-		if driver.IsNoMoreDocuments(err) {
-			break
-		} else if err != nil {
-			log.Fatal(err)
-		}
-		foundDocuments = append(foundDocuments, doc)
-	}
-
-	return foundDocuments
-}
-
-// Prints all meals that were found in the database for the specified date
-func PrintMealsForDate(date string) {
-	ctx := context.Background()
-	query := "FOR d IN meals FILTER d.date == @date RETURN d"
-	bindVars := map[string]interface{}{
-		"date": date,
-	}
-	cursor, err := database.Query(ctx, query, bindVars)
-	if err != nil {
-		log.Fatal(err)
-	}
-	_ = cursor.Close()
-	for {
-		var doc crawler.Meal
-		_, err := cursor.ReadDocument(ctx, &doc)
-		if driver.IsNoMoreDocuments(err) {
-			break
-		} else if err != nil {
-			// handle other errors
-		}
-		fmt.Printf("Got doc with key '%s' from query\n", doc.Name)
 	}
 }

@@ -24,9 +24,9 @@ func setupRouter() *gin.Engine {
 
 func startRouter(server *gin.Engine) {
 	portAsString := strconv.FormatUint(config.Get().RestApiPort, 10)
+	log.Println("serving at http://localhost:" + portAsString)
 
 	// This method will block the calling goroutine indefinitely unless an error happens.
-	log.Println("Serving at " + portAsString)
 	err := server.Run(":" + portAsString)
 
 	if err != nil {

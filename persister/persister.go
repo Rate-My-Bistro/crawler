@@ -218,7 +218,7 @@ func GetAllDocuments(collectionName string) (foundDocuments []interface{}) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer cursor.Close()
+	_ = cursor.Close()
 
 	foundDocuments = make([]interface{}, 0)
 	for {

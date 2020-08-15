@@ -80,8 +80,7 @@ func TestPostJobWithInvalidDate(t *testing.T) {
 	assert.Equal(t, 400, resp.Code)
 }
 
-//TODO create a test where the state of an meal job goes to error
-func TestPostJobWithDateInNextFuture(t *testing.T) {
+func TestPostJobWithDateInPast(t *testing.T) {
 	router := setupRouter()
 
 	// When posting a new job with an invalid date

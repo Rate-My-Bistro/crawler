@@ -61,14 +61,29 @@ func processNextJob() {
 
 	// start the meal crawling and store the result in the database
 	log.Println("Start crawling meals for date " + nextJob.DateToParse)
-	crawledMeals := crawler.CrawlAtDate(config.Get().BistroUrl, nextJob.DateToParse)
+	crawledMeals, err := crawler.CrawlAtDate(config.Get().BistroUrl, nextJob.DateToParse)
+	if err != nil {
+		jobFailureFinished(nextJob, err)
+		return
+	}
 	persister.PersistDocuments(config.Get().MealCollectionName, ToIdentifiables(crawledMeals))
 
 	// mark the job as finished successful
-	nextJob.FinishedTime = time.Now().Format(time.RFC3339)
-	nextJob.Status = "SUCCESS"
-	persister.PersistDocument(config.Get().JobCollectionName, nextJob)
+	jobSuccessFinished(nextJob)
 	log.Println("Finished crawling meals for date " + nextJob.DateToParse)
+}
+
+func jobSuccessFinished(job Job) {
+	job.FinishedTime = time.Now().Format(time.RFC3339)
+	job.Status = "SUCCESS"
+	persister.PersistDocument(config.Get().JobCollectionName, job)
+}
+
+func jobFailureFinished(job Job, err error) {
+	job.FinishedTime = time.Now().Format(time.RFC3339)
+	job.Status = "FAILURE"
+	job.Additional = []string{err.Error()}
+	persister.PersistDocument(config.Get().JobCollectionName, job)
 }
 
 // Enqueues a new parser job for a specific date at the end of the queue

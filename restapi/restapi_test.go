@@ -86,24 +86,26 @@ func TestPostJobWithDateInNextFuture(t *testing.T) {
 
 	// When posting a new job with an invalid date
 	resp := httptest.NewRecorder()
-	req, _ := http.NewRequest("POST", "/jobs", toReader("13-08-2020"))
+	req, _ := http.NewRequest("POST", "/jobs", toReader("1900-01-01"))
 	router.ServeHTTP(resp, req)
 	jobId := resp.Body.String()
 
-	// In first place it should be fine
+	// The job should be enqueued
 	assert.Equal(t, 201, resp.Code)
 
-	// But when we wait until the job was started
+	// lets wait until the job was processed
 	time.Sleep(1 * time.Second)
 
-	// it should have the status failed
+	// retrieve the job
 	resp = httptest.NewRecorder()
 	req, _ = http.NewRequest("GET", "/jobs/"+jobId, nil)
 	router.ServeHTTP(resp, req)
 
+	// then the job should be failed
 	s := toJson(t, resp.Body.String())
 	assert.Equal(t, 200, resp.Code)
 	assert.Equal(t, s["id"], jobId)
+	assert.Equal(t, s["status"], "FAILURE")
 }
 
 func toReader(s string) io.Reader {

@@ -42,7 +42,7 @@ type Supplement struct {
 func CrawlCurrentWeek(bistroLocation string) []Meal {
 	reader := createBistroReader(bistroLocation)
 
-	doc := requestWebsiteDocument(reader)
+	doc, _ := requestWebsiteDocument(reader)
 
 	parsedDates := parseDates(doc)
 	mealDates := parseMealsForAllDays(doc, parsedDates)
@@ -53,21 +53,25 @@ func CrawlCurrentWeek(bistroLocation string) []Meal {
 // Receives a reader that provides the content of a bistro website for the specified date
 // The date must have the format 'yyyy-mm-dd' example: '2020-12-31'
 // returns a slice of meals for the week
-func CrawlAtDate(bistroLocation string, date string) []Meal {
+func CrawlAtDate(bistroLocation string, date string) ([]Meal, error) {
 	if !strings.HasPrefix(bistroLocation, "http") {
-		log.Fatal("Specific dates cannot parsed from an offline location, only urls are allowed.")
+		err := fmt.Errorf("specific dates cannot parsed from an offline location only urls are allowed")
+		return nil, err
 	}
 
 	bistroLocation = buildDatedBistroLocation(bistroLocation, date)
 
 	reader := createBistroReader(bistroLocation)
 
-	doc := requestWebsiteDocument(reader)
+	doc, err := requestWebsiteDocument(reader)
+	if err != nil {
+		return nil, err
+	}
 
-	parsedDates := parseDates(doc)
-	mealDates := parseMealsForAllDays(doc, parsedDates)
+	dates := parseDates(doc)
+	mealDates := parseMealsForAllDays(doc, dates)
 
-	return mealDates
+	return mealDates, nil
 }
 
 func buildDatedBistroLocation(location string, date string) string {
@@ -239,14 +243,8 @@ func convertToPrice(priceString string) float64 {
 // Requests a website content from a given reader
 // Receives a reader interface
 // Returns queryable html document
-func requestWebsiteDocument(reader io.Reader) *goquery.Document {
-	doc, err := goquery.NewDocumentFromReader(reader)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return doc
+func requestWebsiteDocument(reader io.Reader) (*goquery.Document, error) {
+	return goquery.NewDocumentFromReader(reader)
 }
 
 // Generates a sha1 hash from the specified string 's'

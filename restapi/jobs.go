@@ -11,30 +11,58 @@ import (
 	"time"
 )
 
-// Define all routes for this resource
-func addJobsResource(gin *gin.Engine) {
-	gin.GET("/jobs", Get())
-	gin.GET("/jobs/:jobId", GetWithParameter())
+// See Declarative Comments Format: https://swaggo.github.io/swaggo.io/declarative_comments_format/general_api_info.html
 
-	gin.POST("/jobs", Post())
-}
-
-func Get() func(context *gin.Context) {
+// jobGet godoc
+// @Summary Get all running job
+// @Description get job all running jobs
+// @Tags jobs
+// @Accept plain/text
+// @Success 200 {array} jobs.Job
+// @Failure 400 {object} HTTPError
+// @Failure 404 {object} HTTPError
+// @Failure 500 {object} HTTPError
+// @Router /jobs [get]
+func jobGet() func(context *gin.Context) {
 	return func(context *gin.Context) {
 		context.JSON(http.StatusOK, jobs.JobQueue)
 	}
 }
 
-func GetWithParameter() func(c *gin.Context) {
+// jobGet godoc
+// @Summary Retrieve a job by it's id
+// @Description get job by ID
+// @Tags jobs
+// @Accept plain/text
+// @Produce application/json
+// @Param id path string true "Job ID"
+// @Success 200 {object} jobs.Job
+// @Failure 400 {object} HTTPError
+// @Failure 404 {object} HTTPError
+// @Failure 500 {object} HTTPError
+// @Router /jobs/{id} [get]
+func jobGetWithParameter() func(c *gin.Context) {
 	return func(c *gin.Context) {
-		jobId := c.Param("jobId")
-		if jobId != "" {
-			handleGetWithJobIdParameter(c, jobId)
+		id := c.Param("id")
+		if id != "" {
+			handleGetWithJobIdParameter(c, id)
 		}
 	}
 }
 
-func Post() func(context *gin.Context) {
+// jobGet godoc
+// @Summary Create a new parser job
+// @Description create a new parser job for the specified date
+// @Tags jobs
+// @Produce plain/text
+// @Accept plain/text
+// @Param date body string true "Date to parse in yyyy-mm-dd" format date
+// @Success 201 {string} string
+// @Failure 400 {object} HTTPError
+// @Failure 404 {object} HTTPError
+// @Failure 500 {object} HTTPError
+// @Router /jobs [post]
+func jobPost() func(context *gin.Context) {
 	return func(context *gin.Context) {
 		date := context.Request.Body
 

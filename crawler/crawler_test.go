@@ -7,7 +7,7 @@ import (
 
 func TestBistroWebCrawling(t *testing.T) {
 
-	got := CrawlCurrentWeek("file://bistro.html")
+	got, _ := CrawlCurrentWeek("file://bistro.html")
 
 	t.Run("expect the correct size", func(t *testing.T) {
 		if len(got) != 21 {

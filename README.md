@@ -23,7 +23,12 @@ To run all project tests, execute in the project root:
 go test ./...
 ```
 
-## 4 Contribution
+## 4 Api Docs
+An openapi conform documentation about the api can be found here:
+
+http://localhost:7331/api/index.html
+
+## 5 Contribution
 Before you start changing things, read the following infos:
 
 Please document any new code

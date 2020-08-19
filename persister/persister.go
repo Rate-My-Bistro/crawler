@@ -7,9 +7,7 @@ package persister
 
 import (
 	"context"
-	"fmt"
 	"github.com/ansgarS/rate-my-bistro-crawler/config"
-	"github.com/ansgarS/rate-my-bistro-crawler/crawler"
 	"github.com/arangodb/go-driver"
 	"github.com/arangodb/go-driver/http"
 	"github.com/avast/retry-go"
@@ -82,7 +80,7 @@ func createOrUpdateDocument(collectionName string, document Identifiable) {
 	}
 
 	if err := database.CommitTransaction(transactionContext, trxId, nil); err != nil {
-		log.Fatalf("Failed to commit transaction for document %s: %s", document.GetId(), err)
+		log.Printf("Failed to commit transaction for document %s: %s", document.GetId(), err)
 	}
 }
 
@@ -92,7 +90,7 @@ func startTransaction(collectionName string) (driver.TransactionID, context.Cont
 	bgContext := context.Background()
 	trxId, err := database.BeginTransaction(bgContext, driver.TransactionCollections{Exclusive: []string{collectionName}}, nil)
 	if err != nil {
-		log.Fatalf("Failed to begin transaction: %s", err)
+		log.Printf("Failed to begin transaction: %s", err)
 	}
 	transactionContext := driver.WithTransactionID(bgContext, trxId)
 	return trxId, transactionContext
@@ -105,7 +103,7 @@ func removeDocument(collectionName string, key string) {
 		_, err := collections[collectionName].RemoveDocument(context.Background(), key)
 
 		if err != nil {
-			log.Fatal(err)
+			log.Print(err)
 		}
 	}
 }
@@ -116,7 +114,11 @@ func DocumentExists(collectionName string, key string, ctx context.Context) bool
 		ctx = context.Background()
 	}
 
-	exists, _ := collections[collectionName].DocumentExists(ctx, key)
+	exists, err := collections[collectionName].DocumentExists(ctx, key)
+	if err != nil {
+		log.Print(err)
+	}
+
 	return exists
 }
 
@@ -130,7 +132,7 @@ func updateDocument(collectionName string, document Identifiable, ctx context.Co
 
 	_, err := collections[collectionName].UpdateDocument(ctx, document.GetId(), document)
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 }
 
@@ -144,7 +146,7 @@ func createDocument(collectionName string, document Identifiable, ctx context.Co
 	_, err := collections[collectionName].CreateDocument(ctx, document)
 
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 }
 
@@ -158,21 +160,15 @@ func ReadDocument(collectionName string, key string, ctx context.Context, result
 	_, err := collections[collectionName].ReadDocument(ctx, key, result)
 
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 }
 
 // Retrieve a document by its key
 // If no document exists with given key, an empty document is returned
 func ReadDocumentIfExists(collectionName string, key string, result interface{}) {
-	trxId, transactionContext := startTransaction(collectionName)
-
-	if DocumentExists(collectionName, key, transactionContext) {
-		ReadDocument(collectionName, key, transactionContext, result)
-	}
-
-	if err := database.CommitTransaction(transactionContext, trxId, nil); err != nil {
-		log.Fatalf("Failed to commit transaction for document %s: %s", key, err)
+	if DocumentExists(collectionName, key, nil) {
+		ReadDocument(collectionName, key, nil, result)
 	}
 }
 
@@ -188,7 +184,7 @@ func createDatabase() {
 		db, err := client.CreateDatabase(context.Background(), dbName, options)
 
 		if err != nil {
-			log.Fatal(err)
+			log.Print(err)
 		}
 
 		database = db
@@ -207,7 +203,7 @@ func ensureCollection(collectionName string) {
 		coll, err := database.CreateCollection(context.Background(), collectionName, options)
 
 		if err != nil {
-			log.Fatal(err)
+			log.Print(err)
 		}
 
 		collection = coll
@@ -222,65 +218,16 @@ func createClient() {
 		Endpoints: []string{config.Get().DatabaseAddress},
 	})
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 
 	c, err := driver.NewClient(driver.ClientConfig{
 		Connection:     conn,
 		Authentication: driver.BasicAuthentication(config.Get().DatabaseUser, config.Get().DatabasePassword),
 	})
-	if err != nil {
-		log.Fatal(err)
-	}
+    if err != nil {
+        log.Print(err)
+    }
 
-	client = c
-}
-
-// Returns all documents of the specified collection
-func GetAllDocuments(collectionName string) (foundDocuments []interface{}) {
-	ctx := driver.WithQueryCount(context.Background())
-	query := "FOR d IN " + collectionName + " RETURN d"
-	cursor, err := database.Query(ctx, query, nil)
-	if err != nil {
-		log.Fatal(err)
-	}
-	_ = cursor.Close()
-
-	foundDocuments = make([]interface{}, 0)
-	for {
-		var doc interface{}
-		_, err := cursor.ReadDocument(ctx, &doc)
-		if driver.IsNoMoreDocuments(err) {
-			break
-		} else if err != nil {
-			log.Fatal(err)
-		}
-		foundDocuments = append(foundDocuments, doc)
-	}
-
-	return foundDocuments
-}
-
-// Prints all meals that were found in the database for the specified date
-func PrintMealsForDate(date string) {
-	ctx := context.Background()
-	query := "FOR d IN meals FILTER d.date == @date RETURN d"
-	bindVars := map[string]interface{}{
-		"date": date,
-	}
-	cursor, err := database.Query(ctx, query, bindVars)
-	if err != nil {
-		log.Fatal(err)
-	}
-	_ = cursor.Close()
-	for {
-		var doc crawler.Meal
-		_, err := cursor.ReadDocument(ctx, &doc)
-		if driver.IsNoMoreDocuments(err) {
-			break
-		} else if err != nil {
-			// handle other errors
-		}
-		fmt.Printf("Got doc with key '%s' from query\n", doc.Name)
-	}
+    client = c
 }

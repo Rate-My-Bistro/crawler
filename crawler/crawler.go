@@ -39,21 +39,21 @@ type Supplement struct {
 
 // Crawls the content of the cgm bistro website for the current week
 // returns a slice of meals
-func CrawlCurrentWeek(bistroLocation string) []Meal {
-	reader := createBistroReader(bistroLocation)
+func CrawlCurrentWeek(bistroLocation string) (mealDates []Meal, err error) {
+	reader, err := createBistroReader(bistroLocation)
 
-	doc, _ := requestWebsiteDocument(reader)
+	doc, err := requestWebsiteDocument(reader)
 
 	parsedDates := parseDates(doc)
-	mealDates := parseMealsForAllDays(doc, parsedDates)
+	mealDates = parseMealsForAllDays(doc, parsedDates)
 
-	return mealDates
+	return mealDates, err
 }
 
 // Receives a reader that provides the content of a bistro website for the specified date
 // The date must have the format 'yyyy-mm-dd' example: '2020-12-31'
 // returns a slice of meals for the week
-func CrawlAtDate(bistroLocation string, date string) ([]Meal, error) {
+func CrawlAtDate(bistroLocation string, date string) (mealDates []Meal, err error) {
 	if !strings.HasPrefix(bistroLocation, "http") {
 		err := fmt.Errorf("specific dates cannot parsed from an offline location only urls are allowed")
 		return nil, err
@@ -61,7 +61,10 @@ func CrawlAtDate(bistroLocation string, date string) ([]Meal, error) {
 
 	bistroLocation = buildDatedBistroLocation(bistroLocation, date)
 
-	reader := createBistroReader(bistroLocation)
+	reader, err := createBistroReader(bistroLocation)
+	if err != nil {
+		return nil, err
+	}
 
 	doc, err := requestWebsiteDocument(reader)
 	if err != nil {
@@ -69,7 +72,7 @@ func CrawlAtDate(bistroLocation string, date string) ([]Meal, error) {
 	}
 
 	dates := parseDates(doc)
-	mealDates := parseMealsForAllDays(doc, dates)
+	mealDates = parseMealsForAllDays(doc, dates)
 
 	return mealDates, nil
 }
@@ -91,32 +94,21 @@ func buildDatedBistroLocation(location string, date string) string {
 }
 
 // creates an reader object based on the provided bistroUrl
-func createBistroReader(bistroUrl string) (documentReader io.Reader) {
+func createBistroReader(bistroUrl string) (documentReader io.Reader, err error) {
 	if strings.HasPrefix(bistroUrl, "file://") {
 		bistroUrl := strings.Replace(bistroUrl, "file://", "", -1)
 		documentReader = readFile(bistroUrl)
 	} else if strings.HasPrefix(bistroUrl, "/") {
 		documentReader = readFile(bistroUrl)
 	} else {
-		documentReader = readUrl(bistroUrl).Body
+		url, getErr := http.Get(bistroUrl)
+		if getErr != nil {
+			return nil, getErr
+		}
+		documentReader = url.Body
 	}
 
-	return documentReader
-}
-
-// retrieves a http response from the specified url
-func readUrl(url string) *http.Response {
-	res, err := http.Get(url)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	if res.StatusCode != 200 {
-		log.Fatalf("status code error: %d %s", res.StatusCode, res.Status)
-	}
-
-	return res
+	return documentReader, err
 }
 
 // retrieves a file handle from the specified file path

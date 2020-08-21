@@ -18,7 +18,8 @@ RUN go mod download
 COPY . .
 
 # Build the application and name it 'main'
-RUN go build -o main .
+# and strip debug symbols to reduce the size (38->33 MB)
+RUN go build -ldflags '-s' -o main .
 
 # Move to /dist directory as the place for resulting binary folder
 WORKDIR /dist

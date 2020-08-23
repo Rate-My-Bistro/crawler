@@ -18,6 +18,7 @@ type Config struct {
 	JobCollectionName         string `env:"JOB_COLLECTION_NAME"`
 	JobSchedulerTickInSeconds uint64 `env:"JOB_SCHEDULER_TICK_IN_SECONDS"`
 	RestApiPort               uint64 `env:"REST_API_PORT"`
+	SwaggerApiDocLocation     string `env:"SWAGGER_API_DOC_LOCATION"`
 }
 
 var cfg Config

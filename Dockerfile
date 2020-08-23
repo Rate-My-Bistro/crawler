@@ -33,5 +33,8 @@ FROM scratch
 # copy applicatoin binary 'main' to the container
 COPY --from=builder /dist/main /
 
+# copy swagger doc
+COPY restapi/docs/swagger.json /
+
 # Command to run
 ENTRYPOINT ["/main"]

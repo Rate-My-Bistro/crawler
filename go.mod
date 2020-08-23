@@ -8,7 +8,6 @@ require (
 	github.com/arangodb/go-driver v0.0.0-20200624173407-d1c92a8bd2b8
 	github.com/avast/retry-go v2.6.0+incompatible
 	github.com/caarlos0/env v3.5.0+incompatible
-	github.com/cpuguy83/go-md2man/v2 v2.0.0 // indirect
 	github.com/gin-gonic/gin v1.6.3
 	github.com/go-co-op/gocron v0.3.0
 	github.com/go-openapi/spec v0.19.9 // indirect
@@ -22,11 +21,8 @@ require (
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
 	github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d
 	github.com/stretchr/testify v1.6.1
-	golang.org/x/net v0.0.0-20200602114024-627f9648deb9 // indirect
-	github.com/swaggo/files v0.0.0-20190704085106-630677cd5c14
 	github.com/swaggo/gin-swagger v1.2.0
 	github.com/swaggo/swag v1.6.7
-	github.com/urfave/cli/v2 v2.2.0 // indirect
 	golang.org/x/net v0.0.0-20200813134508-3edf25e44fcc // indirect
 	golang.org/x/sys v0.0.0-20200817155316-9781c653f443 // indirect
 	golang.org/x/tools v0.0.0-20200818005847-188abfa75333 // indirect

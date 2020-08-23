@@ -42,14 +42,18 @@ func addJobsResource(router *gin.Engine) {
 	{
 		group.GET("", jobGet())
 		group.GET("/:id", jobGetWithParameter())
+
 		group.POST("", jobPost())
 	}
 }
 
 // adds the swagger api endpoint
 func addApiDocEndpoint(router *gin.Engine) {
-	router.StaticFile("/docs/swagger.json", "./restapi/docs/swagger.json")
-	url := ginSwagger.URL("http://localhost:" + strconv.FormatUint(config.Get().RestApiPort, 10) + "/docs/swagger.json")
+	restApiPort := strconv.FormatUint(config.Get().RestApiPort, 10)
+	swaggerApiDocLocation := config.Get().SwaggerApiDocLocation
+
+	router.StaticFile("/swagger.json", swaggerApiDocLocation)
+	url := ginSwagger.URL("http://localhost:" + restApiPort + "/swagger.json")
 	router.GET("/api/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 }
 

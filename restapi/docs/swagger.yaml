@@ -1,0 +1,135 @@
+definitions:
+  jobs.Job:
+    properties:
+      _key:
+        type: string
+      additional:
+        items:
+          type: string
+        type: array
+      dateToParse:
+        type: string
+      enqueuedTime:
+        type: string
+      finishedTime:
+        type: string
+      id:
+        type: string
+      startedTime:
+        type: string
+      status:
+        type: string
+    type: object
+  restapi.HTTPError:
+    properties:
+      code:
+        example: 400
+        type: integer
+      message:
+        example: status bad request
+        type: string
+    type: object
+host: localhost:7331
+info:
+  contact:
+    email: rouven.himmelstein@cgm.com
+    name: Rouven Himmelstein
+  description: This is a cgm bistro menu crawler
+  license: {}
+  title: This is a cgm bistro menu crawler
+  version: 1.0.0
+paths:
+  /jobs:
+    get:
+      consumes:
+      - plain/text
+      description: get job all running jobs
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/jobs.Job'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/restapi.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/restapi.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/restapi.HTTPError'
+      summary: Get all running job
+      tags:
+      - jobs
+    post:
+      consumes:
+      - plain/text
+      description: create a new parser job for the specified date
+      parameters:
+      - description: Date to parse in yyyy-mm-dd
+        in: body
+        name: date
+        required: true
+        schema:
+          type: string
+      produces:
+      - plain/text
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/restapi.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/restapi.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/restapi.HTTPError'
+      summary: Create a new parser job
+      tags:
+      - jobs
+  /jobs/{id}:
+    get:
+      consumes:
+      - plain/text
+      description: get job by ID
+      parameters:
+      - description: Job ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/jobs.Job'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/restapi.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/restapi.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/restapi.HTTPError'
+      summary: Retrieve a job by it's id
+      tags:
+      - jobs
+swagger: "2.0"

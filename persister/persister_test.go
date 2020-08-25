@@ -1,6 +1,7 @@
 package persister
 
 import (
+	"context"
 	"github.com/ansgarS/rate-my-bistro-crawler/config"
 	"github.com/ansgarS/rate-my-bistro-crawler/crawler"
 	"testing"
@@ -8,10 +9,10 @@ import (
 
 func TestInsertOrUpdate(t *testing.T) {
 	//setup
-	createClient(config.Cfg.DatabaseAddress)
-	createDatabase(config.Cfg.DatabaseName)
-	ensureCollection(config.Cfg.MealCollectionName)
-	ensureCollection(config.Cfg.JobCollectionName)
+	createClient()
+	createDatabase()
+	ensureCollection(config.Get().MealCollectionName)
+	ensureCollection(config.Get().JobCollectionName)
 
 	meal1Stub := crawler.Meal{
 		Id: "abc",
@@ -40,16 +41,16 @@ func TestInsertOrUpdate(t *testing.T) {
 
 	t.Run("insert a record and update it", func(t *testing.T) {
 
-		createOrUpdateDocument(Identifiable(meal1Stub))
+		createOrUpdateDocument(config.Get().MealCollectionName, Identifiable(meal1Stub))
 
-		if !checkIfDocumentExists(meal1Stub.Id, nil) {
+		if !DocumentExists(config.Get().MealCollectionName, meal1Stub.Id, nil) {
 			t.Errorf("meal could not created")
 		}
 
-		createOrUpdateDocument(meal1)
+		createOrUpdateDocument(config.Get().MealCollectionName, meal1)
 
 		var meal crawler.Meal
-		ReadDocument(meal1Stub.Id, &meal)
+		ReadDocument(config.Get().MealCollectionName, meal1Stub.Id, context.Background(), &meal)
 
 		if !(meal.Name == "Suppe") {
 			t.Errorf("meal was not updated")
@@ -63,13 +64,13 @@ func TestInsertOrUpdate(t *testing.T) {
 			t.Errorf("optional supplement price was not updated")
 		}
 
-		createOrUpdateDocument(meal2)
+		createOrUpdateDocument(config.Get().MealCollectionName, meal2)
 
-		if !checkIfDocumentExists(meal2.Id, nil) {
+		if !DocumentExists(config.Get().MealCollectionName, meal2.Id, nil) {
 			t.Errorf("meal could not created")
 		}
 	})
 
-	removeDocument(meal1.Id)
-	removeDocument(meal2.Id)
+	removeDocument(config.Get().MealCollectionName, meal1.Id)
+	removeDocument(config.Get().MealCollectionName, meal2.Id)
 }

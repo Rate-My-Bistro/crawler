@@ -6,24 +6,29 @@
  * access to cgm.ag network
 
 ## 1 Build
-To build the project run in the project root:
+To build a binary, execute in the project root:
 ```go
 go build
 ```
 
-## 2 Run
-To run the project run in the project root:
+## 2 Start
+To start the project, execute in the project root:
 ```go
-go run Main.go
+go run main.go
 ```
 
 ## 3 Test
-To test a feature navigate into the feature directory and run the test:
+To run all project tests, execute in the project root:
 ```go
-cd crawler && go test
+go test ./...
 ```
 
-## 4 Contribution
+## 4 Api Docs
+An openapi conform documentation about the api can be found here:
+
+http://localhost:7331/api/index.html
+
+## 5 Contribution
 Before you start changing things, read the following infos:
 
 Please document any new code
@@ -47,7 +52,3 @@ You hate your Bistro as much as I do and want to speed up development?
 
 --> ansgar.sa@gmail.com
 --> rouven@himmelstein.info
-
-## TODO
- * jobs - introduces sequential job queue 
- * REST feature - provides a rest api to control the crawler  (openAPI swagger)

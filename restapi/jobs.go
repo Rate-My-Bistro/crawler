@@ -1,9 +1,9 @@
 package restapi
 
 import (
-	"github.com/ansgarS/rate-my-bistro-crawler/config"
-	"github.com/ansgarS/rate-my-bistro-crawler/jobs"
-	"github.com/ansgarS/rate-my-bistro-crawler/persister"
+	"github.com/Rate-My-Bistro/crawler/config"
+	"github.com/Rate-My-Bistro/crawler/jobs"
+	"github.com/Rate-My-Bistro/crawler/persister"
 	"github.com/gin-gonic/gin"
 	"io"
 	"net/http"

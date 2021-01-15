@@ -5,9 +5,9 @@ Package jobs implements a service that is able to enqueue crawler jobs.
 This jobs gets dequeued periodically and their status is persisted into the jobs document collection.
 */
 import (
-	"github.com/ansgarS/rate-my-bistro-crawler/config"
-	"github.com/ansgarS/rate-my-bistro-crawler/crawler"
-	"github.com/ansgarS/rate-my-bistro-crawler/persister"
+	"github.com/Rate-My-Bistro/crawler/config"
+	"github.com/Rate-My-Bistro/crawler/persister"
+	"github.com/Rate-My-Bistro/crawler/webcrawler"
 	"github.com/go-co-op/gocron"
 	"github.com/nu7hatch/gouuid"
 	"log"
@@ -20,7 +20,7 @@ type Job struct {
 	Id           string   `json:"id,omitempty"`   // uuid that unique identifies the job
 	DateToParse  string   `json:"dateToParse"`    // The date which the parser should parse / has parsed.
 	Status       string   `json:"status"`         // PENDING | RUNNING |  SUCCESS | FAILURE
-	EnqueuedTime string   `json:"enqueuedTime"`   // the time the job was enqueued
+	EnqueuedTime string   `json:"enqueuedTime"`   // theansgarS/rate-my-bistro-crawler time the job was enqueued
 	StartedTime  string   `json:"startedTime"`    // the time the job has started the parsing
 	FinishedTime string   `json:"finishedTime"`   // the time the job has finished the parsing process
 	Additional   []string `json:"additional"`     // optional information to keep near to the job (e.g. error messages)
@@ -58,7 +58,7 @@ func processNextJob() {
 
 	// start the meal crawling and store the result in the database
 	log.Println("Start crawling meals for date " + nextJob.DateToParse)
-	crawledMeals, err := crawler.CrawlAtDate(config.Get().BistroUrl, nextJob.DateToParse)
+	crawledMeals, err := webcrawler.CrawlAtDate(config.Get().BistroUrl, nextJob.DateToParse)
 	if err != nil {
 		jobFailureFinished(nextJob, err)
 		return
@@ -114,7 +114,7 @@ func (job Job) GetId() string {
 }
 
 // Casts a slice of meals to the a slice of Identifiable interfaces
-func ToIdentifiables(meals []crawler.Meal) []persister.Identifiable {
+func ToIdentifiables(meals []webcrawler.Meal) []persister.Identifiable {
 	identifiables := make([]persister.Identifiable, len(meals))
 	for i := range meals {
 		identifiables[i] = meals[i]

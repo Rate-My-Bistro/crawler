@@ -1,7 +1,7 @@
 package restapi
 
 import (
-	"github.com/ansgarS/rate-my-bistro-crawler/config"
+	"github.com/Rate-My-Bistro/crawler/config"
 	"github.com/gin-gonic/gin"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"

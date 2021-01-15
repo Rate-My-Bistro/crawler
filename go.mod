@@ -1,4 +1,4 @@
-module github.com/ansgarS/rate-my-bistro-crawler
+module github.com/Rate-My-Bistro/crawler
 
 go 1.14
 

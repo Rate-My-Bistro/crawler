@@ -7,7 +7,7 @@ package persister
 
 import (
 	"context"
-	"github.com/ansgarS/rate-my-bistro-crawler/config"
+	"github.com/Rate-My-Bistro/crawler/config"
 	"github.com/arangodb/go-driver"
 	"github.com/arangodb/go-driver/http"
 	"github.com/avast/retry-go"
@@ -225,9 +225,9 @@ func createClient() {
 		Connection:     conn,
 		Authentication: driver.BasicAuthentication(config.Get().DatabaseUser, config.Get().DatabasePassword),
 	})
-    if err != nil {
-        log.Print(err)
-    }
+	if err != nil {
+		log.Print(err)
+	}
 
-    client = c
+	client = c
 }

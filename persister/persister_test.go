@@ -2,8 +2,8 @@ package persister
 
 import (
 	"context"
-	"github.com/ansgarS/rate-my-bistro-crawler/config"
-	"github.com/ansgarS/rate-my-bistro-crawler/crawler"
+	"github.com/Rate-My-Bistro/crawler/config"
+	"github.com/Rate-My-Bistro/crawler/webcrawler"
 	"testing"
 )
 
@@ -14,29 +14,29 @@ func TestInsertOrUpdate(t *testing.T) {
 	ensureCollection(config.Get().MealCollectionName)
 	ensureCollection(config.Get().JobCollectionName)
 
-	meal1Stub := crawler.Meal{
+	meal1Stub := webcrawler.Meal{
 		Id: "abc",
 	}
 
-	meal1 := crawler.Meal{
+	meal1 := webcrawler.Meal{
 		Id:    "abc",
 		Date:  "2020-07-24",
 		Name:  "Suppe",
 		Price: 3.97,
-		MandatorySupplements: []crawler.Supplement{
+		MandatorySupplements: []webcrawler.Supplement{
 			{Name: "Reis", Price: 0}},
-		OptionalSupplements: []crawler.Supplement{
+		OptionalSupplements: []webcrawler.Supplement{
 			{Name: "Markklößchen", Price: 0.12},
 			{Name: "Trokenes Brot", Price: 9.87}},
 	}
 
-	meal2 := crawler.Meal{
+	meal2 := webcrawler.Meal{
 		Id:                   "b",
 		Date:                 "2020-07-24",
 		Name:                 "Reis",
 		Price:                1.44,
-		MandatorySupplements: []crawler.Supplement{{Name: "Salz", Price: 0}},
-		OptionalSupplements:  []crawler.Supplement{{Name: "Chilli", Price: 1}},
+		MandatorySupplements: []webcrawler.Supplement{{Name: "Salz", Price: 0}},
+		OptionalSupplements:  []webcrawler.Supplement{{Name: "Chilli", Price: 1}},
 	}
 
 	t.Run("insert a record and update it", func(t *testing.T) {
@@ -49,7 +49,7 @@ func TestInsertOrUpdate(t *testing.T) {
 
 		createOrUpdateDocument(config.Get().MealCollectionName, meal1)
 
-		var meal crawler.Meal
+		var meal webcrawler.Meal
 		ReadDocument(config.Get().MealCollectionName, meal1Stub.Id, context.Background(), &meal)
 
 		if !(meal.Name == "Suppe") {

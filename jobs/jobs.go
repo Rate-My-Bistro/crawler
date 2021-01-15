@@ -20,7 +20,7 @@ type Job struct {
 	Id           string   `json:"id,omitempty"`   // uuid that unique identifies the job
 	DateToParse  string   `json:"dateToParse"`    // The date which the parser should parse / has parsed.
 	Status       string   `json:"status"`         // PENDING | RUNNING |  SUCCESS | FAILURE
-	EnqueuedTime string   `json:"enqueuedTime"`   // theansgarS/rate-my-bistro-crawler time the job was enqueued
+	EnqueuedTime string   `json:"enqueuedTime"`   // time the job was enqueued
 	StartedTime  string   `json:"startedTime"`    // the time the job has started the parsing
 	FinishedTime string   `json:"finishedTime"`   // the time the job has finished the parsing process
 	Additional   []string `json:"additional"`     // optional information to keep near to the job (e.g. error messages)

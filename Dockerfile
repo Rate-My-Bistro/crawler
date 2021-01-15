@@ -6,7 +6,7 @@ ENV GO111MODULE=on \
     GOOS=linux \
     GOARCH=amd64
 
-# Move to working directory /build
+# Change to working directory /build
 WORKDIR /build
 
 # Copy and download necessacry go dependency using go mod
@@ -18,20 +18,15 @@ RUN go mod download
 COPY . .
 
 # Build the application and name it 'app'
-# strip debug symbols to reduce the size (38->33 MB)
+# strip debug symbols to reduce the size (reduces the size by ~13%)
 RUN go build -ldflags '-s' -o app .
 
-# Move to /dist directory as the place for resulting binary folder
-WORKDIR /dist
-
-# Copy binary from build to /dist folder
-RUN cp /build/app .
-
+############################################################
 # Build a small image
 FROM scratch
 
 # copy applicatoin binary 'app' to the container
-COPY --from=builder /dist/app /
+COPY --from=builder /build/app /
 
 # copy swagger doc
 COPY restapi/docs/swagger.json /

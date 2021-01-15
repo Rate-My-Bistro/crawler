@@ -10,7 +10,9 @@ import (
 	"github.com/ansgarS/rate-my-bistro-crawler/config"
 	"github.com/arangodb/go-driver"
 	"github.com/arangodb/go-driver/http"
+	"github.com/avast/retry-go"
 	"log"
+	"time"
 )
 
 var client driver.Client
@@ -23,9 +25,33 @@ type Identifiable interface {
 
 func init() {
 	createClient()
+	waitForDataBaseToBecomeReady()
 	createDatabase()
 	ensureCollection(config.Get().MealCollectionName)
 	ensureCollection(config.Get().JobCollectionName)
+}
+
+func waitForDataBaseToBecomeReady() {
+	dbName := config.Get().DatabaseName
+
+	err := retry.Do(
+		func() error {
+			_, err := client.DatabaseExists(context.Background(), dbName)
+			return err
+		},
+		retry.Delay(100*time.Millisecond),
+		retry.Attempts(10),
+		retry.RetryIf(func(err error) bool {
+			return err != nil
+		}),
+		retry.OnRetry(func(n uint, err error) {
+			log.Printf("#%d try to connect to database failed: %s", n, err)
+		}),
+	)
+
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 // persists the passed documents into the database
@@ -194,14 +220,14 @@ func createClient() {
 	if err != nil {
 		log.Print(err)
 	}
+
 	c, err := driver.NewClient(driver.ClientConfig{
 		Connection:     conn,
 		Authentication: driver.BasicAuthentication(config.Get().DatabaseUser, config.Get().DatabasePassword),
 	})
+    if err != nil {
+        log.Print(err)
+    }
 
-	client = c
-
-	if err != nil {
-		log.Print(err)
-	}
+    client = c
 }

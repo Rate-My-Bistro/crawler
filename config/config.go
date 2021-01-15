@@ -18,6 +18,7 @@ type Config struct {
 	JobCollectionName         string `env:"JOB_COLLECTION_NAME"`
 	JobSchedulerTickInSeconds uint64 `env:"JOB_SCHEDULER_TICK_IN_SECONDS"`
 	RestApiPort               uint64 `env:"REST_API_PORT"`
+	SwaggerApiDocLocation     string `env:"SWAGGER_API_DOC_LOCATION"`
 }
 
 var cfg Config
@@ -25,7 +26,7 @@ var cfgPresent bool
 
 // reads the application configuration from env files
 // leave envPath blank to read the .env file from the current directory
-func Get(envPaths ...string) Config {
+func Get() Config {
 	if cfgPresent {
 		return cfg
 	}
@@ -33,7 +34,7 @@ func Get(envPaths ...string) Config {
 	if isTesting() {
 		loadTestConfig()
 	} else {
-		loadConfig(envPaths)
+		loadConfig()
 	}
 
 	cfgPresent = true
@@ -57,7 +58,7 @@ func loadTestConfig() {
 
 	if err != nil {
 		log.Fatal("Error loading .env.testing file "+
-			" file not found, permission issues or a corrupted file",
+			"not found, permission issues or a corrupted file",
 			err)
 	}
 
@@ -70,18 +71,11 @@ func loadTestConfig() {
 
 // load the configuration from the specified env path
 // or dynamically discovers the .env file location
-func loadConfig(envPaths []string) {
-	err := godotenv.Load(envPaths...)
+func loadConfig() {
+	err := godotenv.Load()
 
 	if err != nil {
-		// if I am in a feature directory use the .env file from the parent directory
-		err := godotenv.Load("../.env")
-
-		if err != nil {
-			log.Fatal("Error loading .env file "+
-				" file not found, permission issues or a corrupted file",
-				err)
-		}
+		log.Println("did not load any .env file")
 	}
 
 	err = env.Parse(&cfg)

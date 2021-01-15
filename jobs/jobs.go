@@ -11,7 +11,6 @@ import (
 	"github.com/go-co-op/gocron"
 	"github.com/nu7hatch/gouuid"
 	"log"
-	"strconv"
 	"time"
 )
 
@@ -33,8 +32,6 @@ var JobQueue = make([]Job, 0)
 // Crates a new scheduler for the configured interval
 func init() {
 	schedulerTick := config.Get().JobSchedulerTickInSeconds
-
-	log.Println("Starting scheduler with a tickrate of " + strconv.FormatUint(schedulerTick, 10))
 
 	s1 := gocron.NewScheduler(time.UTC)
 	_, err := s1.Every(schedulerTick).Seconds().Do(processNextJob)

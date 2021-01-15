@@ -25,7 +25,7 @@ RUN go build -ldflags '-s' -o app .
 # Build a small image
 FROM scratch
 
-# copy applicatoin binary 'app' to the container
+# copy application binary 'app' to the container
 COPY --from=builder /build/app /
 
 # copy swagger doc

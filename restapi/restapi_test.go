@@ -3,7 +3,7 @@ package restapi
 import (
 	"bytes"
 	"encoding/json"
-	"github.com/ansgarS/rate-my-bistro-crawler/jobs"
+	"github.com/Rate-My-Bistro/crawler/jobs"
 	"github.com/stretchr/testify/assert"
 	"io"
 	"net/http"

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/ansgarS/rate-my-bistro-crawler/restapi"
+	"github.com/Rate-My-Bistro/crawler/restapi"
 )
 
 // application entrypoint

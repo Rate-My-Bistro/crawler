@@ -2,7 +2,7 @@
 Package crawler implements a simple parser that reads the cgm bistro website
 and transforms them into manageable structs.
 */
-package crawler
+package webcrawler
 
 import (
 	"crypto/sha1"

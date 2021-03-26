@@ -26,7 +26,10 @@ jobs:
   release:
     runs-on: ubuntu-latest
     needs: build
+    outputs:
+      release_tag: ${{steps.version_bump.outputs.new_tag}}
     steps:
+      - uses: actions/checkout@v2      
       - name: Github Tag Bump
         id: version_bump
         uses: anothrNick/github-tag-action@1.34.0
@@ -51,4 +54,4 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ghcr.io/rate-my-bistro/crawler:latest, ghcr.io/rate-my-bistro/crawler:${{ steps.version_bump.outputs.new_tag }} 
+          tags: ghcr.io/rate-my-bistro/crawler:latest, ghcr.io/rate-my-bistro/crawler:${{ needs.release.outputs.release_tag }} 

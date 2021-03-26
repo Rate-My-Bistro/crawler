@@ -1,0 +1,19 @@
+
+name: CI
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch: # Allows you to run this workflow manually from the Actions tab
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Push to GitHub Packages
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: rate-my-bistro/crawler
+          tag_with_ref: true

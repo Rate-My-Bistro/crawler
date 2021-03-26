@@ -15,4 +15,5 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           repository: rate-my-bistro/crawler/crawler
+          registry: docker.pkg.github.com
           tag_with_ref: true

@@ -25,6 +25,7 @@ jobs:
       
   release:
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - name: Github Tag Bump
         id: version_bump
@@ -35,6 +36,7 @@ jobs:
           
   push:
     runs-on: ubuntu-latest
+    needs: release
     steps:
       - uses: actions/checkout@v2      
       - run: echo ${GITHUB_REF}
@@ -49,4 +51,4 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ghcr.io/rate-my-bistro/crawler:latest, ghcr.io/rate-my-bistro/crawler:latest
+          tags: ghcr.io/rate-my-bistro/crawler:latest, ghcr.io/rate-my-bistro/crawler:${{ steps.version_bump.outputs.new_tag }} 

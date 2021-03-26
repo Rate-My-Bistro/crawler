@@ -11,7 +11,6 @@ WORKDIR /build
 
 # Copy and download necessacry go dependency using go mod
 COPY go.mod .
-COPY go.sum .
 RUN go mod download
 
 # Copy the source code into the container

@@ -7,15 +7,20 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      database:
+        image: ghcr.io/rate-my-bistro/database:latest
+        ports:
+          - 8529:8529
+        env:
+          ARANGO_RANDOM_ROOT_PASSWORD: 1
+          ARANGO_DB_NAME: bistro
+          ARANGO_DB_USER: bistrouser
+          ARANGO_DB_PASSWORD: bistropassword
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-go@v2
       - run: go build  
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-go@v2
       - run: go test ./...
   push:
     runs-on: ubuntu-latest
